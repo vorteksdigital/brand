@@ -36,795 +36,795 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_header_nav_items_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_footer_nav_items_link_type" AS ENUM('reference', 'custom');
   CREATE TABLE "pages_hero_links" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_pages_hero_links_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum_pages_hero_links_link_appearance" DEFAULT 'default'
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"link_type" "enum_pages_hero_links_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum_pages_hero_links_link_appearance" DEFAULT 'default'
   );
-  
+
   CREATE TABLE "pages_blocks_cta_links" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" varchar NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_pages_blocks_cta_links_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum_pages_blocks_cta_links_link_appearance" DEFAULT 'default'
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"link_type" "enum_pages_blocks_cta_links_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum_pages_blocks_cta_links_link_appearance" DEFAULT 'default'
   );
-  
+
   CREATE TABLE "pages_blocks_cta" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"rich_text" jsonb,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"rich_text" jsonb,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "pages_blocks_content_columns" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" varchar NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"size" "enum_pages_blocks_content_columns_size" DEFAULT 'oneThird',
-  	"rich_text" jsonb,
-  	"enable_link" boolean,
-  	"link_type" "enum_pages_blocks_content_columns_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum_pages_blocks_content_columns_link_appearance" DEFAULT 'default'
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"size" "enum_pages_blocks_content_columns_size" DEFAULT 'oneThird',
+	"rich_text" jsonb,
+	"enable_link" boolean,
+	"link_type" "enum_pages_blocks_content_columns_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum_pages_blocks_content_columns_link_appearance" DEFAULT 'default'
   );
-  
+
   CREATE TABLE "pages_blocks_content" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "pages_blocks_media_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"media_id" integer,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"media_id" integer,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "pages_blocks_archive" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"intro_content" jsonb,
-  	"populate_by" "enum_pages_blocks_archive_populate_by" DEFAULT 'collection',
-  	"relation_to" "enum_pages_blocks_archive_relation_to" DEFAULT 'posts',
-  	"limit" numeric DEFAULT 10,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"intro_content" jsonb,
+	"populate_by" "enum_pages_blocks_archive_populate_by" DEFAULT 'collection',
+	"relation_to" "enum_pages_blocks_archive_relation_to" DEFAULT 'posts',
+	"limit" numeric DEFAULT 10,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "pages_blocks_form_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"form_id" integer,
-  	"enable_intro" boolean,
-  	"intro_content" jsonb,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"form_id" integer,
+	"enable_intro" boolean,
+	"intro_content" jsonb,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "pages" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"hero_type" "enum_pages_hero_type" DEFAULT 'lowImpact',
-  	"hero_rich_text" jsonb,
-  	"hero_media_id" integer,
-  	"meta_title" varchar,
-  	"meta_image_id" integer,
-  	"meta_description" varchar,
-  	"published_at" timestamp(3) with time zone,
-  	"generate_slug" boolean DEFAULT true,
-  	"slug" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"_status" "enum_pages_status" DEFAULT 'draft'
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar,
+	"hero_type" "enum_pages_hero_type" DEFAULT 'lowImpact',
+	"hero_rich_text" jsonb,
+	"hero_media_id" integer,
+	"meta_title" varchar,
+	"meta_image_id" integer,
+	"meta_description" varchar,
+	"published_at" timestamp(3) with time zone,
+	"generate_slug" boolean DEFAULT true,
+	"slug" varchar,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"_status" "enum_pages_status" DEFAULT 'draft'
   );
-  
+
   CREATE TABLE "pages_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer,
-  	"categories_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer,
+	"categories_id" integer
   );
-  
+
   CREATE TABLE "_pages_v_version_hero_links" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"link_type" "enum__pages_v_version_hero_links_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum__pages_v_version_hero_links_link_appearance" DEFAULT 'default',
-  	"_uuid" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"link_type" "enum__pages_v_version_hero_links_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum__pages_v_version_hero_links_link_appearance" DEFAULT 'default',
+	"_uuid" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_cta_links" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"link_type" "enum__pages_v_blocks_cta_links_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum__pages_v_blocks_cta_links_link_appearance" DEFAULT 'default',
-  	"_uuid" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"link_type" "enum__pages_v_blocks_cta_links_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum__pages_v_blocks_cta_links_link_appearance" DEFAULT 'default',
+	"_uuid" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_cta" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"rich_text" jsonb,
-  	"_uuid" varchar,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"rich_text" jsonb,
+	"_uuid" varchar,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_content_columns" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"size" "enum__pages_v_blocks_content_columns_size" DEFAULT 'oneThird',
-  	"rich_text" jsonb,
-  	"enable_link" boolean,
-  	"link_type" "enum__pages_v_blocks_content_columns_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar,
-  	"link_appearance" "enum__pages_v_blocks_content_columns_link_appearance" DEFAULT 'default',
-  	"_uuid" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"size" "enum__pages_v_blocks_content_columns_size" DEFAULT 'oneThird',
+	"rich_text" jsonb,
+	"enable_link" boolean,
+	"link_type" "enum__pages_v_blocks_content_columns_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar,
+	"link_appearance" "enum__pages_v_blocks_content_columns_link_appearance" DEFAULT 'default',
+	"_uuid" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_content" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_uuid" varchar,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"_uuid" varchar,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_media_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"media_id" integer,
-  	"_uuid" varchar,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"media_id" integer,
+	"_uuid" varchar,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_archive" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"intro_content" jsonb,
-  	"populate_by" "enum__pages_v_blocks_archive_populate_by" DEFAULT 'collection',
-  	"relation_to" "enum__pages_v_blocks_archive_relation_to" DEFAULT 'posts',
-  	"limit" numeric DEFAULT 10,
-  	"_uuid" varchar,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"intro_content" jsonb,
+	"populate_by" "enum__pages_v_blocks_archive_populate_by" DEFAULT 'collection',
+	"relation_to" "enum__pages_v_blocks_archive_relation_to" DEFAULT 'posts',
+	"limit" numeric DEFAULT 10,
+	"_uuid" varchar,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "_pages_v_blocks_form_block" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"form_id" integer,
-  	"enable_intro" boolean,
-  	"intro_content" jsonb,
-  	"_uuid" varchar,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"form_id" integer,
+	"enable_intro" boolean,
+	"intro_content" jsonb,
+	"_uuid" varchar,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "_pages_v" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"parent_id" integer,
-  	"version_title" varchar,
-  	"version_hero_type" "enum__pages_v_version_hero_type" DEFAULT 'lowImpact',
-  	"version_hero_rich_text" jsonb,
-  	"version_hero_media_id" integer,
-  	"version_meta_title" varchar,
-  	"version_meta_image_id" integer,
-  	"version_meta_description" varchar,
-  	"version_published_at" timestamp(3) with time zone,
-  	"version_generate_slug" boolean DEFAULT true,
-  	"version_slug" varchar,
-  	"version_updated_at" timestamp(3) with time zone,
-  	"version_created_at" timestamp(3) with time zone,
-  	"version__status" "enum__pages_v_version_status" DEFAULT 'draft',
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"latest" boolean,
-  	"autosave" boolean
+	"id" serial PRIMARY KEY NOT NULL,
+	"parent_id" integer,
+	"version_title" varchar,
+	"version_hero_type" "enum__pages_v_version_hero_type" DEFAULT 'lowImpact',
+	"version_hero_rich_text" jsonb,
+	"version_hero_media_id" integer,
+	"version_meta_title" varchar,
+	"version_meta_image_id" integer,
+	"version_meta_description" varchar,
+	"version_published_at" timestamp(3) with time zone,
+	"version_generate_slug" boolean DEFAULT true,
+	"version_slug" varchar,
+	"version_updated_at" timestamp(3) with time zone,
+	"version_created_at" timestamp(3) with time zone,
+	"version__status" "enum__pages_v_version_status" DEFAULT 'draft',
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"latest" boolean,
+	"autosave" boolean
   );
-  
+
   CREATE TABLE "_pages_v_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer,
-  	"categories_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer,
+	"categories_id" integer
   );
-  
+
   CREATE TABLE "posts_populated_authors" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar
   );
-  
+
   CREATE TABLE "posts" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"excerpt" varchar,
-  	"hero_image_id" integer,
-  	"content" jsonb,
-  	"meta_title" varchar,
-  	"meta_image_id" integer,
-  	"meta_description" varchar,
-  	"published_at" timestamp(3) with time zone,
-  	"generate_slug" boolean DEFAULT true,
-  	"slug" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"_status" "enum_posts_status" DEFAULT 'draft'
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar,
+	"excerpt" varchar,
+	"hero_image_id" integer,
+	"content" jsonb,
+	"meta_title" varchar,
+	"meta_image_id" integer,
+	"meta_description" varchar,
+	"published_at" timestamp(3) with time zone,
+	"generate_slug" boolean DEFAULT true,
+	"slug" varchar,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"_status" "enum_posts_status" DEFAULT 'draft'
   );
-  
+
   CREATE TABLE "posts_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"posts_id" integer,
-  	"categories_id" integer,
-  	"users_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"posts_id" integer,
+	"categories_id" integer,
+	"users_id" integer
   );
-  
+
   CREATE TABLE "_posts_v_version_populated_authors" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"_uuid" varchar,
-  	"name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
+	"_uuid" varchar,
+	"name" varchar
   );
-  
+
   CREATE TABLE "_posts_v" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"parent_id" integer,
-  	"version_title" varchar,
-  	"version_excerpt" varchar,
-  	"version_hero_image_id" integer,
-  	"version_content" jsonb,
-  	"version_meta_title" varchar,
-  	"version_meta_image_id" integer,
-  	"version_meta_description" varchar,
-  	"version_published_at" timestamp(3) with time zone,
-  	"version_generate_slug" boolean DEFAULT true,
-  	"version_slug" varchar,
-  	"version_updated_at" timestamp(3) with time zone,
-  	"version_created_at" timestamp(3) with time zone,
-  	"version__status" "enum__posts_v_version_status" DEFAULT 'draft',
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"latest" boolean,
-  	"autosave" boolean
+	"id" serial PRIMARY KEY NOT NULL,
+	"parent_id" integer,
+	"version_title" varchar,
+	"version_excerpt" varchar,
+	"version_hero_image_id" integer,
+	"version_content" jsonb,
+	"version_meta_title" varchar,
+	"version_meta_image_id" integer,
+	"version_meta_description" varchar,
+	"version_published_at" timestamp(3) with time zone,
+	"version_generate_slug" boolean DEFAULT true,
+	"version_slug" varchar,
+	"version_updated_at" timestamp(3) with time zone,
+	"version_created_at" timestamp(3) with time zone,
+	"version__status" "enum__posts_v_version_status" DEFAULT 'draft',
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"latest" boolean,
+	"autosave" boolean
   );
-  
+
   CREATE TABLE "_posts_v_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"posts_id" integer,
-  	"categories_id" integer,
-  	"users_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"posts_id" integer,
+	"categories_id" integer,
+	"users_id" integer
   );
-  
+
   CREATE TABLE "media" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"alt" varchar,
-  	"is_decorative" boolean DEFAULT false,
-  	"credit" varchar,
-  	"caption" jsonb,
-  	"folder_id" integer,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"url" varchar,
-  	"thumbnail_u_r_l" varchar,
-  	"filename" varchar,
-  	"mime_type" varchar,
-  	"filesize" numeric,
-  	"width" numeric,
-  	"height" numeric,
-  	"focal_x" numeric,
-  	"focal_y" numeric,
-  	"sizes_thumbnail_url" varchar,
-  	"sizes_thumbnail_width" numeric,
-  	"sizes_thumbnail_height" numeric,
-  	"sizes_thumbnail_mime_type" varchar,
-  	"sizes_thumbnail_filesize" numeric,
-  	"sizes_thumbnail_filename" varchar,
-  	"sizes_square_url" varchar,
-  	"sizes_square_width" numeric,
-  	"sizes_square_height" numeric,
-  	"sizes_square_mime_type" varchar,
-  	"sizes_square_filesize" numeric,
-  	"sizes_square_filename" varchar,
-  	"sizes_small_url" varchar,
-  	"sizes_small_width" numeric,
-  	"sizes_small_height" numeric,
-  	"sizes_small_mime_type" varchar,
-  	"sizes_small_filesize" numeric,
-  	"sizes_small_filename" varchar,
-  	"sizes_medium_url" varchar,
-  	"sizes_medium_width" numeric,
-  	"sizes_medium_height" numeric,
-  	"sizes_medium_mime_type" varchar,
-  	"sizes_medium_filesize" numeric,
-  	"sizes_medium_filename" varchar,
-  	"sizes_large_url" varchar,
-  	"sizes_large_width" numeric,
-  	"sizes_large_height" numeric,
-  	"sizes_large_mime_type" varchar,
-  	"sizes_large_filesize" numeric,
-  	"sizes_large_filename" varchar,
-  	"sizes_xlarge_url" varchar,
-  	"sizes_xlarge_width" numeric,
-  	"sizes_xlarge_height" numeric,
-  	"sizes_xlarge_mime_type" varchar,
-  	"sizes_xlarge_filesize" numeric,
-  	"sizes_xlarge_filename" varchar,
-  	"sizes_og_url" varchar,
-  	"sizes_og_width" numeric,
-  	"sizes_og_height" numeric,
-  	"sizes_og_mime_type" varchar,
-  	"sizes_og_filesize" numeric,
-  	"sizes_og_filename" varchar
+	"id" serial PRIMARY KEY NOT NULL,
+	"alt" varchar,
+	"is_decorative" boolean DEFAULT false,
+	"credit" varchar,
+	"caption" jsonb,
+	"folder_id" integer,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"url" varchar,
+	"thumbnail_u_r_l" varchar,
+	"filename" varchar,
+	"mime_type" varchar,
+	"filesize" numeric,
+	"width" numeric,
+	"height" numeric,
+	"focal_x" numeric,
+	"focal_y" numeric,
+	"sizes_thumbnail_url" varchar,
+	"sizes_thumbnail_width" numeric,
+	"sizes_thumbnail_height" numeric,
+	"sizes_thumbnail_mime_type" varchar,
+	"sizes_thumbnail_filesize" numeric,
+	"sizes_thumbnail_filename" varchar,
+	"sizes_square_url" varchar,
+	"sizes_square_width" numeric,
+	"sizes_square_height" numeric,
+	"sizes_square_mime_type" varchar,
+	"sizes_square_filesize" numeric,
+	"sizes_square_filename" varchar,
+	"sizes_small_url" varchar,
+	"sizes_small_width" numeric,
+	"sizes_small_height" numeric,
+	"sizes_small_mime_type" varchar,
+	"sizes_small_filesize" numeric,
+	"sizes_small_filename" varchar,
+	"sizes_medium_url" varchar,
+	"sizes_medium_width" numeric,
+	"sizes_medium_height" numeric,
+	"sizes_medium_mime_type" varchar,
+	"sizes_medium_filesize" numeric,
+	"sizes_medium_filename" varchar,
+	"sizes_large_url" varchar,
+	"sizes_large_width" numeric,
+	"sizes_large_height" numeric,
+	"sizes_large_mime_type" varchar,
+	"sizes_large_filesize" numeric,
+	"sizes_large_filename" varchar,
+	"sizes_xlarge_url" varchar,
+	"sizes_xlarge_width" numeric,
+	"sizes_xlarge_height" numeric,
+	"sizes_xlarge_mime_type" varchar,
+	"sizes_xlarge_filesize" numeric,
+	"sizes_xlarge_filename" varchar,
+	"sizes_og_url" varchar,
+	"sizes_og_width" numeric,
+	"sizes_og_height" numeric,
+	"sizes_og_mime_type" varchar,
+	"sizes_og_filesize" numeric,
+	"sizes_og_filename" varchar
   );
-  
+
   CREATE TABLE "categories_breadcrumbs" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"doc_id" integer,
-  	"url" varchar,
-  	"label" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"doc_id" integer,
+	"url" varchar,
+	"label" varchar
   );
-  
+
   CREATE TABLE "categories" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"title" varchar NOT NULL,
-  	"description" varchar,
-  	"generate_slug" boolean DEFAULT true,
-  	"slug" varchar NOT NULL,
-  	"parent_id" integer,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"description" varchar,
+	"generate_slug" boolean DEFAULT true,
+	"slug" varchar NOT NULL,
+	"parent_id" integer,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "users_sessions" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"created_at" timestamp(3) with time zone,
-  	"expires_at" timestamp(3) with time zone NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"created_at" timestamp(3) with time zone,
+	"expires_at" timestamp(3) with time zone NOT NULL
   );
-  
+
   CREATE TABLE "users" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"role" "enum_users_role" DEFAULT 'editor' NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"email" varchar NOT NULL,
-  	"reset_password_token" varchar,
-  	"reset_password_expiration" timestamp(3) with time zone,
-  	"salt" varchar,
-  	"hash" varchar,
-  	"login_attempts" numeric DEFAULT 0,
-  	"lock_until" timestamp(3) with time zone
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"role" "enum_users_role" DEFAULT 'editor' NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"email" varchar NOT NULL,
+	"reset_password_token" varchar,
+	"reset_password_expiration" timestamp(3) with time zone,
+	"salt" varchar,
+	"hash" varchar,
+	"login_attempts" numeric DEFAULT 0,
+	"lock_until" timestamp(3) with time zone
   );
-  
+
   CREATE TABLE "redirects" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"from" varchar NOT NULL,
-  	"to_type" "enum_redirects_to_type" DEFAULT 'reference',
-  	"to_url" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"from" varchar NOT NULL,
+	"to_type" "enum_redirects_to_type" DEFAULT 'reference',
+	"to_url" varchar,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "redirects_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer
   );
-  
+
   CREATE TABLE "forms_blocks_checkbox" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"required" boolean,
-  	"default_value" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"required" boolean,
+	"default_value" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_country" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_email" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_message" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"message" jsonb,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"message" jsonb,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_number" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"default_value" numeric,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"default_value" numeric,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_select_options" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" varchar NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"label" varchar NOT NULL,
-  	"value" varchar NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" varchar NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"label" varchar NOT NULL,
+	"value" varchar NOT NULL
   );
-  
+
   CREATE TABLE "forms_blocks_select" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"default_value" varchar,
-  	"placeholder" varchar,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"default_value" varchar,
+	"placeholder" varchar,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_state" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_text" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"default_value" varchar,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"default_value" varchar,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_blocks_textarea" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"_path" text NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"label" varchar,
-  	"width" numeric,
-  	"default_value" varchar,
-  	"required" boolean,
-  	"block_name" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"_path" text NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"label" varchar,
+	"width" numeric,
+	"default_value" varchar,
+	"required" boolean,
+	"block_name" varchar
   );
-  
+
   CREATE TABLE "forms_emails" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"email_to" varchar,
-  	"cc" varchar,
-  	"bcc" varchar,
-  	"reply_to" varchar,
-  	"email_from" varchar,
-  	"subject" varchar DEFAULT 'You''ve received a new message.' NOT NULL,
-  	"message" jsonb
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"email_to" varchar,
+	"cc" varchar,
+	"bcc" varchar,
+	"reply_to" varchar,
+	"email_from" varchar,
+	"subject" varchar DEFAULT 'You''ve received a new message.' NOT NULL,
+	"message" jsonb
   );
-  
+
   CREATE TABLE "forms" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"title" varchar NOT NULL,
-  	"submit_button_label" varchar,
-  	"confirmation_type" "enum_forms_confirmation_type" DEFAULT 'message',
-  	"confirmation_message" jsonb,
-  	"redirect_url" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar NOT NULL,
+	"submit_button_label" varchar,
+	"confirmation_type" "enum_forms_confirmation_type" DEFAULT 'message',
+	"confirmation_message" jsonb,
+	"redirect_url" varchar,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "form_submissions_submission_data" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"field" varchar NOT NULL,
-  	"value" varchar NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"field" varchar NOT NULL,
+	"value" varchar NOT NULL
   );
-  
+
   CREATE TABLE "form_submissions" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"form_id" integer NOT NULL,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"form_id" integer NOT NULL,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "search_categories" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"relation_to" varchar,
-  	"category_i_d" varchar,
-  	"title" varchar
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"relation_to" varchar,
+	"category_i_d" varchar,
+	"title" varchar
   );
-  
+
   CREATE TABLE "search" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"title" varchar,
-  	"priority" numeric,
-  	"slug" varchar,
-  	"meta_title" varchar,
-  	"meta_description" varchar,
-  	"meta_image_id" integer,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar,
+	"priority" numeric,
+	"slug" varchar,
+	"meta_title" varchar,
+	"meta_description" varchar,
+	"meta_image_id" integer,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "search_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"posts_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"posts_id" integer
   );
-  
+
   CREATE TABLE "payload_kv" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"key" varchar NOT NULL,
-  	"data" jsonb NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"key" varchar NOT NULL,
+	"data" jsonb NOT NULL
   );
-  
+
   CREATE TABLE "payload_jobs_log" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"executed_at" timestamp(3) with time zone NOT NULL,
-  	"completed_at" timestamp(3) with time zone NOT NULL,
-  	"task_slug" "enum_payload_jobs_log_task_slug" NOT NULL,
-  	"task_i_d" varchar NOT NULL,
-  	"input" jsonb,
-  	"output" jsonb,
-  	"state" "enum_payload_jobs_log_state" NOT NULL,
-  	"error" jsonb
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"executed_at" timestamp(3) with time zone NOT NULL,
+	"completed_at" timestamp(3) with time zone NOT NULL,
+	"task_slug" "enum_payload_jobs_log_task_slug" NOT NULL,
+	"task_i_d" varchar NOT NULL,
+	"input" jsonb,
+	"output" jsonb,
+	"state" "enum_payload_jobs_log_state" NOT NULL,
+	"error" jsonb
   );
-  
+
   CREATE TABLE "payload_jobs" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"input" jsonb,
-  	"completed_at" timestamp(3) with time zone,
-  	"total_tried" numeric DEFAULT 0,
-  	"has_error" boolean DEFAULT false,
-  	"error" jsonb,
-  	"task_slug" "enum_payload_jobs_task_slug",
-  	"queue" varchar DEFAULT 'default',
-  	"wait_until" timestamp(3) with time zone,
-  	"processing" boolean DEFAULT false,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"input" jsonb,
+	"completed_at" timestamp(3) with time zone,
+	"total_tried" numeric DEFAULT 0,
+	"has_error" boolean DEFAULT false,
+	"error" jsonb,
+	"task_slug" "enum_payload_jobs_task_slug",
+	"queue" varchar DEFAULT 'default',
+	"wait_until" timestamp(3) with time zone,
+	"processing" boolean DEFAULT false,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "payload_folders_folder_type" (
-  	"order" integer NOT NULL,
-  	"parent_id" integer NOT NULL,
-  	"value" "enum_payload_folders_folder_type",
-  	"id" serial PRIMARY KEY NOT NULL
+	"order" integer NOT NULL,
+	"parent_id" integer NOT NULL,
+	"value" "enum_payload_folders_folder_type",
+	"id" serial PRIMARY KEY NOT NULL
   );
-  
+
   CREATE TABLE "payload_folders" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"name" varchar NOT NULL,
-  	"folder_id" integer,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
+	"folder_id" integer,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "payload_locked_documents" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"global_slug" varchar,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"global_slug" varchar,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "payload_locked_documents_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer,
-  	"media_id" integer,
-  	"categories_id" integer,
-  	"users_id" integer,
-  	"redirects_id" integer,
-  	"forms_id" integer,
-  	"form_submissions_id" integer,
-  	"search_id" integer,
-  	"payload_folders_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer,
+	"media_id" integer,
+	"categories_id" integer,
+	"users_id" integer,
+	"redirects_id" integer,
+	"forms_id" integer,
+	"form_submissions_id" integer,
+	"search_id" integer,
+	"payload_folders_id" integer
   );
-  
+
   CREATE TABLE "payload_preferences" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"key" varchar,
-  	"value" jsonb,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"key" varchar,
+	"value" jsonb,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "payload_preferences_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"users_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"users_id" integer
   );
-  
+
   CREATE TABLE "payload_migrations" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"name" varchar,
-  	"batch" numeric,
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar,
+	"batch" numeric,
+	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
-  
+
   CREATE TABLE "header_nav_items" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_header_nav_items_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"link_type" "enum_header_nav_items_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar NOT NULL
   );
-  
+
   CREATE TABLE "header" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"updated_at" timestamp(3) with time zone,
-  	"created_at" timestamp(3) with time zone
+	"id" serial PRIMARY KEY NOT NULL,
+	"updated_at" timestamp(3) with time zone,
+	"created_at" timestamp(3) with time zone
   );
-  
+
   CREATE TABLE "header_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer
   );
-  
+
   CREATE TABLE "footer_nav_items" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_footer_nav_items_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"link_type" "enum_footer_nav_items_link_type" DEFAULT 'reference',
+	"link_new_tab" boolean,
+	"link_url" varchar,
+	"link_label" varchar NOT NULL
   );
-  
+
   CREATE TABLE "footer" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"updated_at" timestamp(3) with time zone,
-  	"created_at" timestamp(3) with time zone
+	"id" serial PRIMARY KEY NOT NULL,
+	"updated_at" timestamp(3) with time zone,
+	"created_at" timestamp(3) with time zone
   );
-  
+
   CREATE TABLE "footer_rels" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"order" integer,
-  	"parent_id" integer NOT NULL,
-  	"path" varchar NOT NULL,
-  	"pages_id" integer,
-  	"posts_id" integer
+	"id" serial PRIMARY KEY NOT NULL,
+	"order" integer,
+	"parent_id" integer NOT NULL,
+	"path" varchar NOT NULL,
+	"pages_id" integer,
+	"posts_id" integer
   );
-  
+
   CREATE TABLE "site_settings_social_profiles" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"label" varchar NOT NULL,
-  	"url" varchar NOT NULL
+	"_order" integer NOT NULL,
+	"_parent_id" integer NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
+	"label" varchar NOT NULL,
+	"url" varchar NOT NULL
   );
-  
+
   CREATE TABLE "site_settings" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"site_name" varchar DEFAULT 'VRTKS Digital' NOT NULL,
-  	"default_description" varchar DEFAULT 'A modern publishing platform built with Payload CMS and Next.js.' NOT NULL,
-  	"default_social_image_id" integer,
-  	"organisation_name" varchar,
-  	"organisation_email" varchar,
-  	"organisation_telephone" varchar,
-  	"organisation_address" varchar,
-  	"updated_at" timestamp(3) with time zone,
-  	"created_at" timestamp(3) with time zone
+	"id" serial PRIMARY KEY NOT NULL,
+	"site_name" varchar DEFAULT 'VRTKS Digital' NOT NULL,
+	"default_description" varchar DEFAULT 'A modern publishing platform built with Payload CMS and Next.js.' NOT NULL,
+	"default_social_image_id" integer,
+	"organisation_name" varchar,
+	"organisation_email" varchar,
+	"organisation_telephone" varchar,
+	"organisation_address" varchar,
+	"updated_at" timestamp(3) with time zone,
+	"created_at" timestamp(3) with time zone
   );
-  
+
   ALTER TABLE "pages_hero_links" ADD CONSTRAINT "pages_hero_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_cta_links" ADD CONSTRAINT "pages_blocks_cta_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_cta"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_cta" ADD CONSTRAINT "pages_blocks_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
