@@ -1,5 +1,4 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
@@ -21,6 +20,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 validateEnvironment()
+
+const sharp = process.env.VERCEL ? undefined : (await import('sharp')).default
 
 export default buildConfig({
   admin: {

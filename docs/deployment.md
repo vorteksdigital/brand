@@ -10,6 +10,7 @@ and `/admin`, and configure CDN compression/cache headers. Set canonical
 `NEXT_PUBLIC_SERVER_URL`. Verify preview embedding and CSP on final domain.
 
 Vercel production uses the Supabase transaction pooler with TLS required. Keep
-Sharp's Linux runtime packages in `optionalDependencies`; Vercel function
-tracing includes Sharp and `@img` native assets for Payload image processing.
-Apply migrations separately before deployment.
+Sharp disabled in Vercel functions until a persistent object-storage adapter is
+configured; local and non-Vercel deployments retain Sharp image processing.
+Apply migrations separately before deployment. Do not rely on Vercel's
+ephemeral filesystem for uploaded media.
