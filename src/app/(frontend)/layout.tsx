@@ -27,6 +27,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
+        <a
+          className="fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-white px-4 py-2 text-black shadow focus:translate-y-0"
+          href="#main-content"
+        >
+          Skip to main content
+        </a>
         <Providers>
           <AdminBar
             adminBarProps={{
@@ -35,7 +41,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <Header />
-          {children}
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>

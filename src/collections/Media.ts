@@ -27,7 +27,33 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      admin: {
+        description:
+          'Describe editorial images. For decorative images, enable “Decorative image” and leave this blank.',
+      },
+      validate: (value: string | null | undefined, { siblingData }: { siblingData?: unknown }) => {
+        const fields =
+          siblingData && typeof siblingData === 'object'
+            ? (siblingData as Record<string, unknown>)
+            : undefined
+        if (!fields?.isDecorative && !value) {
+          return 'Alternative text is required unless the image is decorative.'
+        }
+        return true
+      },
+    },
+    {
+      name: 'isDecorative',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Decorative image',
+    },
+    {
+      name: 'credit',
+      type: 'text',
+      admin: {
+        description: 'Photographer, creator, or source attribution.',
+      },
     },
     {
       name: 'caption',
@@ -44,6 +70,7 @@ export const Media: CollectionConfig = {
     staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
     focalPoint: true,
+    mimeTypes: ['image/*'],
     imageSizes: [
       {
         name: 'thumbnail',
