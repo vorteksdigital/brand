@@ -11,5 +11,5 @@ and `/admin`, and configure CDN compression/cache headers. Set canonical
 
 Vercel production uses the Supabase transaction pooler with TLS required. Keep
 Sharp's Linux runtime packages in `optionalDependencies`; Vercel function
-tracing requires them for Payload image processing. Apply migrations separately
-before deployment.
+tracing includes Sharp and `@img` native assets for Payload image processing.
+Apply migrations separately before deployment.
