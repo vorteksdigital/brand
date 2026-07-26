@@ -303,6 +303,7 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
       },
     },
     heroImage: heroImage.id,
+    excerpt: 'A practical look at innovations shaping modern digital products.',
     meta: {
       description:
         'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',

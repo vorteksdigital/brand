@@ -14,6 +14,8 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { JsonLd } from '@/components/JsonLd'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -51,8 +53,40 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const canonical = new URL(url, getServerSideURL()).toString()
+  const authors = post.populatedAuthors?.map((author) => author.name).filter(Boolean) ?? []
+
   return (
     <article className="pt-16 pb-16">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Article',
+              headline: post.title,
+              description: post.excerpt,
+              datePublished: post.publishedAt,
+              dateModified: post.updatedAt,
+              mainEntityOfPage: canonical,
+              author: authors.map((name) => ({ '@type': 'Person', name })),
+            },
+            {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: getServerSideURL() },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Posts',
+                  item: new URL('/posts', getServerSideURL()).toString(),
+                },
+                { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
+              ],
+            },
+          ],
+        }}
+      />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}

@@ -72,6 +72,14 @@ export const Posts: CollectionConfig<'posts'> = {
       required: true,
     },
     {
+      name: 'excerpt',
+      type: 'textarea',
+      admin: {
+        description: 'Concise summary used in listings, feeds, and answer surfaces.',
+      },
+      required: true,
+    },
+    {
       type: 'tabs',
       tabs: [
         {

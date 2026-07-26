@@ -220,6 +220,7 @@ export const post2: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
       },
     },
     heroImage: heroImage.id,
+    excerpt: 'Explore overlooked global stories and the context behind them.',
     meta: {
       description:
         'Explore the untold and overlooked. A magnified view into the corners of the world, where every story deserves its spotlight.',
