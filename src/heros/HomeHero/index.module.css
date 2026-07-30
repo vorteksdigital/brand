@@ -21,33 +21,6 @@
   background: #fff;
 }
 
-.stripeDivider {
-  position: absolute;
-  right: var(--page-padding);
-  bottom: 10px;
-  left: var(--page-padding);
-  z-index: 5;
-  height: clamp(120px, 10vw, 180px);
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    #fff 0%,
-    #fff 15%,
-    #000 15%,
-    #000 16%,
-    #fff 16%,
-    #fff 31%,
-    #000 31%,
-    #000 34%,
-    #fff 34%,
-    #fff 50%,
-    #000 50%,
-    #000 88%,
-    #fff 88%,
-    #fff 100%
-  );
-}
-
 .header {
   position: relative;
   z-index: 10;
@@ -171,10 +144,6 @@
 
   .videoSlot {
     width: clamp(70px, 22vw, 130px);
-  }
-
-  .stripeDivider {
-    height: clamp(90px, 18vw, 130px);
   }
 }
 

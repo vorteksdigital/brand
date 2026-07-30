@@ -16,7 +16,9 @@ homepage-only GSAP scroll sequence and Three.js fluid canvas; other pages
 continue to render their selected Payload hero. The component scopes DOM access
 to refs, suspends rendering while offscreen, honors reduced motion, and disposes
 animation, observer, WebGL, and event resources on unmount. Its co-located CSS
-module defines the white uppercase composition, striped lower divider, 16:9
-film slot, and explicit copy/canvas/film layer order. The original pill-to-film
-timeline pins for 160% of the measured hero height, then returns the
-Payload-authored page blocks to normal flow.
+module defines the white uppercase composition, open lower edge, 16:9 film slot,
+and explicit copy/canvas/film layer order. The pill-to-film timeline starts from
+the measured text slot, pins for 160% of the hero height, then returns the
+Payload-authored page blocks to normal flow. Function-based start and end values
+are invalidated on every ScrollTrigger refresh, so viewport, orientation, font,
+and observed hero-size changes remeasure the pill without remounting.

@@ -97,3 +97,45 @@ Pre-push verification for the homepage hero.
 | Move ignored Playwright report outside the workspace | Pass | Existing report preserved under `/tmp`; no project source was removed |
 | `pnpm verify` | Pass | Generated types/import map, lint, strict types, 3 unit tests, 1 integration test, production build, and sitemap generation |
 | `CI=1 pnpm test:e2e` | Pass | 6 serialized Chromium tests, including homepage and Axe coverage |
+
+### Open lower edge and dynamic film pill
+
+| Command | Result | Notes |
+|---|---|---|
+| `pnpm lint` | Pass | Removed divider styles and pointer interaction are lint-clean |
+| `pnpm typecheck` | Pass | GSAP quick setters and ScrollTrigger callback pass strict TypeScript |
+| `pnpm test:unit` | Pass | 3 tests |
+| `git diff --check` | Pass | No whitespace errors |
+| Direct Playwright invocation | Invocation error | Bypassed the package script's TypeScript loader, so collection stopped at the existing extensionless `next/cache` import; no tests ran |
+| Package script with an extra `--` separator | Invocation error | Playwright interpreted `--workers=1` as a test filter; no tests ran |
+| `pnpm exec cross-env 'NODE_OPTIONS=--no-deprecation --import=tsx/esm' playwright test --config=playwright.config.ts --workers=1` | Pass | 6 Chromium tests reused the active development server |
+| Live Playwright interaction probe | Pass | No divider element; desktop pill moved about 149 px in either horizontal direction and returned to a zero transform during scroll |
+| Live desktop screenshot review | Pass | Open white lower edge and pointer-shifted pill rendered without overflow |
+| Move generated Playwright report outside the workspace | Pass | Report preserved under `/tmp` so later lint runs do not scan its bundled JavaScript |
+
+The active `pnpm dev` process on port 3000 was reused and remained running.
+A production build was intentionally not started because it would share Next's
+output directory with that active process.
+
+The pointer-following interpretation was subsequently removed. The film pill
+again remains in its measured text slot until the existing scroll expansion
+begins; the lower divider removal remains.
+
+| Follow-up command | Result | Notes |
+|---|---|---|
+| `pnpm lint` | Pass | Pointer handlers and GSAP quick setters removed cleanly |
+| `pnpm typecheck` | Pass | Strict TypeScript passes after restoration |
+| `git diff --check` | Pass | No whitespace errors |
+| Live Playwright pointer probe | Pass | Pointer movement changed the pill by 0 px on both axes; no divider element remained |
+
+### Responsive pill remeasurement
+
+| Command | Result | Notes |
+|---|---|---|
+| `pnpm lint` | Pass | Function-based GSAP values are lint-clean |
+| `pnpm typecheck` | Pass | Responsive `fromTo` timeline passes strict TypeScript |
+| `pnpm test:unit` | Pass | 3 tests |
+| `git diff --check` | Pass | No whitespace errors |
+| Live Playwright resize probe | Pass | At 1440×900, 900×700, and 390×844 the pill re-aligned with its slot after resize; maximum difference was 0.4 px from subpixel rounding |
+| `pnpm exec cross-env 'NODE_OPTIONS=--no-deprecation --import=tsx/esm' playwright test --config=playwright.config.ts --workers=1` | Pass | 6 Chromium tests reused the active development server |
+| Move generated Playwright report outside the workspace | Pass | Report preserved under `/tmp` to keep later lint runs scoped to project files |

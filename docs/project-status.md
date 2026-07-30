@@ -14,5 +14,7 @@ The homepage now uses a dedicated TypeScript brand hero with an interactive
 fluid canvas and a scroll-pinned expanding film. The clip is served locally;
 Payload-authored homepage blocks remain below it, and generic CMS heroes remain
 available on other pages. The hero preserves the supplied VRTKS white,
-uppercase, difference-blend, stripe-divider styling with proportional mobile
-scaling.
+uppercase, and difference-blend styling with proportional mobile scaling. Its
+collapsed film pill remains in the measured text slot before the scroll
+expansion and automatically remeasures that slot when the viewport or hero
+geometry changes.

@@ -120,8 +120,15 @@ export function HomeHero() {
           },
         })
 
-        timeline.to(
+        timeline.fromTo(
           videoContainer,
+          {
+            borderRadius: '999px',
+            height: () => getStartValues().height,
+            left: () => getStartValues().left,
+            top: () => getStartValues().top,
+            width: () => getStartValues().width,
+          },
           {
             ...Object.fromEntries(
               (['height', 'left', 'top', 'width'] satisfies Array<keyof BoxValues>).map(
@@ -182,8 +189,6 @@ export function HomeHero() {
 
   return (
     <section aria-labelledby="home-hero-title" className={styles.hero} ref={heroRef}>
-      <div aria-hidden="true" className={styles.stripeDivider} />
-
       <div className={styles.header}>
         <div className={styles.topLine}>
           <h1 id="home-hero-title">
