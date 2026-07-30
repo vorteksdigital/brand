@@ -5,6 +5,6 @@ test.describe('Frontend', () => {
     await page.goto('http://localhost:3000')
     await expect(page).toHaveTitle(/VRTKS Digital/)
     const heading = page.locator('h1').first()
-    await expect(heading).toHaveText('Payload Website Template')
+    await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
   })
 })

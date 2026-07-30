@@ -9,3 +9,10 @@ Implemented project hardening: roles, Media policy, Site Settings, skip link,
 robots, RSS, visual-editor compatibility boundary/tests, Axe setup, scripts,
 environment validation, and documentation. Verification state lives in
 `verification-log.md`.
+
+The homepage now uses a dedicated TypeScript brand hero with an interactive
+fluid canvas and a scroll-pinned expanding film. The clip is served locally;
+Payload-authored homepage blocks remain below it, and generic CMS heroes remain
+available on other pages. The hero preserves the supplied VRTKS white,
+uppercase, difference-blend, stripe-divider styling with proportional mobile
+scaling.

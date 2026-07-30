@@ -10,3 +10,7 @@ Payload query depth/limits, 12-item pagination, publish revalidation, stable
 media boxes, and no default third-party scripts. Draft mode bypasses public
 caching. Run Lighthouse against production; hosting/CDN/database latency cannot
 be represented reliably by local results.
+
+The homepage brand film is a local fast-start mobile derivative (under 1 MB).
+Its interactive fluid canvas is homepage-only, stops GPU work while offscreen,
+and is not initialized when reduced motion is requested.

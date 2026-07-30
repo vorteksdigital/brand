@@ -13,3 +13,7 @@
 
 Blocks: CTA, Content, Media, Archive, Form; post rich text also supports Banner,
 Code, and Media. Renderer ignores unknown blocks safely.
+
+The `home` page retains its authored flexible blocks and SEO fields, but its
+front-end hero is the fixed VRTKS brand experience rather than the generic
+Payload hero field. Hero field selections still apply to every non-home page.

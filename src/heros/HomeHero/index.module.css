@@ -1,0 +1,185 @@
+.hero {
+  --page-padding: 5.29101vw;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-block: 2rem;
+  padding-inline: var(--page-padding);
+  overflow: clip;
+  box-sizing: border-box;
+  color: #000;
+  background: #fff;
+}
+
+.stripeDivider {
+  position: absolute;
+  right: var(--page-padding);
+  bottom: 10px;
+  left: var(--page-padding);
+  z-index: 5;
+  height: clamp(120px, 10vw, 180px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    #fff 0%,
+    #fff 15%,
+    #000 15%,
+    #000 16%,
+    #fff 16%,
+    #fff 31%,
+    #000 31%,
+    #000 34%,
+    #fff 34%,
+    #fff 50%,
+    #000 50%,
+    #000 88%,
+    #fff 88%,
+    #fff 100%
+  );
+}
+
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero h1,
+.displayHeading {
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 15rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.topLine {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.description {
+  width: 100%;
+  max-width: 350px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.15;
+  text-align: justify;
+  text-align-last: left;
+}
+
+.centeredHeading,
+.brandLine {
+  align-self: center;
+}
+
+.brandLine {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.4rem, 1.5vw, 1.4rem);
+  white-space: nowrap;
+}
+
+.videoSlot {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: clamp(100px, 14vw, 240px);
+  aspect-ratio: 16 / 9;
+}
+
+.fluidCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.videoPill {
+  position: absolute;
+  z-index: 30;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  background: #111;
+  border-radius: 999px;
+  opacity: 0;
+  isolation: isolate;
+  mix-blend-mode: normal;
+  will-change: width, height, left, top, border-radius;
+}
+
+.video {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+@media (width <= 768px) {
+  .hero {
+    --page-padding: 1.5rem;
+
+    padding-block: 1.5rem;
+  }
+
+  .topLine {
+    gap: 1rem;
+  }
+
+  .hero h1,
+  .displayHeading {
+    font-size: clamp(2rem, 10vw, 6rem);
+  }
+
+  .description {
+    max-width: 260px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .brandLine {
+    gap: 0.4rem;
+  }
+
+  .videoSlot {
+    width: clamp(70px, 22vw, 130px);
+  }
+
+  .stripeDivider {
+    height: clamp(90px, 18vw, 130px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluidCanvas {
+    display: none;
+  }
+}
