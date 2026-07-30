@@ -7,7 +7,10 @@ with `pnpm payload:migrate`, then run `pnpm start`.
 
 Back up database and media, pin Node/pnpm from `package.json`, health-check `/`
 and `/admin`, and configure CDN compression/cache headers. Set canonical
-`NEXT_PUBLIC_SERVER_URL`. Verify preview embedding and CSP on final domain.
+`NEXT_PUBLIC_SERVER_URL`. Set `RESEND_API_KEY`, `RESEND_FROM_ADDRESS`, and
+optionally `RESEND_FROM_NAME`; the sender address must belong to a domain
+verified in Resend. Verify password-reset delivery, preview embedding, and CSP
+on the final domain.
 
 Vercel production uses the Supabase transaction pooler with TLS required. Keep
 Sharp disabled in Vercel functions until a persistent object-storage adapter is

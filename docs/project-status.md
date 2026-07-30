@@ -18,3 +18,7 @@ uppercase, and difference-blend styling with proportional mobile scaling. Its
 collapsed film pill remains in the measured text slot before the scroll
 expansion and automatically remeasures that slot when the viewport or hero
 geometry changes.
+
+Password-reset delivery is wired to Resend through server-only environment
+credentials and a verified sender address. Local development can still run
+without email delivery while those variables are absent.

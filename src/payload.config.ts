@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
@@ -21,6 +22,8 @@ const dirname = path.dirname(filename)
 
 validateEnvironment()
 
+const resendAPIKey = process.env.RESEND_API_KEY?.trim()
+const resendFromAddress = process.env.RESEND_FROM_ADDRESS?.trim()
 const sharp = process.env.VERCEL ? undefined : (await import('sharp')).default
 
 export default buildConfig({
@@ -67,6 +70,14 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
+  email:
+    resendAPIKey && resendFromAddress
+      ? resendAdapter({
+          apiKey: resendAPIKey,
+          defaultFromAddress: resendFromAddress,
+          defaultFromName: process.env.RESEND_FROM_NAME?.trim() || 'VRTKS Digital',
+        })
+      : undefined,
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],

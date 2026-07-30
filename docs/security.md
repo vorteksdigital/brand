@@ -5,7 +5,9 @@ uses a server-only token, verifies collection/slug, enables HTTP-only Next draft
 mode, and is disallowed from indexing. CORS uses configured site origin. Admin
 requires authentication; roles restrict user management; public collection
 queries expose published content only. Uploads accept images and use size limits
-configured by infrastructure.
+configured by infrastructure. Password-reset email uses Resend only when its
+server-only API key and verified sender address are both configured; the key is
+never exposed through a public environment variable.
 
 Production: HTTPS, secret rotation, database TLS/firewall/backups, rate limits
 for auth/forms/public mutations, persistent malware-aware object storage,

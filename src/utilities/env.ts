@@ -1,4 +1,5 @@
 const requiredServerVariables = ['DATABASE_URL', 'PAYLOAD_SECRET', 'PREVIEW_SECRET'] as const
+const resendVariables = ['RESEND_API_KEY', 'RESEND_FROM_ADDRESS'] as const
 
 export function validateEnvironment(): void {
   if (process.env.NEXT_PHASE === 'phase-production-build') return
@@ -6,6 +7,14 @@ export function validateEnvironment(): void {
   const missing = requiredServerVariables.filter((name) => !process.env[name]?.trim())
   if (missing.length > 0) {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}`)
+  }
+
+  const configuredResendVariables = resendVariables.filter((name) => process.env[name]?.trim())
+  if (
+    configuredResendVariables.length > 0 &&
+    configuredResendVariables.length < resendVariables.length
+  ) {
+    throw new Error('RESEND_API_KEY and RESEND_FROM_ADDRESS must be configured together')
   }
 
   const publicURL = process.env.NEXT_PUBLIC_SERVER_URL

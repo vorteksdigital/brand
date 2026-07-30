@@ -22,3 +22,8 @@ the measured text slot, pins for 160% of the hero height, then returns the
 Payload-authored page blocks to normal flow. Function-based start and end values
 are invalidated on every ScrollTrigger refresh, so viewport, orientation, font,
 and observed hero-size changes remeasure the pill without remounting.
+
+Payload authentication email uses the official Resend adapter when
+`RESEND_API_KEY` and `RESEND_FROM_ADDRESS` are both configured. With neither
+variable present, development retains Payload's log-only email fallback; a
+partial Resend configuration is rejected during runtime initialization.

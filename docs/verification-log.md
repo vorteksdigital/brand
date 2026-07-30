@@ -139,3 +139,23 @@ begins; the lower divider removal remains.
 | Live Playwright resize probe | Pass | At 1440×900, 900×700, and 390×844 the pill re-aligned with its slot after resize; maximum difference was 0.4 px from subpixel rounding |
 | `pnpm exec cross-env 'NODE_OPTIONS=--no-deprecation --import=tsx/esm' playwright test --config=playwright.config.ts --workers=1` | Pass | 6 Chromium tests reused the active development server |
 | Move generated Playwright report outside the workspace | Pass | Report preserved under `/tmp` to keep later lint runs scoped to project files |
+
+### Resend email adapter
+
+| Command | Result | Notes |
+|---|---|---|
+| `pnpm add @payloadcms/email-resend@3.86.0` | Pass | Adapter version matches Payload 3.86.0 |
+| `pnpm lint` | Pass | Email configuration and environment checks are lint-clean |
+| `pnpm typecheck` | Pass | Adapter options and environment declarations pass strict TypeScript |
+| `pnpm test:unit` | Pass | 3 tests |
+| `pnpm test:integration` | Pass | 1 database-backed Payload test; expected log-only warning while Resend variables are absent |
+| `git diff --check` | Pass | No whitespace errors |
+| Partial Resend environment probe | Pass | API key without sender address was rejected |
+| Complete Resend environment probe | Pass | Adapter configured with non-secret test values |
+| `GET /admin/login` | Pass | 200 from the active development server |
+| `pnpm dlx vercel@latest whoami` | Pass | Authenticated Vercel CLI access confirmed |
+| `pnpm dlx vercel@latest env ls production` | Pass | Existing production variables present; Resend variables intentionally absent until the real key is added |
+
+No real API key was written to the repository, and no delivery attempt was made
+with test credentials. Add the real key and verified sender locally and in the
+deployment environment before testing password-reset delivery.
