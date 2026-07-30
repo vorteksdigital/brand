@@ -159,3 +159,18 @@ begins; the lower divider removal remains.
 No real API key was written to the repository, and no delivery attempt was made
 with test credentials. Add the real key and verified sender locally and in the
 deployment environment before testing password-reset delivery.
+
+### GitHub and Vercel deployment
+
+| Command | Result | Notes |
+|---|---|---|
+| `git push origin development` | Pass | Resend adapter commit `60b9f4b` pushed |
+| First `pnpm dlx vercel@latest deploy --prod --yes` | Superseded | Build passed and reached `READY`, but Vercel reported a local `.env` file in the upload |
+| Add `.vercelignore` and `git push origin development` | Pass | Security fix `abfc5cc` excludes local environment files and generated artifacts |
+| Final `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Production deployment `dpl_57UhmvX4YFZuLrH6MSRgMLicZFu5` reached `READY`; no `.env` detection warning |
+| Production alias health checks | Pass | `/`, `/admin/login`, `/api/users/me`, and `/sitemap.xml` returned 200 |
+| Custom-domain health check | Blocked by external configuration | `vorteksdigital.co.za` exists in the Vercel account but is not assigned to this project and returns Vercel 404 |
+
+The final Vercel build passed production compilation, strict TypeScript, static
+generation, and sitemap generation. Existing documented warnings remain for
+Sharp being disabled and the missing persistent upload storage adapter.
