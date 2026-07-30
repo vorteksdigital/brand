@@ -7,7 +7,8 @@ requires authentication; roles restrict user management; public collection
 queries expose published content only. Uploads accept images and use size limits
 configured by infrastructure. Password-reset email uses Resend only when its
 server-only API key and verified sender address are both configured; the key is
-never exposed through a public environment variable.
+never exposed through a public environment variable. Local environment files
+are also explicitly excluded from Vercel CLI uploads.
 
 Production: HTTPS, secret rotation, database TLS/firewall/backups, rate limits
 for auth/forms/public mutations, persistent malware-aware object storage,

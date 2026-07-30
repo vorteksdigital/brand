@@ -1,0 +1,13 @@
+.env
+.env.*
+.next
+.vercel
+blob-report
+build
+dist
+node_modules
+playwright-report
+playwright/.cache
+public/media
+supabase/.temp
+test-results

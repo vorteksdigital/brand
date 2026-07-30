@@ -16,4 +16,6 @@ Vercel production uses the Supabase transaction pooler with TLS required. Keep
 Sharp disabled in Vercel functions until a persistent object-storage adapter is
 configured; local and non-Vercel deployments retain Sharp image processing.
 Apply migrations separately before deployment. Do not rely on Vercel's
-ephemeral filesystem for uploaded media.
+ephemeral filesystem for uploaded media. `.vercelignore` excludes local
+environment files, generated test/build output, and local media from CLI
+deployment uploads.
