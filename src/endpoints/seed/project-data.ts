@@ -2,6 +2,7 @@ import type { RequiredDataFromCollectionSlug } from 'payload'
 
 export type ProjectSeed = {
   client: string
+  imageAlt: string
   imageFilename: string
   services: string[]
   slug: string
@@ -13,6 +14,7 @@ export type ProjectSeed = {
 export const projectSeeds: ProjectSeed[] = [
   {
     client: 'Aperture',
+    imageAlt: 'Abstract violet and orange forms suggesting a fast-moving brand system',
     imageFilename: 'mock-building-brands-that-move-at-digital-speed.webp',
     services: ['Brand strategy', 'Digital design', 'Motion'],
     slug: 'signal-shift',
@@ -22,6 +24,7 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Northstar',
+    imageAlt: 'Interlocking green and indigo forms becoming a clear visual pathway',
     imageFilename: 'mock-turning-complex-products-into-clear-stories.webp',
     services: ['Product design', 'Content design', 'Development'],
     slug: 'clear-systems',
@@ -31,6 +34,7 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Common Ground',
+    imageAlt: 'Warm gold and electric blue forms surrounding an abstract AI core',
     imageFilename: 'mock-designing-for-trust-in-an-ai-first-world.webp',
     services: ['Research', 'Experience design', 'Creative direction'],
     slug: 'trust-layer',
@@ -40,6 +44,7 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Metric',
+    imageAlt: 'Geometric red and cyan interface layers arranged into a conversion path',
     imageFilename: 'mock-the-anatomy-of-a-high-converting-website.webp',
     services: ['Web design', 'Conversion strategy', 'Development'],
     slug: 'conversion-engine',
@@ -49,6 +54,7 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Fieldwork',
+    imageAlt: 'Magenta and lime fragments converging into a bold new brand direction',
     imageFilename: 'mock-from-brand-audit-to-bold-new-direction.webp',
     services: ['Brand audit', 'Identity', 'Campaign'],
     slug: 'bold-direction',
@@ -58,6 +64,7 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Loop',
+    imageAlt: 'Flowing pink and blue ribbons suggesting memorable interface motion',
     imageFilename: 'mock-how-motion-makes-digital-experiences-memorable.webp',
     services: ['Motion system', 'Interaction design', 'Art direction'],
     slug: 'motion-memory',

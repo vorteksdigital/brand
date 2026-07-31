@@ -6,7 +6,7 @@ if (process.env.VERCEL) {
     { sql },
     { createLocalReq, getPayload },
     migration,
-    { upsertMockProjects },
+    { ensureBundledProjectMedia, upsertMockProjects },
   ] =
     await Promise.all([
       import('@payload-config'),
@@ -60,6 +60,7 @@ if (process.env.VERCEL) {
     payload.logger.info('Applied Projects production migration.')
   }
 
+  await ensureBundledProjectMedia(payload)
   const count = await upsertMockProjects(payload)
   payload.logger.info(`Upserted ${count} production mock projects.`)
   await payload.destroy()
