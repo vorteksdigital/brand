@@ -1,0 +1,170 @@
+.post {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding: calc(5rem + 2rem) clamp(1.25rem, 5.291vw, 6rem) clamp(4rem, 8vw, 8rem);
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.articleGrid {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 70rem);
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  width: 100%;
+  max-width: none;
+  margin-block: clamp(3.5rem, 7vw, 6rem) 0;
+  margin-inline: 0;
+  scroll-margin-top: calc(5rem + 2rem);
+}
+
+.shareRail {
+  align-self: start;
+}
+
+.shareList {
+  position: sticky;
+  top: calc(var(--admin-bar-height, 0px) + 7rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shareLink {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--foreground);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  place-items: center;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.shareLink:hover {
+  color: var(--background);
+  background: var(--foreground);
+  transform: translateY(-0.125rem);
+}
+
+.shareLink:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0.2rem;
+}
+
+.contentColumn {
+  min-width: 0;
+}
+
+.richText {
+  color: var(--foreground);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.75;
+}
+
+.richText :global(p) {
+  margin: 0 0 1.5rem;
+}
+
+.richText :global(h2) {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.richText :global(h3) {
+  margin: 3rem 0 1rem;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.richText :global(h4) {
+  margin: 2.5rem 0 0.9rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.richText :global(ul),
+.richText :global(ol) {
+  margin: 0 0 1.5rem;
+  padding-left: 1.4rem;
+}
+
+.richText :global(a) {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.richText :global(blockquote) {
+  margin: 2.5rem 0;
+  padding-left: 1.5rem;
+  border-left: 1px solid currentColor;
+  font-size: 1.25rem;
+}
+
+.conclusion {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.conclusionLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.conclusionText {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.relatedPosts {
+  width: 100%;
+  max-width: none;
+  margin-block: clamp(4rem, 8vw, 7rem) 0;
+  margin-inline: 0;
+}
+
+@media (width <= 48rem) {
+  .articleGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .shareList {
+    position: static;
+    flex-direction: row;
+  }
+
+  .conclusion {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shareLink {
+    transition: none;
+  }
+}

@@ -8,8 +8,7 @@ export default function ComingSoonLayout({ children }: { children: React.ReactNo
   return (
     <html className={`${siteSans.variable} ${siteMono.variable}`} lang="en">
       <head>
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
       </head>
       <body>{children}</body>
     </html>

@@ -86,6 +86,20 @@
   }
 }
 
+.route-shell {
+  padding: calc(5rem + 2rem) clamp(1.25rem, 5.291vw, 6rem) 1.25rem;
+}
+
+.route-shell .container {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.route-shell > [data-low-impact-hero] {
+  margin-top: 0;
+}
+
 :root {
   color-scheme: light;
 
@@ -235,4 +249,14 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+body:has([data-not-found-page]) > header,
+body:has([data-not-found-page]) > footer,
+body:has([data-not-found-page]) > [data-header-theme-control] {
+  display: none;
+}
+
+body:has([data-projects-page]) > footer {
+  display: none;
 }

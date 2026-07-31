@@ -27,6 +27,11 @@ const getServerThemeSnapshot = (): Theme => defaultTheme
 
 const subscribeToTheme = (onStoreChange: () => void) => {
   const colorScheme = window.matchMedia('(prefers-color-scheme: dark)')
+  const documentTheme = document.documentElement.getAttribute('data-theme')
+
+  if (!themeIsValid(documentTheme)) {
+    document.documentElement.setAttribute('data-theme', getPreferredTheme())
+  }
 
   const syncPreferredTheme = () => {
     document.documentElement.setAttribute('data-theme', getPreferredTheme())

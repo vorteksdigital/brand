@@ -8,6 +8,7 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Projects } from './collections/Projects'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -78,7 +79,7 @@ export default buildConfig({
           defaultFromName: process.env.RESEND_FROM_NAME?.trim() || 'VRTKS Digital',
         })
       : undefined,
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Projects, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,

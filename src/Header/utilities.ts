@@ -53,7 +53,7 @@ export function formatSouthAfricaTime(date: Date = new Date()): string {
 }
 
 export function getLocationAndTime(date: Date = new Date()): string {
-  return `Boksburg, JHB ${formatSouthAfricaTime(date)}`
+  return `johannesburg ${formatSouthAfricaTime(date)}`
 }
 
 export function getNavHref(link: HeaderLink): string | null {

@@ -72,7 +72,10 @@ export default async function Page({ params: paramsPromise }: Args) {
   const isHomepage = decodedSlug === 'home'
 
   return (
-    <article className={isHomepage ? 'pb-24' : 'pt-16 pb-24'}>
+    <article
+      className={isHomepage ? 'pb-24' : 'route-shell'}
+      data-route-shell={isHomepage ? undefined : ''}
+    >
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

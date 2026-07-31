@@ -1,0 +1,328 @@
+.footer {
+  position: relative;
+  min-height: clamp(35rem, 55vw, 49rem);
+  margin: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  background: var(--background);
+  border-radius: 0;
+  isolation: isolate;
+}
+
+.glow {
+  position: absolute;
+  inset: 35% -12% -35%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 9% 80%, rgb(106 36 13 / 88%) 0 6%, transparent 27%),
+    radial-gradient(circle at 49% 77%, rgb(225 48 16 / 95%) 0 7%, transparent 29%),
+    radial-gradient(circle at 87% 79%, rgb(255 151 77 / 100%) 0 9%, transparent 32%),
+    linear-gradient(90deg, var(--background) 2%, #5d160d 48%, #e95021 100%);
+  filter: blur(2.25rem) saturate(1.15);
+  transform: scale(1.08);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  min-height: inherit;
+  padding: clamp(2rem, 4.5vw, 5rem) clamp(1.25rem, 5.291vw, 6rem) clamp(1rem, 2vw, 2rem);
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.85fr) minmax(16rem, 1.25fr) minmax(12rem, 0.75fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: start;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: rgb(255 255 255 / 52%);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.linkList,
+.socialList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.22rem;
+}
+
+.navLink,
+.contactLink,
+.telephone,
+.socialList a,
+.brand {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navLink {
+  display: inline-block;
+  font-size: clamp(1rem, 1.35vw, 1.3rem);
+  line-height: 1.22;
+  transition: opacity 180ms ease;
+}
+
+.navLink:hover,
+.socialList a:hover,
+.telephone:hover {
+  opacity: 0.55;
+}
+
+.contact {
+  justify-self: center;
+  width: min(100%, 27rem);
+}
+
+.contactLink {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  max-width: 100%;
+  font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+  line-height: 1.15;
+}
+
+.contactLink span {
+  overflow-wrap: anywhere;
+}
+
+.contactLink svg,
+.socialList svg {
+  flex: 0 0 auto;
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.telephone {
+  display: block;
+  width: fit-content;
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  transition: opacity 180ms ease;
+}
+
+.address {
+  max-width: 24rem;
+  margin: 0.75rem 0 0;
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  white-space: pre-line;
+}
+
+.studioCard {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0.8rem;
+  justify-self: end;
+  width: min(100%, 13rem);
+  padding: 0.9rem;
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 0.65rem;
+  backdrop-filter: blur(0.75rem);
+}
+
+.cardMark {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 50%;
+}
+
+.studioCard p,
+.studioCard span {
+  margin: 0;
+}
+
+.studioCard p {
+  font-size: 0.74rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.studioCard div > span {
+  display: block;
+  margin-top: 0.22rem;
+  color: rgb(255 255 255 / 52%);
+  font-size: 0.62rem;
+  line-height: 1.25;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: end;
+  margin-top: clamp(4.5rem, 10vw, 9rem);
+  color: rgb(255 255 255 / 56%);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.metaRow p {
+  margin: 0;
+}
+
+.descriptor {
+  text-align: center;
+}
+
+.origin {
+  text-align: right;
+}
+
+.socialList {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.socialList a {
+  display: inline-flex;
+  gap: 0.2rem;
+  align-items: center;
+  transition: opacity 180ms ease;
+}
+
+.brand {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  line-height: 0;
+}
+
+.brandImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+[data-theme='light'] .footer {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+[data-theme='light'] .glow {
+  background:
+    radial-gradient(circle at 9% 80%, rgb(226 188 151 / 92%) 0 7%, transparent 28%),
+    radial-gradient(circle at 49% 77%, rgb(247 131 72 / 88%) 0 8%, transparent 30%),
+    radial-gradient(circle at 87% 79%, rgb(255 198 125 / 100%) 0 10%, transparent 33%),
+    linear-gradient(90deg, var(--background) 2%, #efc1a0 48%, #ff9858 100%);
+}
+
+[data-theme='light'] .eyebrow,
+[data-theme='light'] .address,
+[data-theme='light'] .studioCard div > span,
+[data-theme='light'] .metaRow {
+  color: rgb(17 16 14 / 68%);
+}
+
+[data-theme='light'] .studioCard {
+  background: rgb(17 16 14 / 4%);
+  border-color: rgb(17 16 14 / 13%);
+}
+
+[data-theme='light'] .cardMark {
+  border-color: rgb(17 16 14 / 15%);
+}
+
+[data-theme='light'] .brandImage {
+  filter: invert(1);
+}
+
+[data-theme='light'] .navLink:focus-visible,
+[data-theme='light'] .contactLink:focus-visible,
+[data-theme='light'] .telephone:focus-visible,
+[data-theme='light'] .socialList a:focus-visible,
+[data-theme='light'] .brand:focus-visible {
+  outline-color: #11100e;
+}
+
+.navLink:focus-visible,
+.contactLink:focus-visible,
+.telephone:focus-visible,
+.socialList a:focus-visible,
+.brand:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 5px;
+}
+
+@media (width <= 48rem) {
+  .footer {
+    min-height: 47rem;
+  }
+
+  .glow {
+    inset: 50% -45% -22%;
+    background:
+      radial-gradient(circle at 16% 75%, rgb(137 40 12 / 90%) 0 8%, transparent 32%),
+      radial-gradient(circle at 76% 78%, rgb(255 120 56 / 100%) 0 12%, transparent 37%),
+      linear-gradient(135deg, var(--background) 16%, #54130c 62%, #e95725 100%);
+  }
+
+  [data-theme='light'] .glow {
+    background:
+      radial-gradient(circle at 16% 75%, rgb(230 184 143 / 94%) 0 9%, transparent 33%),
+      radial-gradient(circle at 76% 78%, rgb(255 159 94 / 96%) 0 13%, transparent 38%),
+      linear-gradient(135deg, var(--background) 16%, #efc2a2 62%, #ff9b5d 100%);
+  }
+
+  .inner {
+    padding: 2rem 1.25rem 1.1rem;
+  }
+
+  .topGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact {
+    justify-self: start;
+  }
+
+  .studioCard {
+    justify-self: start;
+  }
+
+  .metaRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 3.5rem;
+  }
+
+  .descriptor,
+  .socialList {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .origin {
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink,
+  .socialList a,
+  .telephone {
+    transition: none;
+  }
+}

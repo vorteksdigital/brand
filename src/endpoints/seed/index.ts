@@ -9,12 +9,14 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { createProjectData, projectSeeds } from './project-data'
 
 const collections: CollectionSlug[] = [
   'categories',
   'media',
   'pages',
   'posts',
+  'projects',
   'forms',
   'form-submissions',
   'search',
@@ -190,6 +192,25 @@ export const seed = async ({
       relatedPosts: [post1Doc.id, post2Doc.id],
     },
   })
+
+  payload.logger.info(`— Seeding projects...`)
+
+  const projectImages = [image1Doc.id, image2Doc.id, image3Doc.id]
+
+  for (const [sortOrder, project] of projectSeeds.entries()) {
+    await payload.create({
+      collection: 'projects',
+      depth: 0,
+      context: {
+        disableRevalidate: true,
+      },
+      data: createProjectData(
+        project,
+        projectImages[sortOrder % projectImages.length],
+        sortOrder,
+      ),
+    })
+  }
 
   payload.logger.info(`— Seeding contact form...`)
 

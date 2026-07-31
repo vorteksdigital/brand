@@ -40,18 +40,14 @@
   display: inline-flex;
   align-items: center;
   width: 8.75rem;
-  color: inherit;
-  font-size: 1.8rem;
-  font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: -0.075em;
+  min-height: 2rem;
   text-decoration: none;
 }
 
-.wordmarkText {
-  display: inline-block;
-  transform: scaleX(1.65);
-  transform-origin: left center;
+.wordmarkLogo {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .wordmark:focus-visible,
@@ -74,7 +70,8 @@
 }
 
 .desktopNav,
-.desktopTheme {
+.desktopTheme,
+.desktopThemeSpacer {
   display: none;
 }
 
@@ -83,6 +80,25 @@
   font-weight: 650;
   line-height: 1;
   text-transform: lowercase;
+}
+
+.desktopTheme {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 61;
+  pointer-events: auto;
+  visibility: hidden;
+  transform: translate3d(var(--theme-toggle-x, 0), var(--theme-toggle-y, 0), 0);
+}
+
+.desktopTheme[data-positioned='true'] {
+  visibility: visible;
+}
+
+.desktopThemeSpacer {
+  width: 2.603125rem;
+  height: 1.4875rem;
 }
 
 .desktopLink,
@@ -114,60 +130,110 @@
 .menuToggle {
   display: grid;
   place-content: center;
-  gap: 0.38rem;
   width: 2.5rem;
   height: 2.5rem;
   margin: -0.5rem;
 }
 
-.menuToggle span {
+.menuIcon,
+.closeIcon {
   display: block;
   width: 1.5rem;
-  height: 2px;
-  background: currentColor;
-  transition: transform 180ms ease;
+  height: 1.5rem;
 }
 
+/* Switch artwork adapted from Uiverse.io by juanpabl0svn. */
 .themeToggle {
-  display: inline-flex;
-  border-radius: 999px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+  font-size: 11.9px;
   cursor: pointer;
+  isolation: isolate;
+  mix-blend-mode: normal;
 }
 
 .themeToggle input {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 
 .themeTrack {
-  position: relative;
-  display: block;
-  width: 2.65rem;
-  height: 1.45rem;
-  border: 2px solid currentColor;
-  border-radius: 999px;
-}
+  --background: #20262c;
 
-.themeThumb {
   position: absolute;
-  top: 50%;
-  left: 0.2rem;
-  width: 0.8rem;
-  height: 0.8rem;
-  background: currentColor;
-  border-radius: 50%;
-  transform: translateY(-50%);
-  transition: transform 180ms ease;
+  inset: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #5494de;
+  border-radius: 30px;
+  transition: 0.5s;
 }
 
-.themeToggle input:checked + .themeTrack .themeThumb {
-  transform: translate(1.15rem, -50%);
+.themeTrack::before {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+  width: 1.4em;
+  height: 1.4em;
+  z-index: 1;
+  content: '';
+  background: var(--background);
+  border-radius: 50%;
+  box-shadow:
+    inset 15px -4px 0 15px #efdf2b,
+    0 0 10px 0 #efdf2b;
+  transform: translateX(100%);
+  transition: 0.5s;
+}
+
+.themeDecoration {
+  position: absolute;
+  top: 15%;
+  right: 20%;
+  width: 10px;
+  height: 10px;
+  content: '';
+  background: #fff;
+  border-radius: 50%;
+  box-shadow:
+    -12px 0 0 #fff,
+    -6px 0 0 1.6px #fff,
+    5px 15px 0 1px #fff,
+    1px 17px 0 #fff,
+    10px 17px 0 #fff;
+  backdrop-filter: blur(10px);
+  transform: translateX(-20px);
+  transition: all 0.5s;
+}
+
+.themeToggle input:checked + .themeTrack {
+  background-color: var(--background);
+}
+
+.themeToggle input:checked + .themeTrack::before {
+  background: var(--background);
+  box-shadow:
+    inset 8px -4px 0 0 #ececd9,
+    -4px 1px 4px 0 #dadada;
+  transform: none;
+}
+
+.themeToggle input:checked + .themeTrack .themeDecoration {
+  width: 2px;
+  height: 2px;
+  background: #e5f041e6;
+  box-shadow:
+    -7px 10px 0 #e5f041e6,
+    8px 15px 0 #e5f041e6,
+    -17px 1px 0 #e5f041e6,
+    -20px 10px 0 #e5f041e6,
+    -7px 23px 0 #e5f041e6,
+    -15px 25px 0 #e5f041e6;
+  transform: none;
 }
 
 .backdrop {
@@ -237,11 +303,12 @@
 
 .closeButton {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  padding: 0.4rem 0;
-  font-weight: 700;
-  text-transform: uppercase;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
 }
 
 .mobileNav {
@@ -270,7 +337,8 @@
 @media (width >= 64rem) {
   .location,
   .desktopNav,
-  .desktopTheme {
+  .desktopTheme,
+  .desktopThemeSpacer {
     display: block;
   }
 
@@ -284,8 +352,9 @@
 @media (prefers-reduced-motion: reduce) {
   .desktopLink,
   .mobileLink,
-  .menuToggle span,
-  .themeThumb,
+  .themeTrack,
+  .themeTrack::before,
+  .themeDecoration,
   .backdrop,
   .drawer {
     transition: none;

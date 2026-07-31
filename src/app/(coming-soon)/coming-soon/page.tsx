@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 
 import styles from './page.module.css'
 
@@ -17,7 +19,14 @@ export default function ComingSoonPage() {
     <main className={styles.page}>
       <header className={styles.masthead}>
         <Link aria-label="VRTKS Digital home" className={styles.wordmark} href="/">
-          VRTKS<span>/Digital</span>
+          <Image
+            alt=""
+            className={styles.wordmarkLogo}
+            height={65}
+            src="/logo-vrtks.svg"
+            unoptimized
+            width={500}
+          />
         </Link>
         <p className={styles.status}>
           <span aria-hidden="true" className={styles.statusDot} />
@@ -41,7 +50,7 @@ export default function ComingSoonPage() {
         </p>
         <a className={styles.contact} href="mailto:info@vorteksdigital.co.za">
           Start a project
-          <span aria-hidden="true">↗</span>
+          <ArrowUpRight aria-hidden="true" className={styles.contactIcon} strokeWidth={1.8} />
         </a>
       </footer>
     </main>

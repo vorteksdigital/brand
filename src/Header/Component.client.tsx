@@ -1,6 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
+import { Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -60,7 +62,7 @@ const ThemeToggle = ({ id }: { id: string }) => {
         type="checkbox"
       />
       <span aria-hidden="true" className={styles.themeTrack}>
-        <span className={styles.themeThumb} />
+        <span className={styles.themeDecoration} />
       </span>
     </label>
   )
@@ -71,9 +73,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [locationTime, setLocationTime] = useState(() => getLocationAndTime())
   const [menuOpen, setMenuOpen] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const desktopThemeRef = useRef<HTMLDivElement>(null)
+  const desktopThemeSlotRef = useRef<HTMLSpanElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
   const focusTimerRef = useRef<number | null>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const topBarRef = useRef<HTMLDivElement>(null)
   const configuredNavItems = data.navItems?.filter(
     (item) => Boolean(item.link.label) && Boolean(getNavHref(item.link)),
   )
@@ -96,6 +101,57 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     desktopViewport.addEventListener('change', closeAtDesktop)
 
     return () => desktopViewport.removeEventListener('change', closeAtDesktop)
+  }, [])
+
+  useEffect(() => {
+    const overlay = desktopThemeRef.current
+    const slot = desktopThemeSlotRef.current
+    const topBar = topBarRef.current
+
+    if (!overlay || !slot || !topBar) return
+
+    let positionFrame: number | null = null
+
+    const syncPosition = () => {
+      positionFrame = null
+      const bounds = slot.getBoundingClientRect()
+
+      if (bounds.width === 0 || bounds.height === 0) {
+        overlay.removeAttribute('data-positioned')
+        return
+      }
+
+      overlay.style.setProperty('--theme-toggle-x', `${bounds.left}px`)
+      overlay.style.setProperty('--theme-toggle-y', `${bounds.top}px`)
+      overlay.setAttribute('data-positioned', 'true')
+    }
+
+    const requestPosition = () => {
+      if (positionFrame !== null) window.cancelAnimationFrame(positionFrame)
+      positionFrame = window.requestAnimationFrame(syncPosition)
+    }
+
+    const resizeObserver = new ResizeObserver(requestPosition)
+    resizeObserver.observe(slot)
+    resizeObserver.observe(topBar)
+
+    const rootStyleObserver = new MutationObserver(requestPosition)
+    rootStyleObserver.observe(document.documentElement, {
+      attributeFilter: ['style'],
+      attributes: true,
+    })
+
+    window.addEventListener('resize', requestPosition)
+    window.visualViewport?.addEventListener('resize', requestPosition)
+    requestPosition()
+
+    return () => {
+      if (positionFrame !== null) window.cancelAnimationFrame(positionFrame)
+      resizeObserver.disconnect()
+      rootStyleObserver.disconnect()
+      window.removeEventListener('resize', requestPosition)
+      window.visualViewport?.removeEventListener('resize', requestPosition)
+    }
   }, [])
 
   useEffect(() => {
@@ -159,102 +215,117 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }
 
   return (
-    <header className={styles.header} data-menu-open={menuOpen}>
-      <div className={styles.topBar}>
-        <div className={styles.leftGroup}>
-          <Link
-            aria-label="VRTKS Digital home"
-            className={styles.wordmark}
-            href="/"
-            onClick={closeMenu}
-          >
-            <span className={styles.wordmarkText}>VRTKS</span>
-          </Link>
+    <>
+      <header className={styles.header} data-menu-open={menuOpen}>
+        <div className={styles.topBar} ref={topBarRef}>
+          <div className={styles.leftGroup}>
+            <Link
+              aria-label="VRTKS Digital home"
+              className={styles.wordmark}
+              href="/"
+              onClick={closeMenu}
+            >
+              <Image
+                alt=""
+                className={styles.wordmarkLogo}
+                height={65}
+                src="/logo-vrtks.svg"
+                unoptimized
+                width={500}
+              />
+            </Link>
 
-          <p className={styles.location} suppressHydrationWarning>
-            {locationTime}
-          </p>
-        </div>
-
-        <div className={styles.rightGroup}>
-          <nav aria-label="Primary navigation" className={styles.desktopNav}>
-            {navItems.map((item, index) => (
-              <React.Fragment key={item.id ?? `${item.link.label}-${index}`}>
-                <HeaderLink
-                  className={styles.desktopLink}
-                  item={item}
-                  pathname={pathname}
-                />
-                {index < navItems.length - 1 && <span aria-hidden="true">, </span>}
-              </React.Fragment>
-            ))}
-          </nav>
-
-          <div className={styles.desktopTheme}>
-            <ThemeToggle id="header-theme" />
+            <p className={styles.location} suppressHydrationWarning>
+              {locationTime}
+            </p>
           </div>
 
-          <button
-            aria-controls="mobile-navigation"
-            aria-expanded={menuOpen}
-            aria-label="Open menu"
-            className={styles.menuToggle}
-            onClick={openMenu}
-            ref={menuButtonRef}
-            type="button"
-          >
-            <span />
-            <span />
-          </button>
-        </div>
-      </div>
+          <div className={styles.rightGroup}>
+            <nav aria-label="Primary navigation" className={styles.desktopNav}>
+              {navItems.map((item, index) => (
+                <React.Fragment key={item.id ?? `${item.link.label}-${index}`}>
+                  <HeaderLink
+                    className={styles.desktopLink}
+                    item={item}
+                    pathname={pathname}
+                  />
+                  {index < navItems.length - 1 && <span aria-hidden="true">, </span>}
+                </React.Fragment>
+              ))}
+            </nav>
 
-      <button
-        aria-label="Close menu"
-        className={styles.backdrop}
-        disabled={!menuOpen}
-        onClick={closeMenu}
-        tabIndex={menuOpen ? 0 : -1}
-        type="button"
-      />
-
-      <div
-        aria-hidden={!menuOpen}
-        aria-label="Mobile navigation"
-        aria-modal="true"
-        className={styles.drawer}
-        id="mobile-navigation"
-        inert={!menuOpen}
-        ref={drawerRef}
-        role="dialog"
-      >
-        <div className={styles.drawerHeader}>
-          <button
-            aria-label="Close menu"
-            className={styles.closeButton}
-            onClick={closeMenu}
-            ref={closeButtonRef}
-            type="button"
-          >
-            Close
-          </button>
-        </div>
-
-        <nav aria-label="Mobile primary navigation" className={styles.mobileNav}>
-          {navItems.map((item, index) => (
-            <HeaderLink
-              className={styles.mobileLink}
-              item={item}
-              key={item.id ?? `${item.link.label}-${index}`}
-              onNavigate={closeMenu}
-              pathname={pathname}
+            <span
+              aria-hidden="true"
+              className={styles.desktopThemeSpacer}
+              data-theme-toggle-slot
+              ref={desktopThemeSlotRef}
             />
-          ))}
-          <div className={styles.mobileTheme}>
-            <ThemeToggle id="mobile-header-theme" />
+
+            <button
+              aria-controls="mobile-navigation"
+              aria-expanded={menuOpen}
+              aria-label="Open menu"
+              className={styles.menuToggle}
+              onClick={openMenu}
+              ref={menuButtonRef}
+              type="button"
+            >
+              <Menu aria-hidden="true" className={styles.menuIcon} strokeWidth={1.8} />
+            </button>
           </div>
-        </nav>
+        </div>
+
+        <button
+          aria-label="Close menu"
+          className={styles.backdrop}
+          disabled={!menuOpen}
+          onClick={closeMenu}
+          tabIndex={menuOpen ? 0 : -1}
+          type="button"
+        />
+
+        <div
+          aria-hidden={!menuOpen}
+          aria-label="Mobile navigation"
+          aria-modal="true"
+          className={styles.drawer}
+          id="mobile-navigation"
+          inert={!menuOpen}
+          ref={drawerRef}
+          role="dialog"
+        >
+          <div className={styles.drawerHeader}>
+            <button
+              aria-label="Close menu"
+              className={styles.closeButton}
+              onClick={closeMenu}
+              ref={closeButtonRef}
+              type="button"
+            >
+              <X aria-hidden="true" className={styles.closeIcon} strokeWidth={1.8} />
+            </button>
+          </div>
+
+          <nav aria-label="Mobile primary navigation" className={styles.mobileNav}>
+            {navItems.map((item, index) => (
+              <HeaderLink
+                className={styles.mobileLink}
+                item={item}
+                key={item.id ?? `${item.link.label}-${index}`}
+                onNavigate={closeMenu}
+                pathname={pathname}
+              />
+            ))}
+            <div className={styles.mobileTheme}>
+              <ThemeToggle id="mobile-header-theme" />
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <div className={styles.desktopTheme} data-header-theme-control ref={desktopThemeRef}>
+        <ThemeToggle id="header-theme" />
       </div>
-    </header>
+    </>
   )
 }

@@ -1,31 +1,120 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
-import Link from 'next/link'
-import React from 'react'
+import type { Footer as FooterData } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
-import { Logo } from '@/components/Logo/Logo'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import styles from './footer.module.css'
+
+const defaultNavItems: NonNullable<FooterData['navItems']> = [
+  { link: { label: 'home', type: 'custom', url: '/' } },
+  { link: { label: 'projects', type: 'custom', url: '/projects' } },
+  { link: { label: 'about', type: 'custom', url: '/about' } },
+  { link: { label: 'blogs', type: 'custom', url: '/blogs' } },
+  { link: { label: 'contact', type: 'custom', url: '/contact' } },
+]
 
 export async function Footer() {
-  const footerData = await getCachedGlobal('footer', 1)()
+  const [footerData, siteSettings] = await Promise.all([
+    getCachedGlobal('footer', 1)(),
+    getCachedGlobal('site-settings', 0)(),
+  ])
 
-  const navItems = footerData?.navItems || []
+  const navItems = footerData.navItems?.length ? footerData.navItems : defaultNavItems
+  const organisation = siteSettings.organisation
+  const studioName = organisation?.name || siteSettings.siteName || 'VRTKS Digital'
+  const email = organisation?.email || 'info@vorteksdigital.co.za'
+  const address = organisation?.address || 'Johannesburg, South Africa'
+  const socialProfiles = siteSettings.socialProfiles || []
+  const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
+    <footer className={styles.footer}>
+      <div aria-hidden="true" className={styles.glow} />
 
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
+      <div className={styles.inner}>
+        <div className={styles.topGrid}>
+          <nav aria-label="Footer navigation" className={styles.nav}>
+            <p className={styles.eyebrow}>Explore</p>
+            <ul className={styles.linkList}>
+              {navItems.map(({ link }, index) => (
+                <li key={`${link.label}-${index}`}>
+                  <CMSLink className={styles.navLink} {...link} />
+                </li>
+              ))}
+            </ul>
           </nav>
+
+          <div className={styles.contact}>
+            <p className={styles.eyebrow}>Start a conversation</p>
+            <a className={styles.contactLink} href={`mailto:${email}`}>
+              <span>{email}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            {organisation?.telephone && (
+              <a className={styles.telephone} href={`tel:${organisation.telephone}`}>
+                {organisation.telephone}
+              </a>
+            )}
+            <p className={styles.address}>{address}</p>
+          </div>
+
+          <div className={styles.studioCard}>
+            <Image
+              alt=""
+              className={styles.cardMark}
+              height={512}
+              src="/favicon.svg"
+              unoptimized
+              width={512}
+            />
+            <div>
+              <p>{studioName}</p>
+              <span>Independent digital studio</span>
+              <span>JHB · ZA</span>
+            </div>
+          </div>
         </div>
+
+        <div className={styles.metaRow}>
+          <p>
+            ©{year} {studioName}.
+            <br />
+            All rights reserved.
+          </p>
+
+          {socialProfiles.length > 0 ? (
+            <nav aria-label="Social links">
+              <ul className={styles.socialList}>
+                {socialProfiles.map((profile) => (
+                  <li key={profile.id || profile.url}>
+                    <a href={profile.url} rel="noopener noreferrer" target="_blank">
+                      <span>{profile.label}</span>
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ) : (
+            <p className={styles.descriptor}>Design, development &amp; digital experiences</p>
+          )}
+
+          <p className={styles.origin}>Made in Johannesburg</p>
+        </div>
+
+        <Link aria-label="VRTKS Digital home" className={styles.brand} href="/">
+          <Image
+            alt="VRTKS"
+            className={styles.brandImage}
+            height={65}
+            src="/logo-vrtks.svg"
+            unoptimized
+            width={500}
+          />
+        </Link>
       </div>
     </footer>
   )

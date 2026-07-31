@@ -16,6 +16,9 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { JsonLd } from '@/components/JsonLd'
 import { getServerSideURL } from '@/utilities/getURL'
+import { Facebook, Linkedin, Twitter } from 'lucide-react'
+
+import styles from './post.module.css'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -57,7 +60,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   const authors = post.populatedAuthors?.map((author) => author.name).filter(Boolean) ?? []
 
   return (
-    <article className="pt-16 pb-16">
+    <article className={styles.post}>
       <JsonLd
         data={{
           '@context': 'https://schema.org',
@@ -96,12 +99,61 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <PostHero post={post} />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+      <div className={styles.articleGrid} id="article-content">
+        <aside aria-label="Share this article" className={styles.shareRail}>
+          <ul className={styles.shareList}>
+            <li>
+              <a
+                aria-label="Share on LinkedIn"
+                className={styles.shareLink}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Linkedin aria-hidden="true" size={13} strokeWidth={1.8} />
+              </a>
+            </li>
+            <li>
+              <a
+                aria-label="Share on X"
+                className={styles.shareLink}
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(canonical)}&text=${encodeURIComponent(post.title)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Twitter aria-hidden="true" size={13} strokeWidth={1.8} />
+              </a>
+            </li>
+            <li>
+              <a
+                aria-label="Share on Facebook"
+                className={styles.shareLink}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Facebook aria-hidden="true" size={13} strokeWidth={1.8} />
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <div className={styles.contentColumn}>
+          <RichText
+            className={styles.richText}
+            data={post.content}
+            enableGutter={false}
+            enableProse={false}
+          />
+
+          <aside className={styles.conclusion}>
+            <span className={styles.conclusionLabel}>Conclusion</span>
+            <p className={styles.conclusionText}>{post.excerpt}</p>
+          </aside>
+
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
+              className={styles.relatedPosts}
               docs={post.relatedPosts.filter((post) => typeof post === 'object')}
             />
           )}

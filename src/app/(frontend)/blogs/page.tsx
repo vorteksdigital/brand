@@ -63,7 +63,7 @@ export default async function BlogsPage() {
   }))
 
   return (
-    <div className="pt-16 pb-24">
+    <div className="route-shell" data-route-shell>
       <LowImpactHero>
         <div className="payload-richtext mx-auto prose md:prose-md dark:prose-invert max-w-none">
           <h1 className="mb-[0.25em]" id="blogs-title">

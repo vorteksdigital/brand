@@ -1,0 +1,86 @@
+import type { Metadata } from 'next'
+
+import configPromise from '@payload-config'
+import Image from 'next/image'
+import { getPayload } from 'payload'
+
+import { LowImpactHero } from '@/heros/LowImpact'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
+
+import { InfiniteProjectRail } from './InfiniteProjectRail.client'
+import styles from './projects.module.css'
+
+export const revalidate = 600
+
+export default async function ProjectsPage() {
+  const payload = await getPayload({ config: configPromise })
+  const result = await payload.find({
+    collection: 'projects',
+    depth: 1,
+    limit: 100,
+    overrideAccess: false,
+    pagination: false,
+    sort: 'sortOrder',
+  })
+
+  return (
+    <div className={`route-shell ${styles.page}`} data-projects-page data-route-shell>
+      <LowImpactHero>
+        <div className="payload-richtext mx-auto prose md:prose-md dark:prose-invert max-w-none">
+          <h1 className="mb-[0.25em]">Projects</h1>
+        </div>
+      </LowImpactHero>
+
+      <section aria-label="Selected projects" className={styles.projectSection}>
+        <InfiniteProjectRail>
+          {result.docs.map((project, index) => {
+            const image =
+              project.featuredImage && typeof project.featuredImage === 'object'
+                ? project.featuredImage
+                : null
+            const imageSource = image?.url ? getMediaUrl(image.url, image.updatedAt) : null
+
+            return (
+              <article className={styles.card} key={project.id}>
+                <div className={styles.imageFrame}>
+                  {imageSource ? (
+                    <Image
+                      alt={image?.alt || `${project.title} for ${project.client}`}
+                      className={styles.image}
+                      fill
+                      priority={index < 3}
+                      sizes="(max-width: 48rem) 82vw, 28.2vw"
+                      src={imageSource}
+                    />
+                  ) : (
+                    <div aria-hidden="true" className={styles.imageFallback} />
+                  )}
+                </div>
+
+                <h2 className={styles.title}>
+                  {project.title} {project.year}
+                  <span>({project.client})</span>
+                </h2>
+              </article>
+            )
+          })}
+        </InfiniteProjectRail>
+
+        <div className={styles.scrollMeta}>
+          <p>Clients — 2024/2026</p>
+          <p aria-hidden="true">(Scroll)</p>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export function generateMetadata(): Metadata {
+  return {
+    alternates: {
+      canonical: '/projects',
+    },
+    description: 'Selected digital work from VRTKS Digital.',
+    title: 'Projects | VRTKS Digital',
+  }
+}

@@ -1,0 +1,374 @@
+.page {
+  overflow: hidden;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.opening {
+  padding-top: clamp(2rem, 5vw, 5rem);
+}
+
+.displayTitle {
+  font-size: clamp(3.6rem, 8.7vw, 10rem);
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+}
+
+.displayTitle > span {
+  display: block;
+  width: fit-content;
+}
+
+.displayTitle > span:last-child {
+  display: flex;
+  gap: 0.08em;
+  align-items: flex-end;
+}
+
+.displayTitle img {
+  width: 0.62em;
+  height: 0.62em;
+  margin-bottom: 0.04em;
+}
+
+.openingMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: end;
+  margin-top: clamp(3.5rem, 8vw, 8rem);
+  font-size: clamp(0.9rem, 1.15vw, 1.15rem);
+}
+
+.openingMeta p {
+  max-width: 26rem;
+  margin: 0;
+  font-size: clamp(1.1rem, 1.6vw, 1.55rem);
+  line-height: 1.12;
+}
+
+.showcase {
+  margin-top: clamp(3rem, 6vw, 6rem);
+  margin-inline: calc(clamp(1.25rem, 5.291vw, 6rem) * -1);
+  overflow: hidden;
+}
+
+.showcaseTrack {
+  display: flex;
+  gap: 0.35rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.showcaseImage {
+  position: relative;
+  flex: 0 0 clamp(18rem, 31vw, 35rem);
+  width: clamp(18rem, 31vw, 35rem);
+  min-height: clamp(14rem, 27vw, 29rem);
+  overflow: hidden;
+}
+
+.showcaseImage img,
+.principlesImage img,
+.closingImage img {
+  object-fit: cover;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 0.55fr 1.3fr 1.15fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  padding-block: clamp(7rem, 13vw, 15rem);
+}
+
+.intro > svg,
+.statement > svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  stroke-width: 2.25;
+}
+
+.intro h2,
+.statement p,
+.closing h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 3.5rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.introCopy {
+  max-width: 37rem;
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  line-height: 1.45;
+}
+
+.introCopy p {
+  margin: 0 0 1.35rem;
+}
+
+.introCopy p:first-child {
+  font-weight: 650;
+}
+
+.sectionLabels {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 2rem;
+  margin-bottom: clamp(4rem, 8vw, 8rem);
+  font-size: clamp(0.72rem, 0.75vw, 0.82rem);
+  font-weight: 600;
+}
+
+.sectionLabels span:last-child {
+  text-align: right;
+}
+
+.manifesto h2 {
+  margin: 0;
+  font-size: clamp(3rem, 8.2vw, 9.5rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.075em;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 7vw, 8rem);
+  align-items: center;
+  padding-block: clamp(8rem, 15vw, 17rem);
+}
+
+.principlesImage {
+  position: relative;
+  min-height: clamp(28rem, 50vw, 52rem);
+  overflow: hidden;
+  background: #050505;
+  border-radius: 0.35rem;
+}
+
+.principlesCopy h2 {
+  margin: 0 0 clamp(3rem, 5vw, 5.5rem);
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+.principlesCopy ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.principlesCopy li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.5rem;
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+.principlesCopy li > span {
+  padding-top: 0.15rem;
+  font-size: 0.8rem;
+}
+
+.principlesCopy h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  font-weight: 650;
+}
+
+.principlesCopy p {
+  max-width: 32rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  line-height: 1.45;
+}
+
+.statement {
+  display: grid;
+  grid-template-columns: 0.55fr 2.45fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+  padding-bottom: clamp(7rem, 13vw, 14rem);
+}
+
+.statement p {
+  max-width: 60rem;
+}
+
+.clientsHeading {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+.clientsHeading h2 {
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 10rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+}
+
+.clientsHeading span {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.clients ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  list-style: none;
+}
+
+.clients li {
+  display: grid;
+  min-height: clamp(8rem, 14vw, 14rem);
+  place-items: center;
+  padding: 1.25rem;
+  border-right: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  font-size: clamp(1rem, 1.55vw, 1.6rem);
+  font-weight: 650;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+.closing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 8vw, 10rem);
+  align-items: center;
+  padding-block: clamp(10rem, 17vw, 19rem) clamp(5rem, 8vw, 8rem);
+}
+
+.closingImage {
+  position: relative;
+  min-height: clamp(24rem, 46vw, 48rem);
+  overflow: hidden;
+  background: #050505;
+  border-radius: 0.35rem;
+}
+
+.closingCopy h2 {
+  max-width: 42rem;
+}
+
+.closingCopy a {
+  display: inline-block;
+  padding-block: 0.35rem;
+  margin-top: 2rem;
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+@media (width <= 48rem) {
+  .displayTitle {
+    font-size: clamp(3.25rem, 15vw, 6rem);
+  }
+
+  .openingMeta {
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .openingMeta p {
+    max-width: 18rem;
+  }
+
+  .showcase {
+    margin-inline: -1.25rem;
+  }
+
+  .showcaseImage {
+    flex-basis: 72vw;
+    width: 72vw;
+    min-height: 72vw;
+  }
+
+  .intro,
+  .principles,
+  .statement,
+  .closing {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    gap: 2.25rem;
+    padding-block: 7rem;
+  }
+
+  .introCopy {
+    padding-left: 3.5rem;
+  }
+
+  .sectionLabels {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 3rem;
+  }
+
+  .sectionLabels span:nth-child(2) {
+    display: none;
+  }
+
+  .manifesto h2 {
+    font-size: clamp(2.8rem, 13.5vw, 5.5rem);
+  }
+
+  .principles {
+    gap: 4rem;
+    padding-block: 8rem;
+  }
+
+  .principlesImage,
+  .closingImage {
+    min-height: 100vw;
+  }
+
+  .statement {
+    gap: 2rem;
+    padding-bottom: 8rem;
+  }
+
+  .clientsHeading {
+    align-items: end;
+    margin-bottom: 2.5rem;
+  }
+
+  .clientsHeading h2 {
+    font-size: 16vw;
+  }
+
+  .clients ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .clients li {
+    min-height: 7rem;
+  }
+
+  .closing {
+    gap: 3rem;
+    padding-block: 8rem 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcaseTrack {
+    transform: none !important;
+    will-change: auto;
+  }
+}
