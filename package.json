@@ -29,6 +29,7 @@
     "payload:generate-importmap": "pnpm generate:importmap",
     "payload:migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "payload:migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
+    "prebuild": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/migrate-projects-production.ts",
     "audit": "pnpm audit --prod --audit-level high",
     "audit:all": "pnpm audit --audit-level high",
     "verify": "pnpm payload:generate-types && pnpm payload:generate-importmap && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
