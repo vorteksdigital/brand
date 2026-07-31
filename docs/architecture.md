@@ -18,6 +18,14 @@ hostnames require the project's Vercel protection access. Admin, API, preview
 infrastructure, Next.js internals, and public files bypass the gate. Remove the
 proxy and standalone route group when the full site launches.
 
+The fixed public header remains backed by Payload's `header` global and uses the
+supplied projects/about/contact links only while that global is empty. Its client
+boundary owns the Cape Town clock, persisted light/dark switch, active-route
+state, and responsive off-canvas menu. The closed header uses difference blending
+for contrast over changing page media. The mobile dialog locks document scroll,
+traps keyboard focus, closes with Escape or a desktop breakpoint change, and
+returns focus to its trigger.
+
 The root page keeps its Payload-authored block layout but replaces the generic
 CMS hero renderer with `src/heros/HomeHero`. That client component owns the
 homepage-only GSAP scroll sequence and Three.js fluid canvas; other pages

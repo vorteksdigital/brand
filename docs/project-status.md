@@ -27,3 +27,9 @@ The custom production domain currently presents a noindex standalone coming-soon
 page. The complete site remains available on its protected Vercel deployment
 URL for private review, while Admin, APIs, preview endpoints, and static files
 stay reachable on the custom domain.
+
+The full-site review build now uses the supplied VRTKS header design: fixed
+difference-blend branding, Cape Town time, Payload-configurable navigation with
+reference defaults, persisted theme switching, and an accessible off-canvas
+mobile menu. The temporary `delete-once-implemented` source path was removed
+after the typed implementation and tests replaced it.

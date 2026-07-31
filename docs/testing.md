@@ -11,3 +11,6 @@ Set `DATABASE_URL` to an isolated disposable database for integration/browser
 tests. Install browsers once with `pnpm exec playwright install chromium`.
 Manual release checks remain: keyboard, 200%/400% zoom, screen reader, draft
 preview Page/Post edits, viewport widths, publish/unpublish, and migration restore.
+
+Frontend browser coverage includes the responsive header drawer, focus return,
+scroll locking, theme switching, and mobile-to-desktop cleanup.

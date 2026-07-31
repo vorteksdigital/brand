@@ -223,3 +223,24 @@ production build was not started because it would share Next's output directory
 with that process; the Vercel production build supplies the production compile
 check for this release. The stable Vercel production alias redirects to the
 custom domain; use the protected deployment URL to review the full site.
+
+### Supplied header integration
+
+| Command | Result | Notes |
+|---|---|---|
+| Initial `pnpm lint` | Expected failure | The untracked reference JSX violated current React effect rules; it was removed after its behavior was ported |
+| Remove `delete-once-implemented` | Pass | All three supplied reference files and the now-empty directory were deleted after implementation |
+| `pnpm lint` | Pass | Typed header component and scoped CSS are lint-clean |
+| `pnpm typecheck` | Pass | Payload navigation, dialog refs, timers, and theme integration pass strict TypeScript |
+| `pnpm test:unit` | Pass | 19 tests, including Cape Town time, reference URLs, and active-route behavior |
+| Temporary isolated development server | Pass with fallback | Turbopack rejected the intentionally external `node_modules` symlink; the temporary copy ran with webpack on port 3100 without touching the active port-3000 process |
+| Desktop/mobile Playwright review | Pass | Fixed blended desktop header, full-width mobile drawer, 390×844 reflow, theme persistence, Escape/focus return, scroll lock, and breakpoint cleanup verified |
+| Closed/open drawer Axe audit | Pass | 0 WCAG A/AA violations in either mobile state |
+| Initial focused header E2E runs | Failed, fixed | Chromium returned focus to the click target after an immediate focus request; a guarded delayed request made focus placement deterministic |
+| Final frontend E2E | Pass | 3 Chromium tests cover homepage rendering and both responsive header flows |
+| `CI=1 pnpm test:e2e` | Pass | 8 serialized Chromium tests, including Admin, frontend, Axe, and responsive header coverage |
+| `git diff --check` | Pass | No whitespace errors |
+
+The isolated test copy and its copied environment files were deleted after use.
+Generated Playwright reports were preserved under `/tmp`. The original active
+development server on port 3000 remains running.
