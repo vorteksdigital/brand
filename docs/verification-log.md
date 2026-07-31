@@ -240,6 +240,9 @@ custom domain; use the protected deployment URL to review the full site.
 | Final frontend E2E | Pass | 3 Chromium tests cover homepage rendering and both responsive header flows |
 | `CI=1 pnpm test:e2e` | Pass | 8 serialized Chromium tests, including Admin, frontend, Axe, and responsive header coverage |
 | `git diff --check` | Pass | No whitespace errors |
+| `git push origin development` | Pass | Header commit `60bb4f0` pushed to GitHub |
+| `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_BnehymkxV9J3srf8egxhPAi9pUXN` compiled, typechecked, generated 14 routes, and reached `READY` |
+| Production route checks | Pass | Custom domain and `www` retain the noindex coming-soon page; Admin and API return 200; authenticated deployment hostname contains the new VRTKS header |
 
 The isolated test copy and its copied environment files were deleted after use.
 Generated Playwright reports were preserved under `/tmp`. The original active
