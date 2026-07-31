@@ -9,5 +9,7 @@ node_modules
 playwright-report
 playwright/.cache
 public/media
+public/robots.txt
+public/sitemap*.xml
 supabase/.temp
 test-results
