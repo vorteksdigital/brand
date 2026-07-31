@@ -12,7 +12,7 @@ describe('header utilities', () => {
     const winterNoon = new Date('2026-07-31T10:05:00.000Z')
 
     expect(formatCapeTownTime(winterNoon)).toBe('12:05 pm')
-    expect(getLocationAndTime(winterNoon)).toBe('CPT, SOUTH AFRICA 12:05 pm')
+    expect(getLocationAndTime(winterNoon)).toBe('cpt, south africa 12:05 pm')
   })
 
   it('resolves custom and populated reference links', () => {

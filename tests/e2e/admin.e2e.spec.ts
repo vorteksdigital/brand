@@ -38,4 +38,24 @@ test.describe('Admin Panel', () => {
     const editViewArtifact = page.locator('input[name="title"]')
     await expect(editViewArtifact).toBeVisible()
   })
+
+  test('authenticated Admin bar pushes the public layout down', async () => {
+    await page.goto('http://localhost:3000')
+
+    const adminBar = page.locator('.admin-bar')
+    await expect(adminBar).toBeVisible()
+
+    const adminBarBox = await adminBar.boundingBox()
+    const headerBox = await page.locator('header').boundingBox()
+    const mainBox = await page.locator('main').boundingBox()
+
+    expect(adminBarBox).not.toBeNull()
+    expect(headerBox).not.toBeNull()
+    expect(mainBox).not.toBeNull()
+
+    if (!adminBarBox || !headerBox || !mainBox) return
+
+    expect(headerBox.y).toBeCloseTo(adminBarBox.height, 0)
+    expect(mainBox.y).toBeCloseTo(adminBarBox.height, 0)
+  })
 })

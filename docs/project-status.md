@@ -33,3 +33,9 @@ difference-blend branding, Cape Town time, Payload-configurable navigation with
 reference defaults, persisted theme switching, and an accessible off-canvas
 mobile menu. The temporary `delete-once-implemented` source path was removed
 after the typed implementation and tests replaced it.
+
+The supplied header proportions were subsequently restored more literally:
+140px VRTKS mark, 20px desktop location/navigation, original location casing,
+and 32px top-aligned mobile links. Theme-toggle outlines now appear for keyboard
+focus only. The Payload Admin bar reserves no logged-out space and pushes both
+the fixed header and public content down by its measured height when logged in.

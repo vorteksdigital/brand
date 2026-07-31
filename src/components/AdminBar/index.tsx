@@ -2,10 +2,9 @@
 
 import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 
-import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import './index.scss'
@@ -37,6 +36,7 @@ export const AdminBar: React.FC<{
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
+  const barRef = useRef<HTMLDivElement>(null)
   const collection = (
     collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
   ) as keyof typeof collectionLabels
@@ -46,12 +46,36 @@ export const AdminBar: React.FC<{
     setShow(Boolean(user?.id))
   }, [])
 
+  useEffect(() => {
+    const root = document.documentElement
+    const bar = barRef.current
+
+    if (!show || !bar) {
+      root.style.removeProperty('--admin-bar-height')
+      return
+    }
+
+    const syncHeight = () => {
+      root.style.setProperty('--admin-bar-height', `${bar.getBoundingClientRect().height}px`)
+    }
+
+    syncHeight()
+
+    const resizeObserver = new ResizeObserver(syncHeight)
+    resizeObserver.observe(bar)
+
+    return () => {
+      resizeObserver.disconnect()
+      root.style.removeProperty('--admin-bar-height')
+    }
+  }, [show])
+
   return (
     <div
-      className={cn(baseClass, 'py-2 bg-black text-white', {
-        block: show,
-        hidden: !show,
-      })}
+      className={`${baseClass} py-2 bg-black text-white`}
+      data-authenticated={show}
+      hidden={!show}
+      ref={barRef}
     >
       <div className="container">
         <PayloadAdminBar

@@ -26,6 +26,14 @@ for contrast over changing page media. The mobile dialog locks document scroll,
 traps keyboard focus, closes with Escape or a desktop breakpoint change, and
 returns focus to its trigger.
 
+The Payload Admin bar stays mounted while it checks the session but its wrapper
+uses the native `hidden` state until authentication succeeds, so logged-out
+requests reserve no layout space. When authenticated, the bar participates in
+normal document flow and a `ResizeObserver` publishes its measured height as a
+root CSS property. The fixed public header consumes that property as its top
+offset, keeping the Admin bar, header, and page content in separate vertical
+bands.
+
 The root page keeps its Payload-authored block layout but replaces the generic
 CMS hero renderer with `src/heros/HomeHero`. That client component owns the
 homepage-only GSAP scroll sequence and Three.js fluid canvas; other pages

@@ -4,8 +4,14 @@ test.describe('Frontend', () => {
   test('can load homepage', async ({ page }) => {
     await page.goto('http://localhost:3000')
     await expect(page).toHaveTitle(/VRTKS Digital/)
+    await expect(page.locator('.admin-bar')).toBeHidden()
     const heading = page.locator('h1').first()
     await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
+
+    const headerBox = await page.locator('header').boundingBox()
+    const mainBox = await page.locator('main').boundingBox()
+    expect(headerBox?.y).toBe(0)
+    expect(mainBox?.y).toBe(0)
   })
 
   test('mobile header menu manages focus, scrolling, and theme', async ({ page }) => {
@@ -22,11 +28,14 @@ test.describe('Frontend', () => {
 
     await page.keyboard.press('Shift+Tab')
     await expect(page.locator('#mobile-header-theme')).toBeFocused()
+    const toggleTrack = page.locator('label[for="mobile-header-theme"] > span[aria-hidden="true"]')
+    await expect.poll(() => toggleTrack.evaluate((element) => getComputedStyle(element).outlineStyle)).toBe('solid')
     await page.keyboard.press('Tab')
     await expect(page.getByRole('button', { name: 'Close menu', exact: true }).last()).toBeFocused()
 
     await page.locator('label[for="mobile-header-theme"]').click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    await expect.poll(() => toggleTrack.evaluate((element) => getComputedStyle(element).outlineStyle)).toBe('none')
 
     await page.keyboard.press('Escape')
     await expect(menuButton).toHaveAttribute('aria-expanded', 'false')

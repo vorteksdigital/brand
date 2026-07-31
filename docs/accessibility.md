@@ -13,3 +13,5 @@ The mobile header exposes an explicitly named modal navigation dialog. Opening
 it moves focus to Close and locks background scrolling; Tab stays within the
 drawer, Escape closes it, and focus returns to the menu trigger. Its automated
 browser coverage also verifies cleanup when a mobile viewport becomes desktop.
+The theme switch does not retain a pointer-click outline; its visible focus ring
+is limited to `:focus-visible` keyboard navigation.

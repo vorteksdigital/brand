@@ -46,7 +46,7 @@ export function formatCapeTownTime(date: Date = new Date()): string {
 }
 
 export function getLocationAndTime(date: Date = new Date()): string {
-  return `CPT, SOUTH AFRICA ${formatCapeTownTime(date)}`
+  return `cpt, south africa ${formatCapeTownTime(date)}`
 }
 
 export function getNavHref(link: HeaderLink): string | null {

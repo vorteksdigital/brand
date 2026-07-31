@@ -168,7 +168,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             href="/"
             onClick={closeMenu}
           >
-            VRTKS
+            <span className={styles.wordmarkText}>VRTKS</span>
           </Link>
 
           <p className={styles.location} suppressHydrationWarning>
@@ -250,15 +250,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               pathname={pathname}
             />
           ))}
-        </nav>
-
-        <div className={styles.drawerFooter}>
-          <p suppressHydrationWarning>{locationTime}</p>
           <div className={styles.mobileTheme}>
-            <span>Dark mode</span>
             <ThemeToggle id="mobile-header-theme" />
           </div>
-        </div>
+        </nav>
       </div>
     </header>
   )

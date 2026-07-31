@@ -247,3 +247,19 @@ custom domain; use the protected deployment URL to review the full site.
 The isolated test copy and its copied environment files were deleted after use.
 Generated Playwright reports were preserved under `/tmp`. The original active
 development server on port 3000 remains running.
+
+### Header fidelity and authenticated Admin spacing
+
+| Command | Result | Notes |
+|---|---|---|
+| `pnpm lint` | Pass | Header fidelity and measured Admin bar changes are lint-clean |
+| `pnpm typecheck` | Pass | ResizeObserver, refs, and authenticated layout state pass strict TypeScript |
+| `pnpm test:unit` | Pass | 19 tests, including corrected supplied location casing |
+| Five-viewport Playwright layout probe | Pass | 1440, 1024, 768, 390, and 320px widths; supplied typography/spacing restored with no overflow |
+| Desktop/mobile screenshot review | Pass | 140px wordmark, 20px desktop copy, 32px mobile links, and top-aligned drawer match the supplied reference proportions |
+| `CI=1 pnpm test:e2e` | Pass with flaky retry | 9 Chromium tests passed; the existing Admin create-view locator needed one retry, while new focus-style and Admin-spacing assertions passed first run |
+| Targeted authenticated Admin bar E2E | Pass | Bar is visible only after login and its measured height offsets both the fixed header and main content |
+| Logged-out and toggle focus assertions | Pass | Admin bar/header/content start at zero offset while logged out; mouse click has no outline and keyboard focus retains one |
+
+The active development server on port 3000 was reused and remains running.
+Generated reports were preserved under `/tmp` before the final static checks.
