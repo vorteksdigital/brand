@@ -8,7 +8,13 @@ dist
 node_modules
 playwright-report
 playwright/.cache
-public/media
+public/media/*
+!public/media/mock-building-brands-that-move-at-digital-speed.webp
+!public/media/mock-designing-for-trust-in-an-ai-first-world.webp
+!public/media/mock-from-brand-audit-to-bold-new-direction.webp
+!public/media/mock-how-motion-makes-digital-experiences-memorable.webp
+!public/media/mock-the-anatomy-of-a-high-converting-website.webp
+!public/media/mock-turning-complex-products-into-clear-stories.webp
 public/robots.txt
 public/sitemap*.xml
 supabase/.temp
