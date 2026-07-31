@@ -190,3 +190,14 @@ Resend production environment activation.
 No secret value was printed or committed. Verify the sender domain in Resend
 before retrying delivery; no application redeploy is required after domain
 verification.
+
+### Canonical production domain correction
+
+| Command | Result | Notes |
+|---|---|---|
+| First Vercel environment update attempt | No change | CLI required explicit `--yes` confirmation |
+| Update production `NEXT_PUBLIC_SERVER_URL` | Pass | Corrected to `https://vorteksdigital.co.za` |
+| Initial production redeploy | Superseded | Canonical metadata was correct, but an uploaded local generated sitemap still contained `localhost` URLs |
+| Exclude generated sitemap/robots files and push `f3d0108` | Pass | Vercel upload now omits local generated SEO artifacts |
+| Final `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_FGKAAQwaXnK8HEYqXYPueNnPkHXv` reached `READY` and was aliased to the custom domain |
+| Live canonical, sitemap, `www`, and Admin checks | Pass | Homepage metadata and sitemap use `https://vorteksdigital.co.za`; `www` redirects to apex; Admin returns 200 |
