@@ -174,3 +174,19 @@ deployment environment before testing password-reset delivery.
 The final Vercel build passed production compilation, strict TypeScript, static
 generation, and sitemap generation. Existing documented warnings remain for
 Sharp being disabled and the missing persistent upload storage adapter.
+
+## 2026-07-31
+
+Resend production environment activation.
+
+| Command | Result | Notes |
+|---|---|---|
+| Add `RESEND_API_KEY` to Vercel production | Pass | Value transferred from ignored local environment through stdin and stored as sensitive |
+| Add `RESEND_FROM_ADDRESS` and `RESEND_FROM_NAME` to Vercel production | Pass | Both stored as sensitive production variables |
+| `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_CrGh9bjMu7wCkF5eYTV1D2DZg57c` reached `READY` |
+| Production `/` and `/admin/login` health checks | Pass | Both returned 200 |
+| Production forgot-password delivery test | Blocked by external configuration | Resend returned 403 because `vorteksdigital.co.za` is not verified in the Resend account |
+
+No secret value was printed or committed. Verify the sender domain in Resend
+before retrying delivery; no application redeploy is required after domain
+verification.
