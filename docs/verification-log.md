@@ -260,6 +260,9 @@ development server on port 3000 remains running.
 | `CI=1 pnpm test:e2e` | Pass with flaky retry | 9 Chromium tests passed; the existing Admin create-view locator needed one retry, while new focus-style and Admin-spacing assertions passed first run |
 | Targeted authenticated Admin bar E2E | Pass | Bar is visible only after login and its measured height offsets both the fixed header and main content |
 | Logged-out and toggle focus assertions | Pass | Admin bar/header/content start at zero offset while logged out; mouse click has no outline and keyboard focus retains one |
+| `git push origin development` | Pass | Correction commit `e6ce9cb` pushed to GitHub |
+| `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_GTLUXBcRmoTtCcpVd5RazPTLq2aA` compiled, typechecked, generated 14 routes, and reached `READY` |
+| Production verification | Pass | Custom domain retains coming soon; Admin returns 200; protected full-site HTML contains the corrected header and a hidden unauthenticated Admin bar |
 
 The active development server on port 3000 was reused and remains running.
 Generated reports were preserved under `/tmp` before the final static checks.
