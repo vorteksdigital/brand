@@ -10,6 +10,13 @@ Public routes live in `src/app/(frontend)`, Admin/API in `src/app/(payload)`,
 schemas in `src/collections`, blocks in `src/blocks`, and globals in
 `src/Header`, `src/Footer`, and `src/SiteSettings`.
 
+The temporary launch gate in `src/proxy.ts` rewrites public page requests from
+`vorteksdigital.co.za` and `www.vorteksdigital.co.za` to the standalone
+`src/app/(coming-soon)` experience. Vercel aliases and localhost continue to
+render the full CMS site for review. Admin, API, preview infrastructure, Next.js
+internals, and public files bypass the gate. Remove the proxy and standalone
+route group when the full site launches.
+
 The root page keeps its Payload-authored block layout but replaces the generic
 CMS hero renderer with `src/heros/HomeHero`. That client component owns the
 homepage-only GSAP scroll sequence and Three.js fluid canvas; other pages

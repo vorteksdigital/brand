@@ -19,3 +19,10 @@ Apply migrations separately before deployment. Do not rely on Vercel's
 ephemeral filesystem for uploaded media. `.vercelignore` excludes local
 environment files, generated test/build output, generated sitemap/robots files,
 and local media from CLI deployment uploads.
+
+The current launch gate is hostname-based: custom-domain public pages rewrite to
+`/coming-soon`, while Vercel deployment aliases expose the complete site for
+review. Admin/API and supporting assets remain available on either hostname.
+At launch, delete `src/proxy.ts`, `src/utilities/comingSoon.ts`,
+`src/app/(coming-soon)`, and its unit test, then run the full release checks
+before redeploying.

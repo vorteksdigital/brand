@@ -201,3 +201,20 @@ verification.
 | Exclude generated sitemap/robots files and push `f3d0108` | Pass | Vercel upload now omits local generated SEO artifacts |
 | Final `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_FGKAAQwaXnK8HEYqXYPueNnPkHXv` reached `READY` and was aliased to the custom domain |
 | Live canonical, sitemap, `www`, and Admin checks | Pass | Homepage metadata and sitemap use `https://vorteksdigital.co.za`; `www` redirects to apex; Admin returns 200 |
+
+### Custom-domain coming-soon gate
+
+| Command | Result | Notes |
+|---|---|---|
+| `pnpm lint` | Pass | Standalone route, proxy, and utility are lint-clean |
+| `pnpm typecheck` | Pass | Hostname routing and page metadata pass strict TypeScript |
+| `pnpm test:unit` | Pass | 15 tests, including custom-domain gating and infrastructure bypass cases |
+| `git diff --check` | Pass | No whitespace errors |
+| Local host-header probes | Pass | Custom-domain `/` rendered coming soon; localhost `/` retained the full homepage; custom-domain Admin and API returned their normal responses |
+| Desktop and mobile Playwright review | Pass | 1440×900 and 390×844 rendered without horizontal overflow; reduced-motion presentation reviewed |
+| Standalone Axe audit | Pass | 0 WCAG A/AA violations on the coming-soon page |
+
+The active development server on port 3000 was reused and left running. A local
+production build was not started because it would share Next's output directory
+with that process; the Vercel production build supplies the production compile
+check for this release.
