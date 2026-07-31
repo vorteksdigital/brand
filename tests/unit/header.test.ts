@@ -1,18 +1,28 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  formatCapeTownTime,
+  defaultHeaderNavItems,
+  formatSouthAfricaTime,
   getLocationAndTime,
   getNavHref,
   isActiveRoute,
 } from '@/Header/utilities'
 
 describe('header utilities', () => {
-  it('formats time in Cape Town independently of the server timezone', () => {
+  it('links the default navigation to the public routes', () => {
+    expect(defaultHeaderNavItems.map(({ link }) => link.url)).toEqual([
+      '/projects',
+      '/about',
+      '/blogs',
+      '/contact',
+    ])
+  })
+
+  it('formats local time independently of the server timezone', () => {
     const winterNoon = new Date('2026-07-31T10:05:00.000Z')
 
-    expect(formatCapeTownTime(winterNoon)).toBe('12:05 pm')
-    expect(getLocationAndTime(winterNoon)).toBe('cpt, south africa 12:05 pm')
+    expect(formatSouthAfricaTime(winterNoon)).toBe('12:05 pm')
+    expect(getLocationAndTime(winterNoon)).toBe('Boksburg, JHB 12:05 pm')
   })
 
   it('resolves custom and populated reference links', () => {

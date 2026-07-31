@@ -13,6 +13,7 @@ import { HomeHero } from '@/heros/HomeHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { staticPages, staticPageSlugs } from './staticPages'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -27,15 +28,13 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
+  const slugs = new Set(staticPageSlugs)
 
-  return params
+  pages.docs?.forEach(({ slug }) => {
+    if (slug && slug !== 'home') slugs.add(slug)
+  })
+
+  return Array.from(slugs, (slug) => ({ slug }))
 }
 
 type Args = {
@@ -55,6 +54,10 @@ export default async function Page({ params: paramsPromise }: Args) {
   page = await queryPageBySlug({
     slug: decodedSlug,
   })
+
+  if (!page) {
+    page = staticPages[decodedSlug] || null
+  }
 
   // Remove this code once your website is seeded
   if (!page && slug === 'home') {
@@ -86,9 +89,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const page = await queryPageBySlug({
-    slug: decodedSlug,
-  })
+  const page =
+    (await queryPageBySlug({
+      slug: decodedSlug,
+    })) || staticPages[decodedSlug] || null
 
   return generateMeta({ doc: page })
 }

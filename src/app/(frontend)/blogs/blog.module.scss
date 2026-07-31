@@ -1,0 +1,232 @@
+@use './referenceTokens' as *;
+
+// ─── Card ───────────────────────────────────────────────────────────────
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  animation: blogCardFadeUp 0.5s ease both;
+  animation-delay: var(--delay, 0ms);
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover .blog-card__image {
+      transform: scale(1.03);
+    }
+
+    &:hover .blog-card__title {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  &__image-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: $color-skeleton;
+    aspect-ratio: 4 / 3;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  &__image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    background: $color-skeleton;
+  }
+
+  &__body {
+    flex: 1;
+    padding-top: 14px;
+  }
+
+  &__category {
+    display: block;
+    margin-bottom: 6px;
+    font-family: $font-body;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-muted;
+  }
+
+  &__title {
+    margin: 0 0 8px;
+    font-family: $font-display;
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 400;
+    line-height: 1.3;
+    color: $color-text;
+  }
+
+  &__excerpt {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    font-family: $font-body;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: $color-muted;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// ─── Animation ──────────────────────────────────────────────────────────
+
+@keyframes blogCardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Filter ─────────────────────────────────────────────────────────────
+
+.filter-bar {
+  margin-bottom: $spacing-xl;
+  padding: 0 $spacing-lg;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__btn {
+    position: relative;
+    display: inline-block;
+    padding: 14px 18px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: $color-muted;
+    transition: color 0.2s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 18px;
+      bottom: 0;
+      left: 18px;
+      height: 1.5px;
+      background: $color-text;
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text;
+    }
+
+    &:focus-visible {
+      outline: 1px solid $color-text;
+      outline-offset: 4px;
+    }
+
+    &--active {
+      color: $color-text;
+      font-weight: 500;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+// ─── Feed ───────────────────────────────────────────────────────────────
+
+.blog-feed {
+  &__grid {
+    columns: 4;
+    column-gap: $spacing-md;
+    orphans: 1;
+    widows: 1;
+
+    @media (max-width: 900px) {
+      columns: 2;
+    }
+
+    @media (max-width: 560px) {
+      columns: 1;
+    }
+
+    .blog-card {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: $spacing-lg;
+      break-inside: avoid;
+    }
+
+    .blog-card:nth-child(4n + 1) .blog-card__image-wrap {
+      height: 320px;
+    }
+
+    .blog-card:nth-child(4n + 2) .blog-card__image-wrap {
+      height: 220px;
+    }
+
+    .blog-card:nth-child(4n + 3) .blog-card__image-wrap {
+      height: 260px;
+    }
+
+    .blog-card:nth-child(4n + 4) .blog-card__image-wrap {
+      height: 380px;
+    }
+
+    .blog-card__image,
+    .blog-card__image-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card {
+    animation: none;
+  }
+
+  .blog-card__image,
+  .filter-bar__btn,
+  .filter-bar__btn::after {
+    transition: none;
+  }
+}

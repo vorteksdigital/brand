@@ -17,8 +17,11 @@
   padding-inline: var(--page-padding);
   overflow: clip;
   box-sizing: border-box;
-  color: #000;
-  background: #fff;
+  color: var(--foreground);
+  background: var(--background);
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
 }
 
 .header {
@@ -148,6 +151,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero {
+    transition: none;
+  }
+
   .fluidCanvas {
     display: none;
   }

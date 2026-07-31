@@ -39,7 +39,7 @@ export function HomeHero() {
       if (reducedMotion.matches) return
 
       try {
-        fluid = new FluidSimulation(canvas)
+        fluid = FluidSimulation.create(canvas)
       } catch (error) {
         console.warn('The homepage fluid effect could not be started.', error)
       }

@@ -17,7 +17,7 @@ export const defaultHeaderNavItems: NonNullable<Header['navItems']> = [
     link: {
       label: 'projects',
       type: 'custom',
-      url: '/cases',
+      url: '/projects',
     },
   },
   {
@@ -29,6 +29,13 @@ export const defaultHeaderNavItems: NonNullable<Header['navItems']> = [
   },
   {
     link: {
+      label: 'blogs',
+      type: 'custom',
+      url: '/blogs',
+    },
+  },
+  {
+    link: {
       label: 'contact',
       type: 'custom',
       url: '/contact',
@@ -36,7 +43,7 @@ export const defaultHeaderNavItems: NonNullable<Header['navItems']> = [
   },
 ]
 
-export function formatCapeTownTime(date: Date = new Date()): string {
+export function formatSouthAfricaTime(date: Date = new Date()): string {
   return new Intl.DateTimeFormat('en-ZA', {
     hour: 'numeric',
     hour12: true,
@@ -46,7 +53,7 @@ export function formatCapeTownTime(date: Date = new Date()): string {
 }
 
 export function getLocationAndTime(date: Date = new Date()): string {
-  return `cpt, south africa ${formatCapeTownTime(date)}`
+  return `Boksburg, JHB ${formatSouthAfricaTime(date)}`
 }
 
 export function getNavHref(link: HeaderLink): string | null {

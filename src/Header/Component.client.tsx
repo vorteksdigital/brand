@@ -88,7 +88,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [])
 
   useEffect(() => {
-    const desktopViewport = window.matchMedia('(min-width: 48rem)')
+    const desktopViewport = window.matchMedia('(min-width: 64rem)')
     const closeAtDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setMenuOpen(false)
     }

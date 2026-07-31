@@ -56,6 +56,62 @@ const fluidConfig: FluidConfig = {
   velocityDissipation: 0.95,
 }
 
+const fluidContextAttributes: WebGLContextAttributes = {
+  alpha: true,
+  antialias: false,
+  depth: true,
+  failIfMajorPerformanceCaveat: false,
+  powerPreference: 'high-performance',
+  premultipliedAlpha: true,
+  preserveDrawingBuffer: false,
+  stencil: false,
+}
+
+function hasSafePrecisionQueries(context: WebGL2RenderingContext) {
+  try {
+    const highVertex = context.getShaderPrecisionFormat(
+      context.VERTEX_SHADER,
+      context.HIGH_FLOAT,
+    )
+
+    if (!highVertex) return false
+
+    if (highVertex.precision > 0) {
+      const highFragment = context.getShaderPrecisionFormat(
+        context.FRAGMENT_SHADER,
+        context.HIGH_FLOAT,
+      )
+
+      if (!highFragment) return false
+      if (highFragment.precision > 0) return true
+    }
+
+    const mediumVertex = context.getShaderPrecisionFormat(
+      context.VERTEX_SHADER,
+      context.MEDIUM_FLOAT,
+    )
+
+    if (!mediumVertex) return false
+    if (mediumVertex.precision <= 0) return true
+
+    return Boolean(
+      context.getShaderPrecisionFormat(context.FRAGMENT_SHADER, context.MEDIUM_FLOAT),
+    )
+  } catch {
+    return false
+  }
+}
+
+function createFluidContext(canvas: HTMLCanvasElement) {
+  try {
+    const context = canvas.getContext('webgl2', fluidContextAttributes)
+
+    return context && hasSafePrecisionQueries(context) ? context : null
+  } catch {
+    return null
+  }
+}
+
 export class FluidSimulation {
   private animationFrame = 0
   private camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
@@ -84,12 +140,19 @@ export class FluidSimulation {
   private targets: FluidTargets
   private width = 1
 
-  constructor(canvas: HTMLCanvasElement) {
+  static create(canvas: HTMLCanvasElement) {
+    const context = createFluidContext(canvas)
+
+    return context ? new FluidSimulation(canvas, context) : null
+  }
+
+  private constructor(canvas: HTMLCanvasElement, context: WebGL2RenderingContext) {
     this.canvas = canvas
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: false,
       canvas,
+      context,
       powerPreference: 'high-performance',
     })
     this.scene.add(this.quad)
@@ -118,7 +181,6 @@ export class FluidSimulation {
     Object.values(this.materials).forEach((material) => material.dispose())
     this.quad.geometry.dispose()
     this.renderer.dispose()
-    this.renderer.forceContextLoss()
   }
 
   private createDoubleRenderTarget(width: number, height: number): DoubleRenderTarget {

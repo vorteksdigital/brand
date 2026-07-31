@@ -15,7 +15,7 @@ body {
 body {
   color: #050505;
   background: #fff;
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-inter), Arial, sans-serif;
 }
 
 a {

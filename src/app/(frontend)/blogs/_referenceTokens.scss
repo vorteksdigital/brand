@@ -1,0 +1,11 @@
+// The supplied blog stylesheet imported a variables partial that was not included.
+// These aliases use the current site's existing theme, font, and spacing scale.
+$color-skeleton: var(--muted);
+$color-muted: var(--muted-foreground);
+$color-text: var(--foreground);
+$color-border: var(--border);
+$font-body: var(--font-sans);
+$font-display: var(--font-sans);
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+$spacing-xl: 4rem;
