@@ -24,6 +24,6 @@ credentials and a verified sender address. Local development can still run
 without email delivery while those variables are absent.
 
 The custom production domain currently presents a noindex standalone coming-soon
-page. The complete site remains available on its Vercel alias for private review,
-while Admin, APIs, preview endpoints, and static files stay reachable on the
-custom domain.
+page. The complete site remains available on its protected Vercel deployment
+URL for private review, while Admin, APIs, preview endpoints, and static files
+stay reachable on the custom domain.

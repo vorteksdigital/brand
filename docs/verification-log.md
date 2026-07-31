@@ -213,8 +213,13 @@ verification.
 | Local host-header probes | Pass | Custom-domain `/` rendered coming soon; localhost `/` retained the full homepage; custom-domain Admin and API returned their normal responses |
 | Desktop and mobile Playwright review | Pass | 1440×900 and 390×844 rendered without horizontal overflow; reduced-motion presentation reviewed |
 | Standalone Axe audit | Pass | 0 WCAG A/AA violations on the coming-soon page |
+| `git push origin development` | Pass | Feature commit `abd936f` pushed to GitHub |
+| `pnpm dlx vercel@latest deploy --prod --yes` | Pass | Deployment `dpl_EvKHCPRBd44Z3AaawBRsf7G4Hw9i` compiled, typechecked, generated 14 routes, reached `READY`, and was aliased to the custom domain |
+| Live custom-domain checks | Pass | Apex, `/posts`, and redirected `www` render the noindex coming-soon page; Admin and API bypass the gate with 200 responses |
+| Authenticated deployment-host check | Pass | Protected Vercel deployment URL renders the full CMS homepage for private review |
 
 The active development server on port 3000 was reused and left running. A local
 production build was not started because it would share Next's output directory
 with that process; the Vercel production build supplies the production compile
-check for this release.
+check for this release. The stable Vercel production alias redirects to the
+custom domain; use the protected deployment URL to review the full site.
