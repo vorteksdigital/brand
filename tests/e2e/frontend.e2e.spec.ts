@@ -182,11 +182,10 @@ test.describe('Frontend', () => {
   test('renders the reference-led About studio story', async ({ page }) => {
     await page.goto('http://localhost:3000/about')
 
-    await expect(page.getByText('DIGITAL FOR')).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Digital for global brands/i })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Life @ VRTKS' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'CLIENTS' })).toBeVisible()
-    await expect(page.locator('section').filter({ hasText: 'CLIENTS' }).locator('li')).toHaveCount(12)
-    await expect(page.locator('svg.lucide-arrow-right')).toHaveCount(2)
+    await expect(page.locator('section').filter({ hasText: 'Clients' }).locator('li')).toHaveCount(16)
+    await expect(page.locator('svg.lucide-arrow-right')).toHaveCount(4)
     const showcase = page.getByRole('region', { name: 'Selected studio work' })
     const track = page.locator('[data-about-showcase-track]')
     const showcaseBounds = await showcase.boundingBox()
@@ -197,6 +196,9 @@ test.describe('Frontend', () => {
     await expect
       .poll(() => track.evaluate((element) => element.getBoundingClientRect().x))
       .toBeLessThan(trackXBefore)
+    const clientsHeading = page.getByRole('heading', { name: 'Clients' })
+    await clientsHeading.scrollIntoViewIfNeeded()
+    await expect(clientsHeading).toBeVisible()
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
