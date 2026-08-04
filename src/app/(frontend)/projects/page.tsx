@@ -4,7 +4,6 @@ import configPromise from '@payload-config'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 
-import { LowImpactHero } from '@/heros/LowImpact'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import { InfiniteProjectRail } from './InfiniteProjectRail.client'
@@ -25,11 +24,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className={`route-shell ${styles.page}`} data-projects-page data-route-shell>
-      <LowImpactHero>
-        <div className="payload-richtext mx-auto prose md:prose-md dark:prose-invert max-w-none">
-          <h1 className="mb-[0.25em]">Projects</h1>
-        </div>
-      </LowImpactHero>
+      <h1 className="sr-only">Projects</h1>
 
       <section aria-label="Selected projects" className={styles.projectSection}>
         <InfiniteProjectRail>

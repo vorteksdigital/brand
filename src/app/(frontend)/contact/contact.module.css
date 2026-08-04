@@ -1,0 +1,162 @@
+.page {
+  --route-unit: clamp(1px, 12px, calc(100vw * 0.0256410256));
+  --route-gutter: calc(var(--route-unit) * 2.3);
+  --route-gap: calc(var(--route-unit) * 0.5);
+  width: 100%;
+  overflow: clip;
+  color: var(--foreground);
+  background: var(--background);
+  font-size: calc(var(--route-unit) * 1.8);
+  line-height: 1.5;
+}
+
+.hero,
+.contactRows {
+  padding-inline: var(--route-gutter);
+}
+
+.hero {
+  display: flex;
+  min-height: calc(var(--route-unit) * 69.3);
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: calc(var(--route-unit) * 18.5);
+  padding-bottom: calc(var(--route-unit) * 5);
+}
+
+.hero h1 {
+  padding: 0;
+  margin: 0 0 0 -0.035em;
+  font-size: calc(var(--route-unit) * 5);
+  font-weight: 700;
+  line-height: 1.14;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 > span,
+.hero h1 > span > span {
+  display: block;
+}
+
+.hero h1 > span {
+  overflow: hidden;
+}
+
+.heroCopy {
+  display: grid;
+  gap: calc(var(--route-unit) * 2.5);
+}
+
+.heroCopy p {
+  max-width: calc(var(--route-unit) * 50);
+  margin: 0;
+}
+
+.contactRows article {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--route-unit) * 5);
+  padding-block: calc(var(--route-unit) * 5);
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.contactRows article:last-child {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.contactRows h2,
+.contactRows p {
+  margin: 0;
+  font: inherit;
+}
+
+.contactRows article > div > p:not(.largeCopy) {
+  font-size: calc(var(--route-unit) * 2.6);
+  line-height: 1.15;
+}
+
+.contactRows article > div > div {
+  margin-top: calc(var(--route-unit) * 1.5);
+  font-size: calc(var(--route-unit) * 2.6);
+  line-height: 1.15;
+}
+
+.contactRows .largeCopy {
+  max-width: calc(var(--route-unit) * 50);
+  font-size: calc(var(--route-unit) * 3.4);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+}
+
+.contactRows article > div > a {
+  display: inline-block;
+  width: fit-content;
+  margin-top: calc(var(--route-unit) * 5);
+  color: inherit;
+  font-size: calc(var(--route-unit) * 3.4);
+  line-height: 1.14;
+  border-bottom: 2px solid currentColor;
+  text-decoration: none;
+}
+
+@media (min-width: 40.625rem) {
+  .page {
+    --route-unit: clamp(1px, 12px, calc(100vw * 0.0066666667));
+  }
+}
+
+@media (min-width: 48rem) {
+  .page {
+    --route-gutter: calc(var(--route-unit) * 5.8);
+    --route-gap: calc(var(--route-unit) * 2.4);
+  }
+
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-top: calc(var(--route-unit) * 12.5);
+    padding-bottom: calc(var(--route-unit) * 6);
+  }
+
+  .hero h1 {
+    font-size: calc(var(--route-unit) * 14);
+    line-height: 1.025;
+  }
+
+  .heroCopy {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--route-gap);
+  }
+
+  .heroCopy p:first-child {
+    grid-column: 1 / span 4;
+  }
+
+  .heroCopy p:last-child {
+    grid-column: 7 / span 5;
+  }
+
+  .contactRows article {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--route-gap);
+    min-height: calc(var(--route-unit) * 38.6);
+    padding-block: calc(var(--route-unit) * 9);
+  }
+
+  .contactRows h2 {
+    grid-column: span 5;
+  }
+
+  .contactRows article > div {
+    grid-column: 6 / -1;
+  }
+
+  .contactRows article > div > p:not(.largeCopy),
+  .contactRows article > div > div,
+  .contactRows article > div > a,
+  .contactRows .largeCopy {
+    font-size: calc(var(--route-unit) * 4.5);
+    line-height: 1.13;
+  }
+}

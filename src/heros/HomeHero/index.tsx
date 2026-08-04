@@ -222,11 +222,12 @@ export function HomeHero() {
           loop
           muted
           playsInline
+          poster="/hero/johannesburg-sunset-poster.webp"
           preload="metadata"
           ref={videoRef}
           tabIndex={-1}
         >
-          <source src="/hero/brand-film.mp4" type="video/mp4" />
+          <source src="/hero/johannesburg-sunset.mp4" type="video/mp4" />
         </video>
       </span>
     </section>

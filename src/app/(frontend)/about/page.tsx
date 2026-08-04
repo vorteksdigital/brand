@@ -10,11 +10,11 @@ import styles from './about.module.css'
 
 const principles = [
   {
-    body: 'Strategy, identity, digital, and motion are considered together from day one. Open dialogue and different perspectives keep the work sharp.',
+    body: 'We think holistically, considering strategy, digital, cross-functional teams, and outcomes from day one. We foster open dialogue, thoughtful questions, and diverse perspectives.',
     title: 'A holistic studio',
   },
   {
-    body: 'Small senior teams stay close to the work, move with purpose, and build the systems ambitious brands need to grow.',
+    body: 'We work alongside experienced talent to build digital systems at scale. If you’re interested in thoughtful, system-led work inside complex brand environments, we’d love to hear from you.',
     title: 'High-impact teams',
   },
   {
@@ -44,20 +44,20 @@ const partners = [
 
 const showcaseImages = [
   {
-    alt: 'Abstract violet and orange shapes moving across a dark field',
-    src: '/api/media/file/mock-building-brands-that-move-at-digital-speed.webp',
+    alt: 'Man reflected beside a Mandela portrait inside a Houghton café',
+    src: '/images/johannesburg/houghton-cafe-portrait.webp',
   },
   {
-    alt: 'Interlocking green and indigo forms forming a clear path',
-    src: '/api/media/file/mock-turning-complex-products-into-clear-stories.webp',
+    alt: 'Young woman standing in front of a colourful Johannesburg mural',
+    src: '/images/johannesburg/johannesburg-mural-portrait.webp',
   },
   {
-    alt: 'Warm gold and blue shapes arranged around an abstract core',
-    src: '/api/media/file/mock-designing-for-trust-in-an-ai-first-world.webp',
+    alt: 'Dense rooftops and colourful murals across Johannesburg city centre',
+    src: '/images/johannesburg/johannesburg-city-centre.webp',
   },
   {
-    alt: 'Magenta and lime fragments creating a bold composition',
-    src: '/api/media/file/mock-from-brand-audit-to-bold-new-direction.webp',
+    alt: 'Empty outdoor café tables on a Johannesburg street',
+    src: '/images/johannesburg/johannesburg-street-cafe.webp',
   },
 ]
 
@@ -67,34 +67,39 @@ export default function AboutPage() {
       <AboutAnimations />
       <section className={styles.hero}>
         <div className={styles.heroTitleWrap}>
-          <div className={styles.heroMedia} aria-hidden="true">
+          <div className={styles.heroMedia} aria-hidden="true" data-about-hero-media>
             <Image
               alt=""
               fill
               priority
               sizes="(max-width: 48rem) 44vw, 18vw"
-              src="/api/media/file/mock-how-motion-makes-digital-experiences-memorable.webp"
+              src="/images/johannesburg/houghton-cafe-portrait.webp"
             />
           </div>
           <h1 aria-label="Digital for global brands.">
             <span aria-hidden="true" className={styles.heroTitleLine}>
-              <span className={styles.heroTitleRise}>
-                <span className={styles.heroTitleShift}>Digital</span>
+              <span className={styles.heroTitleRise} data-about-hero-line>
+                <span className={styles.heroTitleShift} data-about-hero-shift>
+                  Digital
+                </span>
               </span>
             </span>
             <span aria-hidden="true" className={styles.heroTitleLine}>
-              <span className={styles.heroTitleRise}>for global</span>
+              <span className={styles.heroTitleRise} data-about-hero-line>
+                for global
+              </span>
             </span>
             <span aria-hidden="true" className={styles.heroTitleLine}>
-              <span className={styles.heroTitleRise}>brands.</span>
+              <span className={styles.heroTitleRise} data-about-hero-line>
+                brands.
+              </span>
             </span>
           </h1>
         </div>
 
         <div className={styles.heroFooter}>
-          <p>
-            <span>An independent digital studio, collaborating with</span>
-            <span>ambitious teams.</span>
+          <p data-about-subtitle>
+            An independent digital partner, collaborating with ambitious teams.
           </p>
           <span aria-hidden="true">(Scroll)</span>
         </div>
@@ -102,23 +107,19 @@ export default function AboutPage() {
 
       <AboutShowcase images={showcaseImages} />
 
-      <section className={styles.company}>
+      <section className={`${styles.company} content-section`}>
         <div className={styles.companyCue}>
-          <span className={styles.arrowCue} data-about-reveal>
+          <span className={styles.arrowCue} data-about-arrow>
             <ArrowRight aria-hidden="true" />
             <ArrowRight aria-hidden="true" />
           </span>
           <span>(Company)</span>
         </div>
         <div className={styles.companyContent}>
-          <div className={styles.revealMask} data-about-reveal>
-            <h2>Dedicated and seamlessly integrated, a true extension of brands.</h2>
-          </div>
+          <h2 data-about-lines>Dedicated and seamlessly integrated, a true extension of brands.</h2>
           <div className={styles.companyDetails}>
-            <span className={styles.fadeUp} data-about-reveal>
-              (Company)
-            </span>
-            <div className={styles.fadeUp} data-about-reveal>
+            <span data-about-fade>(Company)</span>
+            <div data-about-fade>
               <p>
                 <strong>
                   VRTKS is an independent digital studio based in Johannesburg, partnering with
@@ -130,8 +131,8 @@ export default function AboutPage() {
                 connected experiences that give brands clarity and a consistent way to show up.
               </p>
               <p>
-                Good systems come from close partnerships. We integrate deeply, collaborate
-                openly, and solve alongside the people who know the business best.
+                Good systems come from close partnerships. We integrate deeply, collaborate openly,
+                and solve alongside the people who know the business best.
               </p>
               <p>
                 That trust lets the work evolve as the brand grows, across new products, channels,
@@ -142,74 +143,28 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={styles.focus}>
+      <section className={`${styles.focus} content-section`}>
         <span>(Our focus)</span>
         <p>Defining how brands move, scale, and express themselves.</p>
         <Link href="/contact">Let&apos;s work together</Link>
       </section>
 
-      <section className={styles.usp} data-about-reveal>
-        <h2 className={styles.uspTitle}>
-          <span className={`${styles.uspMedia} ${styles.uspMobileMedia}`}>
-            <Image
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes="82vw"
-              src="/api/media/file/mock-building-brands-that-move-at-digital-speed.webp"
-            />
-          </span>
-          <span className={styles.uspLine}>
-            <span>We go beyond</span>
-          </span>
-          <span className={`${styles.uspLine} ${styles.uspLineWithMedia}`}>
-            <span className={styles.uspMedia}>
-              <Image
-                alt=""
-                aria-hidden="true"
-                fill
-                sizes="(max-width: 48rem) 82vw, 18vw"
-                src="/api/media/file/mock-building-brands-that-move-at-digital-speed.webp"
-              />
-            </span>
-            <span>websites.</span>
-          </span>
-          <span className={styles.uspLine}>
-            <span>We transform</span>
-          </span>
-          <span className={`${styles.uspLine} ${styles.uspLineWithMedia}`}>
-            <span>brands.</span>
-            <span className={`${styles.uspMedia} ${styles.uspMediaSecond}`}>
-              <Image
-                alt=""
-                aria-hidden="true"
-                fill
-                sizes="18vw"
-                src="/api/media/file/mock-designing-for-trust-in-an-ai-first-world.webp"
-              />
-            </span>
-          </span>
-        </h2>
-      </section>
-
-      <section className={styles.life}>
+      <section className={`${styles.life} content-section`}>
         <div className={styles.lifeMedia}>
           <Image
-            alt="Layered blue and coral forms representing a connected brand system"
+            alt="Young woman standing in front of a colourful Johannesburg mural"
             fill
             sizes="(max-width: 48rem) 100vw, 42vw"
-            src="/api/media/file/mock-why-strategic-design-outlives-trends.webp"
+            src="/images/johannesburg/johannesburg-mural-portrait.webp"
           />
         </div>
         <div className={styles.lifeContent}>
-          <div className={styles.revealMask} data-about-reveal>
-            <h2>Life @ VRTKS</h2>
-          </div>
+          <h2 data-about-lines>Life @ VRTKS</h2>
           <ol>
             {principles.map((principle, index) => (
               <li key={principle.title}>
                 <span>{String(index + 1).padStart(2, '0')}.</span>
-                <div className={styles.fadeUp} data-about-reveal>
+                <div data-about-fade>
                   <h3>{principle.title}</h3>
                   <p>{principle.body}</p>
                 </div>
@@ -219,53 +174,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={styles.statement}>
-        <span className={styles.arrowCue} data-about-reveal>
+      <section className={`${styles.statement} content-section`}>
+        <span className={styles.arrowCue} data-about-arrow>
           <ArrowRight aria-hidden="true" />
           <ArrowRight aria-hidden="true" />
         </span>
-        <div className={styles.revealMask} data-about-reveal>
-          <h2>Leaders in brand systems, identities, digital products &amp; motion.</h2>
-        </div>
+        <h2 data-about-lines>Leaders in brand systems, identities, products &amp; motion.</h2>
       </section>
 
-      <section className={styles.clients} data-about-reveal>
+      <section className={`${styles.clients} content-section`}>
         <div className={styles.clientsHeading}>
-          <h2 aria-label="Clients">
+          <h2 aria-label="Clients" data-about-clients-title>
             <span aria-hidden="true">
               {'Clients'.split('').map((character, index) => (
                 <span className={styles.clientCharacter} key={`${character}-${index}`}>
-                  <span style={{ transitionDelay: `${index * 100}ms` }}>{character}</span>
+                  <span data-about-client-character>{character}</span>
                 </span>
               ))}
             </span>
           </h2>
           <span>(Our partners)</span>
         </div>
-        <ul data-about-reveal>
-          {partners.map((partner, index) => (
+        <ul data-about-client-grid>
+          {partners.map((partner) => (
             <li key={partner}>
-              <span style={{ transitionDelay: `${(index % 4) * 100}ms` }}>{partner}</span>
+              <span>{partner}</span>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className={styles.services}>
+      <section className={`${styles.services} content-section`}>
         <div className={styles.servicesMedia}>
           <Image
-            alt="Colourful interface panels layered into a digital brand ecosystem"
+            alt="Glass-fronted modern buildings framed by trees in Melrose Arch"
             fill
             sizes="(max-width: 48rem) 100vw, 50vw"
-            src="/api/media/file/mock-how-motion-makes-digital-experiences-memorable.webp"
+            src="/images/johannesburg/melrose-arch-modern-building.webp"
           />
         </div>
         <div className={styles.servicesContent}>
-          <div className={styles.revealMask} data-about-reveal>
-            <h2>From strategy &amp; identity to entire digital ecosystems.</h2>
-          </div>
-          <div className={styles.fadeUp} data-about-reveal>
-            <Link href="/contact">Learn more about our approach</Link>
+          <h2 data-about-lines>From strategy &amp; identity to entire digital ecosystems.</h2>
+          <div data-about-fade>
+            <Link href="/approach">Learn more about our approach</Link>
           </div>
         </div>
       </section>

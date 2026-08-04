@@ -1,15 +1,13 @@
-import type { CollectionSlug, Payload, PayloadRequest, File } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest } from 'payload'
 
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
-import { image1 } from './image-1'
-import { image2 } from './image-2'
-import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
 import { createProjectData, projectSeeds } from './project-data'
+import { upsertJohannesburgMedia } from './upsert-johannesburg-imagery'
 
 const collections: CollectionSlug[] = [
   'categories',
@@ -83,22 +81,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding media...`)
 
-  const [image1Buffer, image2Buffer, image3Buffer, hero1Buffer] = await Promise.all([
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post1.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post2.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-post3.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/3.x/templates/website/src/endpoints/seed/image-hero1.webp',
-    ),
-  ])
-
-  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
+  const [demoAuthor] = await Promise.all([
     payload.create({
       collection: 'users',
       data: {
@@ -108,27 +91,7 @@ export const seed = async ({
         role: 'editor',
       },
     }),
-    payload.create({
-      collection: 'media',
-      data: image1,
-      file: image1Buffer,
-    }),
-    payload.create({
-      collection: 'media',
-      data: image2,
-      file: image2Buffer,
-    }),
-    payload.create({
-      collection: 'media',
-      data: image2,
-      file: image3Buffer,
-    }),
-    payload.create({
-      collection: 'media',
-      data: imageHero1,
-      file: hero1Buffer,
-    }),
-    categories.map((category) =>
+    ...categories.map((category) =>
       payload.create({
         collection: 'categories',
         data: {
@@ -138,6 +101,17 @@ export const seed = async ({
       }),
     ),
   ])
+
+  const mediaByFileName = await upsertJohannesburgMedia({ payload, req })
+  const getMedia = (fileName: string) => {
+    const media = mediaByFileName.get(fileName)
+    if (!media) throw new Error(`Missing seeded Johannesburg media: ${fileName}`)
+    return media
+  }
+  const image1Doc = getMedia('johannesburg-sunset-skyline.webp')
+  const image2Doc = getMedia('simmonds-street-johannesburg.webp')
+  const image3Doc = getMedia('johannesburg-mural-portrait.webp')
+  const imageHomeDoc = getMedia('johannesburg-sunset-skyline.webp')
 
   payload.logger.info(`— Seeding posts...`)
 
@@ -195,8 +169,6 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding projects...`)
 
-  const projectImages = [image1Doc.id, image2Doc.id, image3Doc.id]
-
   for (const [sortOrder, project] of projectSeeds.entries()) {
     await payload.create({
       collection: 'projects',
@@ -206,7 +178,7 @@ export const seed = async ({
       },
       data: createProjectData(
         project,
-        projectImages[sortOrder % projectImages.length],
+        getMedia(project.imageFilename).id,
         sortOrder,
       ),
     })
@@ -292,27 +264,13 @@ export const seed = async ({
         ],
       },
     }),
+    payload.updateGlobal({
+      slug: 'site-settings',
+      data: {
+        defaultSocialImage: image1Doc.id,
+      },
+    }),
   ])
 
   payload.logger.info('Seeded database successfully!')
-}
-
-async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
-  }
-
-  const data = await res.arrayBuffer()
-
-  return {
-    name: url.split('/').pop() || `file-${Date.now()}`,
-    data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength,
-  }
 }

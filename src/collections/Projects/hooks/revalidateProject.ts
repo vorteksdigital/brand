@@ -6,7 +6,8 @@ export const revalidateProject: CollectionAfterChangeHook = ({ doc, previousDoc,
   if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
-    req.payload.logger.info('Revalidating projects index')
+    req.payload.logger.info('Revalidating projects index and homepage')
+    revalidatePath('/')
     revalidatePath('/projects')
   }
 
@@ -14,6 +15,9 @@ export const revalidateProject: CollectionAfterChangeHook = ({ doc, previousDoc,
 }
 
 export const revalidateProjectDelete: CollectionAfterDeleteHook = ({ doc, req }) => {
-  if (!req.context.disableRevalidate) revalidatePath('/projects')
+  if (!req.context.disableRevalidate) {
+    revalidatePath('/')
+    revalidatePath('/projects')
+  }
   return doc
 }

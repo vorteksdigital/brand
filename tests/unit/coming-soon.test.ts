@@ -29,7 +29,7 @@ describe('coming-soon domain gate', () => {
     '/coming-soon',
     '/favicon.ico',
     '/sitemap.xml',
-    '/hero/brand-film.mp4',
+    '/hero/johannesburg-sunset.mp4',
   ])('does not gate infrastructure path %s', (pathname) => {
     expect(shouldShowComingSoon('vorteksdigital.co.za', pathname)).toBe(false)
   })

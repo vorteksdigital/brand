@@ -14,8 +14,8 @@ export type ProjectSeed = {
 export const projectSeeds: ProjectSeed[] = [
   {
     client: 'Aperture',
-    imageAlt: 'Abstract violet and orange forms suggesting a fast-moving brand system',
-    imageFilename: 'mock-building-brands-that-move-at-digital-speed.webp',
+    imageAlt: 'Johannesburg skyline glowing in warm evening light',
+    imageFilename: 'johannesburg-sunset-skyline.webp',
     services: ['Brand strategy', 'Digital design', 'Motion'],
     slug: 'signal-shift',
     summary: 'A fast, flexible identity and launch platform built for constant movement.',
@@ -24,8 +24,8 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Northstar',
-    imageAlt: 'Interlocking green and indigo forms becoming a clear visual pathway',
-    imageFilename: 'mock-turning-complex-products-into-clear-stories.webp',
+    imageAlt: 'Pedestrians and vehicles on Simmonds Street in central Johannesburg',
+    imageFilename: 'simmonds-street-johannesburg.webp',
     services: ['Product design', 'Content design', 'Development'],
     slug: 'clear-systems',
     summary: 'A clearer product story and modular interface for a complex technology platform.',
@@ -34,8 +34,8 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Common Ground',
-    imageAlt: 'Warm gold and electric blue forms surrounding an abstract AI core',
-    imageFilename: 'mock-designing-for-trust-in-an-ai-first-world.webp',
+    imageAlt: 'Reflective glass office towers rising over Sandton',
+    imageFilename: 'sandton-glass-towers.webp',
     services: ['Research', 'Experience design', 'Creative direction'],
     slug: 'trust-layer',
     summary: 'A trustworthy digital experience for people navigating emerging AI tools.',
@@ -44,8 +44,8 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Metric',
-    imageAlt: 'Geometric red and cyan interface layers arranged into a conversion path',
-    imageFilename: 'mock-the-anatomy-of-a-high-converting-website.webp',
+    imageAlt: 'Glass-fronted modern buildings framed by trees in Melrose Arch',
+    imageFilename: 'melrose-arch-modern-building.webp',
     services: ['Web design', 'Conversion strategy', 'Development'],
     slug: 'conversion-engine',
     summary: 'A performance-led website system designed to turn attention into action.',
@@ -54,8 +54,8 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Fieldwork',
-    imageAlt: 'Magenta and lime fragments converging into a bold new brand direction',
-    imageFilename: 'mock-from-brand-audit-to-bold-new-direction.webp',
+    imageAlt: 'Young woman standing in front of a colourful Johannesburg mural',
+    imageFilename: 'johannesburg-mural-portrait.webp',
     services: ['Brand audit', 'Identity', 'Campaign'],
     slug: 'bold-direction',
     summary: 'A bold new direction shaped from the strongest parts of an existing brand.',
@@ -64,8 +64,8 @@ export const projectSeeds: ProjectSeed[] = [
   },
   {
     client: 'Loop',
-    imageAlt: 'Flowing pink and blue ribbons suggesting memorable interface motion',
-    imageFilename: 'mock-how-motion-makes-digital-experiences-memorable.webp',
+    imageAlt: 'Traffic, buses, and pedestrians moving through central Johannesburg',
+    imageFilename: 'joburg-cbd-traffic.webp',
     services: ['Motion system', 'Interaction design', 'Art direction'],
     slug: 'motion-memory',
     summary: 'A motion language that gives every product moment a distinct rhythm.',

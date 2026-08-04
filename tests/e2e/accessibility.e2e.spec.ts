@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe('public accessibility', () => {
   for (const colorScheme of ['light', 'dark'] as const) {
-    for (const route of ['/', '/projects', '/about', '/blogs', '/contact', '/posts']) {
+    for (const route of ['/', '/projects', '/approach', '/about', '/blogs', '/contact', '/posts']) {
       test(`${route} has no detectable WCAG A/AA violations in ${colorScheme} mode`, async ({
         page,
       }) => {

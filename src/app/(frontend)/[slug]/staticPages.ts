@@ -74,6 +74,11 @@ const createStaticPage = ({
 })
 
 export const staticPages: Record<string, RequiredDataFromCollectionSlug<'pages'>> = {
+  approach: createStaticPage({
+    description: 'How VRTKS Digital builds connected digital systems.',
+    slug: 'approach',
+    title: 'Approach',
+  }),
   projects: createStaticPage({
     description: 'Selected work from VRTKS Digital.',
     slug: 'projects',

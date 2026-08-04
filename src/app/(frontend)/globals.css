@@ -100,6 +100,19 @@
   margin-top: 0;
 }
 
+.content-page {
+  padding-top: 5rem;
+}
+
+.content-section {
+  padding-block: 120px;
+  margin-block: 0;
+}
+
+.content-section.content-section--about-slider {
+  padding-block: 40px;
+}
+
 :root {
   color-scheme: light;
 

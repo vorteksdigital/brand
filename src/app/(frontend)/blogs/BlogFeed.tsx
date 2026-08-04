@@ -16,15 +16,12 @@ type Props = {
 export function BlogFeed({ initialPosts = [], categories = [] }: Props) {
   const [activeSlug, setActiveSlug] = useState('all')
 
-  const posts = useMemo(
-    () => filterPosts(initialPosts, activeSlug),
-    [initialPosts, activeSlug],
-  )
+  const posts = useMemo(() => filterPosts(initialPosts, activeSlug), [initialPosts, activeSlug])
 
   return (
     <section
       aria-labelledby="blogs-title"
-      className={`${styles['blog-feed']} container c-container`}
+      className={`${styles['blog-feed']} container c-container content-section`}
     >
       <FilterBar activeSlug={activeSlug} categories={categories} onChange={setActiveSlug} />
 

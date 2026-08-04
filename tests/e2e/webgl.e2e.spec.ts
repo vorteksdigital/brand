@@ -43,7 +43,10 @@ test.describe('Homepage WebGL', () => {
 
   test('starts the fluid canvas after client navigation', async ({ page }) => {
     await page.goto('http://localhost:3000/about')
-    await page.getByRole('link', { name: 'VRTKS Digital home' }).click()
+    await page
+      .getByRole('banner')
+      .getByRole('link', { name: 'VRTKS Digital home' })
+      .click()
 
     const canvas = page.locator('canvas')
     await expect(canvas).toHaveAttribute('data-engine', /three\.js/)

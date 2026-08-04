@@ -14,9 +14,8 @@ preview, SEO, accessibility, and automated tests.
 
 ```bash
 cp .env.example .env
-docker compose up -d postgres
 pnpm install
-pnpm dev
+pnpm dev:all
 ```
 
 Replace all placeholder secrets in `.env`; generate values with
@@ -24,15 +23,22 @@ Replace all placeholder secrets in `.env`; generate values with
 development. Open `http://localhost:3000/admin` and complete the first-user form;
 the first user should be assigned `admin`.
 
+`pnpm dev:all` starts PostgreSQL in Docker, waits until it is healthy, then
+starts the website and Payload CMS together. Use `pnpm dev` when PostgreSQL is
+already running separately.
+
 ## Commands
 
 ```bash
+pnpm dev:all             # PostgreSQL, website, and CMS
 pnpm dev                 # website and CMS
 pnpm lint
 pnpm typecheck
 pnpm test                # unit and integration
 pnpm test:e2e
 pnpm test:a11y
+pnpm seed:projects       # restore bundled projects and Johannesburg media
+pnpm update:imagery      # restore Post, Project, Search, and social imagery
 pnpm build
 pnpm payload:migrate:create
 pnpm payload:migrate

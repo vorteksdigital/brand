@@ -10,6 +10,7 @@ import { homeStatic } from '@/endpoints/seed/home-static'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { HomeHero } from '@/heros/HomeHero'
+import { HomeSections } from '@/components/HomeSections'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -73,7 +74,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <article
-      className={isHomepage ? 'pb-24' : 'route-shell'}
+      className={isHomepage ? undefined : 'route-shell'}
       data-route-shell={isHomepage ? undefined : ''}
     >
       <PageClient />
@@ -83,6 +84,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       {isHomepage ? <HomeHero /> : <RenderHero {...hero} />}
+      {isHomepage && <HomeSections />}
       <RenderBlocks blocks={layout} />
     </article>
   )

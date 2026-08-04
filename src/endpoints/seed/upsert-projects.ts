@@ -1,51 +1,13 @@
 import type { Payload } from 'payload'
 
-import { sql } from '@payloadcms/db-postgres'
-import { stat } from 'node:fs/promises'
-import path from 'node:path'
-
 import { createProjectData, projectSeeds } from './project-data'
+import { upsertJohannesburgMedia } from './upsert-johannesburg-imagery'
 
 export async function ensureBundledProjectMedia(payload: Payload): Promise<void> {
-  for (const project of projectSeeds) {
-    const filePath = path.resolve(process.cwd(), 'public/media', project.imageFilename)
-    const file = await stat(filePath)
-
-    await payload.db.drizzle.execute(sql`
-      insert into media (
-        alt,
-        is_decorative,
-        updated_at,
-        created_at,
-        url,
-        filename,
-        mime_type,
-        filesize,
-        width,
-        height,
-        focal_x,
-        focal_y
-      )
-      values (
-        ${project.imageAlt},
-        false,
-        now(),
-        now(),
-        ${`/api/media/file/${project.imageFilename}`},
-        ${project.imageFilename},
-        'image/webp',
-        ${file.size},
-        1600,
-        1000,
-        50,
-        50
-      )
-      on conflict (filename) do nothing
-    `)
-  }
+  await upsertJohannesburgMedia({ payload })
 }
 
-export async function upsertMockProjects(payload: Payload): Promise<number> {
+export async function upsertProjects(payload: Payload): Promise<number> {
   for (const [sortOrder, project] of projectSeeds.entries()) {
     const mediaResult = await payload.find({
       collection: 'media',

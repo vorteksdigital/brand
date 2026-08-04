@@ -11,6 +11,7 @@ import styles from './footer.module.css'
 const defaultNavItems: NonNullable<FooterData['navItems']> = [
   { link: { label: 'home', type: 'custom', url: '/' } },
   { link: { label: 'projects', type: 'custom', url: '/projects' } },
+  { link: { label: 'approach', type: 'custom', url: '/approach' } },
   { link: { label: 'about', type: 'custom', url: '/about' } },
   { link: { label: 'blogs', type: 'custom', url: '/blogs' } },
   { link: { label: 'contact', type: 'custom', url: '/contact' } },
@@ -83,6 +84,10 @@ export async function Footer() {
             ©{year} {studioName}.
             <br />
             All rights reserved.
+            <br />
+            <Link className={styles.creditLink} href="/image-credits">
+              Image Credits
+            </Link>
           </p>
 
           {socialProfiles.length > 0 ? (

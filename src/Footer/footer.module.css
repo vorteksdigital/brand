@@ -64,6 +64,7 @@
 .contactLink,
 .telephone,
 .socialList a,
+.creditLink,
 .brand {
   color: inherit;
   text-decoration: none;
@@ -78,7 +79,8 @@
 
 .navLink:hover,
 .socialList a:hover,
-.telephone:hover {
+.telephone:hover,
+.creditLink:hover {
   opacity: 0.55;
 }
 
@@ -250,6 +252,7 @@
 [data-theme='light'] .contactLink:focus-visible,
 [data-theme='light'] .telephone:focus-visible,
 [data-theme='light'] .socialList a:focus-visible,
+[data-theme='light'] .creditLink:focus-visible,
 [data-theme='light'] .brand:focus-visible {
   outline-color: #11100e;
 }
@@ -258,6 +261,7 @@
 .contactLink:focus-visible,
 .telephone:focus-visible,
 .socialList a:focus-visible,
+.creditLink:focus-visible,
 .brand:focus-visible {
   outline: 3px solid #fff;
   outline-offset: 5px;

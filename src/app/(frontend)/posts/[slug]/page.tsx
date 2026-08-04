@@ -99,7 +99,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <PostHero post={post} />
 
-      <div className={styles.articleGrid} id="article-content">
+      <div className={`${styles.articleGrid} content-section`} id="article-content">
         <aside aria-label="Share this article" className={styles.shareRail}>
           <ul className={styles.shareList}>
             <li>

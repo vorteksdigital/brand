@@ -1,0 +1,333 @@
+.sections {
+  --home-unit: clamp(1px, 12px, calc(100vw * 0.0256410256));
+  --home-gutter: calc(var(--home-unit) * 2.3);
+  --home-gap: calc(var(--home-unit) * 0.5);
+  width: 100%;
+  overflow: clip;
+  color: var(--foreground);
+  background: var(--background);
+  font-size: calc(var(--home-unit) * 1.8);
+  line-height: 1.5;
+}
+
+.approach,
+.studio {
+  padding-inline: var(--home-gutter);
+}
+
+.approach {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.approachCue {
+  margin-bottom: calc(var(--home-unit) * 3);
+}
+
+.arrowCue {
+  position: relative;
+  display: none;
+  overflow: hidden;
+}
+
+.arrowCue svg {
+  width: calc(var(--home-unit) * 5.75);
+  height: calc(var(--home-unit) * 5.75);
+  stroke-width: 1.6;
+}
+
+.arrowCue svg + svg {
+  position: absolute;
+  inset: 0;
+}
+
+.approach h2,
+.studio h2,
+.allProjects {
+  padding: 0;
+  margin: 0;
+  font-size: calc(var(--home-unit) * 3.4);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+}
+
+.approachDetails {
+  margin-top: calc(var(--home-unit) * 6);
+}
+
+.approachLabel {
+  display: none;
+}
+
+.approachCopy {
+  max-width: calc(var(--home-unit) * 50);
+}
+
+.approachCopy p,
+.studioCopy p {
+  margin: 0;
+}
+
+.approachCopy p + p,
+.studioCopy p + p {
+  margin-top: calc(var(--home-unit) * 2.5);
+}
+
+.approachCopy strong {
+  font-weight: 700;
+}
+
+.textLink {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  color: inherit;
+  text-decoration: none;
+}
+
+.textLink::after,
+.allProjects::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  content: '';
+  background: currentColor;
+}
+
+.approachCopy .textLink {
+  margin-top: calc(var(--home-unit) * 8);
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: calc(var(--home-unit) * 4.5);
+  padding-inline: var(--home-gutter);
+}
+
+.projectCard,
+.projectCard a {
+  min-width: 0;
+}
+
+.projectCard a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.projectMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 10 / 11;
+  overflow: hidden;
+  border-radius: calc(var(--home-unit) * 0.75);
+  background: color-mix(in srgb, var(--foreground) 8%, var(--background));
+}
+
+.projectMedia img,
+.studioMedia img {
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projectCard a:hover .projectMedia img {
+  transform: scale(1.05);
+}
+
+.projectCard h3 {
+  margin: calc(var(--home-unit) * 2) 0 0;
+  font: inherit;
+}
+
+.projectCard h3 span {
+  display: block;
+}
+
+.allProjectsWrap {
+  padding-inline: var(--home-gutter);
+  margin-top: calc(var(--home-unit) * 8);
+  line-height: 0;
+}
+
+.allProjects {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.allProjects svg {
+  position: relative;
+  top: 0.08em;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  stroke-width: 1.5;
+}
+
+.allProjects small {
+  display: none;
+  align-self: flex-start;
+  margin-left: 0.25em;
+  font-size: 0.35em;
+  line-height: 1.4;
+}
+
+.studio {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.studioContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: calc(var(--home-unit) * 6);
+}
+
+.studioCopy {
+  width: 100%;
+  max-width: calc(var(--home-unit) * 41);
+  margin-top: calc(var(--home-unit) * 4);
+}
+
+.studioContent > div:last-child {
+  margin-top: calc(var(--home-unit) * 5);
+}
+
+.studioMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: calc(var(--home-unit) * 0.75);
+  background: color-mix(in srgb, var(--foreground) 8%, var(--background));
+}
+
+@media (min-width: 40.625rem) {
+  .sections {
+    --home-unit: clamp(1px, 12px, calc(100vw * 0.0066666667));
+  }
+}
+
+@media (min-width: 48rem) {
+  .sections {
+    --home-gutter: calc(var(--home-unit) * 5.8);
+    --home-gap: calc(var(--home-unit) * 2.4);
+  }
+
+  .approach {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--home-gap);
+  }
+
+  .approachCue {
+    grid-column: span 3;
+    margin: 0;
+  }
+
+  .approachCue > span:last-child {
+    display: none;
+  }
+
+  .arrowCue {
+    display: inline-flex;
+  }
+
+  .approachContent {
+    grid-column: 4 / -1;
+  }
+
+  .approach h2,
+  .studio h2,
+  .allProjects {
+    font-size: calc(var(--home-unit) * 5.75);
+    line-height: 1.13;
+  }
+
+  .approachContent > h2 {
+    padding-right: calc(var(--home-unit) * 10);
+  }
+
+  .approachDetails {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    column-gap: var(--home-gap);
+    margin-top: calc(var(--home-unit) * 15);
+  }
+
+  .approachLabel {
+    display: block;
+    grid-column: span 3;
+  }
+
+  .approachCopy {
+    grid-column: 4 / -1;
+  }
+
+  .projectGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: calc(var(--home-unit) * 1.6);
+    padding-inline: calc(var(--home-unit) * 1.6);
+  }
+
+  .projectCard h3 {
+    margin-top: calc(var(--home-unit) * 1.5);
+  }
+
+  .allProjectsWrap {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: calc(var(--home-unit) * 1.6);
+    padding-inline: calc(var(--home-unit) * 1.6);
+    margin-top: calc(var(--home-unit) * 12.5);
+  }
+
+  .allProjects {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .allProjects small {
+    display: inline-flex;
+  }
+
+  .studio {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--home-gap);
+    align-items: center;
+  }
+
+  .studioContent {
+    grid-column: 8 / -1;
+    order: 2;
+    padding: 0;
+  }
+
+  .studioCopy {
+    margin-top: calc(var(--home-unit) * 7);
+  }
+
+  .studioContent > div:last-child {
+    margin-top: calc(var(--home-unit) * 6);
+  }
+
+  .studioMedia {
+    width: calc(100% + calc(var(--home-unit) * 4.3));
+    grid-column: 1 / span 6;
+    margin-left: calc(var(--home-unit) * -4.3);
+    order: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectMedia img,
+  .studioMedia img {
+    transition: none;
+  }
+}
