@@ -814,6 +814,48 @@ test.describe('Frontend', () => {
       page.getByRole('heading', { name: 'Boutique studio. Global reach.' }),
     ).toBeVisible()
     await expect(page.locator('[data-home-project]')).toHaveCount(2)
+    const services = page.locator('[data-home-services]')
+    await expect(services.getByRole('button')).toHaveCount(3)
+    await expect(services.getByRole('button', { name: 'Identities' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect
+      .poll(async () => {
+        const featureBounds = await services.locator('[data-home-service-feature]').boundingBox()
+        const headingBounds = await services
+          .getByRole('button', { name: 'Identities' })
+          .boundingBox()
+
+        return featureBounds && headingBounds
+          ? Math.abs(featureBounds.y - headingBounds.y)
+          : Number.POSITIVE_INFINITY
+      })
+      .toBeLessThan(1)
+    await services.getByRole('button', { name: 'Systems' }).focus()
+    await expect(services.getByRole('button', { name: 'Systems' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(services.getByRole('img', { name: /Glass-fronted modern buildings/ })).toHaveCSS(
+      'opacity',
+      '1',
+    )
+    await expect
+      .poll(async () => {
+        const featureBounds = await services.locator('[data-home-service-feature]').boundingBox()
+        const headingBounds = await services.getByRole('button', { name: 'Systems' }).boundingBox()
+
+        return featureBounds && headingBounds
+          ? Math.abs(
+              featureBounds.y +
+                featureBounds.height / 2 -
+                (headingBounds.y + headingBounds.height / 2),
+            )
+          : Number.POSITIVE_INFINITY
+      })
+      .toBeLessThan(1)
+    await page.evaluate(() => window.scrollTo(0, 0))
     await expect(page.getByRole('link', { name: /See all projects/ })).toHaveAttribute(
       'href',
       '/projects',
@@ -823,23 +865,47 @@ test.describe('Frontend', () => {
       page.evaluate(() => {
         const approach = document.querySelector<HTMLElement>('[data-home-approach]')
         const projects = document.querySelector<HTMLElement>('[data-home-projects]')
+        const services = document.querySelector<HTMLElement>('[data-home-services]')
         const studio = document.querySelector<HTMLElement>('[data-home-studio]')
         const hero = document.querySelector<HTMLElement>('[aria-labelledby="home-hero-title"]')
         const projectMedia = document.querySelector<HTMLElement>('[data-home-project] div')
         const studioMedia = studio?.querySelector('img')?.parentElement
-        if (!approach || !projects || !studio || !hero || !projectMedia || !studioMedia) return null
+        if (
+          !approach ||
+          !projects ||
+          !services ||
+          !studio ||
+          !hero ||
+          !projectMedia ||
+          !studioMedia
+        )
+          return null
 
         const approachBounds = approach.getBoundingClientRect()
         const heroBounds = hero.getBoundingClientRect()
         const projectMediaBounds = projectMedia.getBoundingClientRect()
         const studioMediaBounds = studioMedia.getBoundingClientRect()
+        const heroPadding = Number.parseFloat(getComputedStyle(hero).paddingLeft)
+        const textRailPaddings = [approach, services, studio].map((section) =>
+          Number.parseFloat(getComputedStyle(section).paddingLeft),
+        )
+        const heroContentLeft = heroBounds.left + heroPadding
 
         return {
           approachY: approachBounds.y,
           heroHeight: heroBounds.height,
           projectMediaRatio: projectMediaBounds.width / projectMediaBounds.height,
           projectMediaWidth: projectMediaBounds.width,
+          servicesFollowProjects:
+            services.getBoundingClientRect().top >= projects.getBoundingClientRect().bottom,
+          studioFollowsServices:
+            studio.getBoundingClientRect().top >= services.getBoundingClientRect().bottom,
           studioMediaRatio: studioMediaBounds.width / studioMediaBounds.height,
+          textRailsMatchHero: textRailPaddings.every(
+            (padding) => Math.abs(padding - heroPadding) < 0.1,
+          ),
+          wideMediaOutsideHeroRail:
+            projectMediaBounds.left < heroContentLeft && studioMediaBounds.left < heroContentLeft,
         }
       })
 
@@ -848,7 +914,11 @@ test.describe('Frontend', () => {
       heroHeight: expect.closeTo(900, 1),
       projectMediaRatio: expect.closeTo(10 / 11, 2),
       projectMediaWidth: expect.closeTo(696.95, 1),
+      servicesFollowProjects: true,
+      studioFollowsServices: true,
       studioMediaRatio: expect.closeTo(4 / 5, 2),
+      textRailsMatchHero: true,
+      wideMediaOutsideHeroRail: true,
     })
 
     await page.setViewportSize({ height: 844, width: 390 })
@@ -856,12 +926,80 @@ test.describe('Frontend', () => {
       approachY: expect.closeTo(844, 1),
       heroHeight: expect.closeTo(844, 1),
       projectMediaRatio: expect.closeTo(10 / 11, 2),
-      projectMediaWidth: expect.closeTo(344.03, 1),
+      projectMediaWidth: expect.closeTo(342, 1),
+      servicesFollowProjects: true,
+      studioFollowsServices: true,
       studioMediaRatio: expect.closeTo(4 / 5, 2),
+      textRailsMatchHero: true,
     })
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
+  })
+
+  test('reveals service imagery and anchors panel across desktop headings', async ({ page }) => {
+    await page.setViewportSize({ height: 900, width: 1440 })
+    await page.goto('http://localhost:3000')
+
+    const services = page.locator('[data-home-services]')
+    const systems = services.getByRole('button', { name: 'Systems' })
+    await systems.hover()
+    await expect(services.locator('[data-home-services-showcase]')).toHaveCSS(
+      'padding-bottom',
+      '0px',
+    )
+    await expect(services.locator('[data-home-service-media]')).toHaveCSS(
+      'background-color',
+      'rgba(0, 0, 0, 0)',
+    )
+
+    const activeImage = services.getByRole('img', {
+      name: /Glass-fronted modern buildings/,
+    })
+    const clipFrames = await activeImage.evaluate((image) =>
+      image.getAnimations().flatMap((animation) => {
+        const effect = animation.effect
+
+        return effect instanceof KeyframeEffect
+          ? effect
+              .getKeyframes()
+              .map((frame) => String(frame.clipPath))
+              .filter((clipPath) => clipPath !== 'undefined')
+          : []
+      }),
+    )
+    expect(clipFrames[0]).toContain('100%')
+    expect(clipFrames.at(-1)).toMatch(/^inset\(0/)
+
+    await expect
+      .poll(async () => {
+        const featureBounds = await services.locator('[data-home-service-feature]').boundingBox()
+        const headingBounds = await systems.boundingBox()
+
+        return featureBounds && headingBounds
+          ? Math.abs(
+              featureBounds.y +
+                featureBounds.height / 2 -
+                (headingBounds.y + headingBounds.height / 2),
+            )
+          : Number.POSITIVE_INFINITY
+      })
+      .toBeLessThan(1)
+
+    const guidelines = services.getByRole('button', { name: 'Guidelines' })
+    await guidelines.hover()
+    await expect
+      .poll(async () => {
+        const featureBounds = await services.locator('[data-home-service-feature]').boundingBox()
+        const headingBounds = await guidelines.boundingBox()
+
+        return featureBounds && headingBounds
+          ? Math.abs(
+              featureBounds.y + featureBounds.height - (headingBounds.y + headingBounds.height),
+            )
+          : Number.POSITIVE_INFINITY
+      })
+      .toBeLessThan(1)
   })
 
   test('mobile header menu manages focus, scrolling, and theme', async ({ page }) => {

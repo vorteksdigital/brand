@@ -9,6 +9,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import { HomeSectionsAnimations } from './HomeSections.client'
 import styles from './index.module.css'
+import { ServicesShowcase } from './ServicesShowcase.client'
 
 type HomeProject = {
   alt: string
@@ -157,6 +158,18 @@ export async function HomeSections() {
             <small>({String(projectCount).padStart(2, '0')})</small>
           </Link>
         </div>
+      </section>
+
+      <section className={`${styles.services} content-section`} data-home-services>
+        <div className={styles.servicesIntro}>
+          <span>(Services)</span>
+          <h2 data-home-lines>From core brand foundations to high-impact digital experiences.</h2>
+          <Link className={styles.textLink} data-home-fade href="/approach">
+            Learn more about our approach
+          </Link>
+        </div>
+
+        <ServicesShowcase />
       </section>
 
       <section className={`${styles.studio} content-section`} data-home-studio>

@@ -58,6 +58,7 @@ export const imageCredits = [
     specificLocation: 'Johannesburg CBD',
     title: 'Street in City',
     usageLocations: [
+      'Homepage Services section',
       'Post 9: How Motion Makes Digital Experiences Memorable',
       'Project 7: Motion Memory',
     ],
@@ -126,6 +127,7 @@ export const imageCredits = [
     specificLocation: 'Johannesburg, Gauteng',
     title: 'Colourful urban portrait in Johannesburg',
     usageLocations: [
+      'Homepage Services section',
       'About page media reel and Life section',
       'Post 7: From Brand Audit to a Bold New Direction',
       'Project 6: Bold Direction',
@@ -261,6 +263,7 @@ export const imageCredits = [
     specificLocation: 'Melrose Arch',
     title: 'Modern building in Melrose Arch',
     usageLocations: [
+      'Homepage Services section',
       'About Services section',
       'Post 5: The Anatomy of a High-Converting Website',
       'Project 5: Conversion Engine',
