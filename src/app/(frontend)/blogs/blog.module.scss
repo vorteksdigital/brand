@@ -27,7 +27,7 @@
 
   > span {
     display: block;
-    transform: translateX(var(--hero-image-shift));
+    width: fit-content;
   }
 }
 
@@ -51,6 +51,12 @@
     top: calc(var(--blog-hero-unit) * 0.25);
     left: 0;
     margin: 0;
+  }
+}
+
+@media (min-width: 48rem) and (prefers-reduced-motion: reduce) {
+  .blog-hero-title > span {
+    transform: translateX(var(--hero-image-shift));
   }
 }
 

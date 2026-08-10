@@ -18,10 +18,6 @@ export function RouteAnimations() {
     const getUnit = () => Number.parseFloat(getComputedStyle(page).fontSize) / 1.8 || 10
 
     CustomEase.create('route-unmask', 'M0,0 C0.2,0 0,1 1,1')
-    CustomEase.create(
-      'route-snappy',
-      'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1',
-    )
 
     motion.add('(prefers-reduced-motion: no-preference)', () => {
       const splits: SplitText[] = []
@@ -34,23 +30,17 @@ export function RouteAnimations() {
       })
 
       entrance
-        .from(page, {
-          duration: 1.25,
-          ease: 'route-snappy',
-          force3D: true,
-          onComplete: () => ScrollTrigger.refresh(),
-          y: () => window.innerHeight,
-        })
         .from(
           select('[data-route-hero-line]'),
           { duration: 1, ease: 'route-unmask', stagger: 0.1, yPercent: 105 },
-          0.4,
+          0.75,
         )
         .from(
           select('[data-route-hero-copy]'),
           { autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.1, y: () => getUnit() * 3 },
-          0.7,
+          0.75,
         )
+        .call(() => ScrollTrigger.refresh())
 
       select<HTMLElement>('[data-route-lines]').forEach((element) => {
         let revealed = false

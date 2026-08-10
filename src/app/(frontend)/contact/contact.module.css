@@ -41,7 +41,6 @@
 
 .heroTitleShift {
   display: block;
-  transform: translateX(var(--hero-image-shift));
 }
 
 .heroTitleShift > span {
@@ -204,5 +203,11 @@
   .contactRows .largeCopy {
     font-size: calc(var(--route-unit) * 4.5);
     line-height: 1.13;
+  }
+}
+
+@media (min-width: 48rem) and (prefers-reduced-motion: reduce) {
+  .heroTitleShift {
+    transform: translateX(var(--hero-image-shift));
   }
 }

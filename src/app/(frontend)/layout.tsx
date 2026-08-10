@@ -5,6 +5,7 @@ import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { JsonLd } from '@/components/JsonLd'
+import { PageTransition } from '@/components/PageTransition/PageTransition.client'
 import { Footer } from '@/Footer/Component'
 import { siteMono, siteSans } from '@/fonts'
 import { Header } from '@/Header/Component'
@@ -72,10 +73,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <Header />
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
+          <PageTransition footer={<Footer />}>{children}</PageTransition>
         </Providers>
       </body>
     </html>

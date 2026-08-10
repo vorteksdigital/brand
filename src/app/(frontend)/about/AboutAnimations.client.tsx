@@ -49,17 +49,6 @@ export function AboutAnimations() {
 
       const entrance = gsap.timeline({ defaults: { duration: 1, ease: 'about-unmask' } })
       entrance
-        .from(
-          page,
-          {
-            duration: 1.25,
-            ease: 'about-snappy',
-            force3D: true,
-            onComplete: () => ScrollTrigger.refresh(),
-            y: () => window.innerHeight,
-          },
-          0,
-        )
         .from(select('[data-about-hero-line]'), { stagger: 0.1, yPercent: 100 }, 0.4)
         .fromTo(
           select('[data-about-hero-media]'),
@@ -70,6 +59,7 @@ export function AboutAnimations() {
         .from(subtitleLines, { stagger: 0.1, yPercent: 100 }, 0.75)
         .call(() => {
           subtitleEntranceComplete = true
+          ScrollTrigger.refresh()
         })
 
       const desktopShift = gsap.matchMedia()

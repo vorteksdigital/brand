@@ -265,11 +265,11 @@ html[data-theme='light'] {
 }
 
 body:has([data-not-found-page]) > header,
-body:has([data-not-found-page]) > footer,
 body:has([data-not-found-page]) > [data-header-theme-control] {
   display: none;
 }
 
-body:has([data-projects-page]) > footer {
+[data-page-transition-frame]:has([data-not-found-page]) > footer,
+[data-page-transition-frame]:has([data-projects-page]) > footer {
   display: none;
 }

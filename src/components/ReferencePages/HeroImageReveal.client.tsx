@@ -10,40 +10,49 @@ export function HeroImageReveal() {
     const motion = gsap.matchMedia()
 
     motion.add('(prefers-reduced-motion: no-preference)', () => {
-      const timelines = Array.from(
+      const media = Array.from(
         document.querySelectorAll<HTMLElement>('[data-hero-image-reveal]'),
-      ).map((media) => {
-        const wrap = media.closest<HTMLElement>('[data-hero-title-wrap]')
-        const shift = wrap?.querySelector<HTMLElement>('[data-hero-image-shift]')
-        const timeline = gsap.timeline({ delay: 0.75 })
+      )
+      const mediaTweens = media.map((element) =>
+        gsap.fromTo(
+          element,
+          { clipPath: 'inset(0 100% 0 0)' },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            delay: 0.9,
+            duration: 0.5,
+            ease: 'expo.inOut',
+          },
+        ),
+      )
+      const desktopShift = gsap.matchMedia()
 
-        if (shift && wrap) {
-          timeline.fromTo(
+      desktopShift.add('(min-width: 768px)', () => {
+        const shiftTweens = media.flatMap((element) => {
+          const wrap = element.closest<HTMLElement>('[data-hero-title-wrap]')
+          const shift = wrap?.querySelector<HTMLElement>('[data-hero-image-shift]')
+
+          if (!shift) return []
+
+          return gsap.fromTo(
             shift,
             { x: 0 },
             {
+              delay: 0.75,
               duration: 1,
               ease: 'expo.inOut',
-              x: () =>
-                Number.parseFloat(
-                  getComputedStyle(wrap).getPropertyValue('--hero-image-shift'),
-                ) || 0,
+              x: () => element.getBoundingClientRect().width * (20 / 17.5),
             },
-            0,
           )
-        }
+        })
 
-        timeline.fromTo(
-          media,
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'expo.inOut' },
-          0.15,
-        )
-
-        return timeline
+        return () => shiftTweens.forEach((tween) => tween.revert())
       })
 
-      return () => timelines.forEach((timeline) => timeline.revert())
+      return () => {
+        desktopShift.revert()
+        mediaTweens.forEach((tween) => tween.revert())
+      }
     })
 
     return () => motion.revert()

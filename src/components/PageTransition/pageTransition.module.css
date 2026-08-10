@@ -1,0 +1,62 @@
+.root {
+  position: relative;
+  flex: 1 0 auto;
+  isolation: isolate;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.snapshotHost {
+  position: relative;
+  z-index: 0;
+}
+
+.outgoing {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.incoming {
+  z-index: 1;
+  transform: translate3d(0, 100vh, 0);
+  transform: translate3d(0, 100svh, 0);
+  will-change: transform;
+}
+
+.shade {
+  position: absolute;
+  z-index: 5;
+  visibility: hidden;
+  pointer-events: none;
+  background: rgb(85 85 85);
+  opacity: 0;
+  inset: 0;
+}
+
+.blocker {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  cursor: wait;
+  inset: 0;
+}
+
+.blocker[data-active='true'] {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .incoming {
+    transform: none;
+  }
+}

@@ -418,6 +418,74 @@ test.describe('Frontend', () => {
     await expect(route).toHaveAttribute('data-route-motion', 'complete', { timeout: 4000 })
   })
 
+  test('stacks pages with the measured Vucko route transition', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.setViewportSize({ height: 900, width: 1440 })
+    await page.goto('http://localhost:3000/about')
+
+    const transition = page.locator('[data-page-transition]')
+    const blocker = page.locator('[data-page-transition-blocker]')
+    await page
+      .getByRole('navigation', { name: 'Primary navigation' })
+      .getByRole('link', { name: 'services' })
+      .click()
+
+    await expect(blocker).toHaveAttribute('data-active', 'true')
+    await expect(transition).toHaveAttribute('data-page-transition-state', 'running')
+    await expect(page.locator('[data-page-transition-frame]')).toHaveCount(2)
+    await page.waitForTimeout(500)
+
+    const stack = await page.evaluate(() => {
+      const outgoing = document.querySelector<HTMLElement>('[data-page-transition-outgoing]')
+      const incoming = document.querySelector<HTMLElement>('[data-page-transition-incoming]')
+      const shade = document.querySelector<HTMLElement>('[data-page-transition-shade]')
+
+      if (!outgoing || !incoming || !shade) return null
+
+      return {
+        incomingY: incoming.getBoundingClientRect().y,
+        outgoingPosition: getComputedStyle(outgoing).position,
+        outgoingY: outgoing.getBoundingClientRect().y,
+        shadeOpacity: Number.parseFloat(getComputedStyle(shade).opacity),
+      }
+    })
+
+    expect(stack).toMatchObject({ outgoingPosition: 'fixed' })
+    expect(stack?.outgoingY).toBeLessThan(0)
+    expect(stack?.outgoingY).toBeGreaterThanOrEqual(-135)
+    expect(stack?.incomingY).toBeGreaterThan(0)
+    expect(stack?.incomingY).toBeLessThan(900)
+    expect(stack?.shadeOpacity).toBeGreaterThan(0)
+    expect(stack?.shadeOpacity).toBeLessThanOrEqual(0.5)
+
+    await expect(transition).toHaveAttribute('data-page-transition-state', 'idle', {
+      timeout: 2500,
+    })
+    await expect(blocker).toHaveAttribute('data-active', 'false')
+    await expect(page.locator('[data-page-transition-frame]')).toHaveCount(1)
+    await expect(page.locator('main#main-content')).toHaveCount(1)
+  })
+
+  test('skips stacked page motion when reduced motion is requested', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('http://localhost:3000/about')
+    await page
+      .getByRole('navigation', { name: 'Primary navigation' })
+      .getByRole('link', { name: 'services' })
+      .click()
+
+    await expect(page).toHaveURL('http://localhost:3000/approach')
+    await expect(page.locator('[data-page-transition]')).toHaveAttribute(
+      'data-page-transition-state',
+      'idle',
+    )
+    await expect(page.locator('[data-page-transition-frame]')).toHaveCount(1)
+    await expect(page.locator('[data-page-transition-blocker]')).toHaveAttribute(
+      'data-active',
+      'false',
+    )
+  })
+
   test('renders the branded reference footer responsively', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' })
     await page.setViewportSize({ height: 1000, width: 1440 })
@@ -575,6 +643,16 @@ test.describe('Frontend', () => {
       'src',
       /johannesburg-sunset-skyline\.webp/,
     )
+    await expect
+      .poll(async () => {
+        const mediaBounds = await page.locator('[data-hero-image-reveal]').boundingBox()
+        const titleBounds = await page.locator('[data-hero-image-shift]').boundingBox()
+
+        if (!mediaBounds || !titleBounds) return false
+
+        return titleBounds.x >= mediaBounds.x + mediaBounds.width
+      })
+      .toBe(true)
     await expect(blogsHeading).toHaveCSS('text-transform', 'uppercase')
     await expect(blogsHeading).toHaveAttribute('id', 'blogs-title')
     await expect(page.locator('section[aria-labelledby="blogs-title"]')).toHaveCSS(
