@@ -6,19 +6,19 @@ import { ArrowUpRight } from 'lucide-react'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
-  description: 'A new VRTKS Digital experience is taking shape.',
+  description: 'Vorteks Digital builds websites, digital products and bespoke solutions.',
   robots: {
     follow: false,
     index: false,
   },
-  title: 'Coming Soon | VRTKS Digital',
+  title: 'Coming Soon | Vorteks Digital',
 }
 
 export default function ComingSoonPage() {
   return (
     <main className={styles.page}>
       <header className={styles.masthead}>
-        <Link aria-label="VRTKS Digital home" className={styles.wordmark} href="/">
+        <Link aria-label="Vorteks Digital home" className={styles.wordmark} href="/">
           <Image
             alt=""
             className={styles.wordmarkLogo}
@@ -44,9 +44,9 @@ export default function ComingSoonPage() {
 
       <footer className={styles.footer}>
         <p>
-          We&apos;re shaping a new digital experience.
+          Need a website, digital product or bespoke solution?
           <br />
-          Let&apos;s make something remarkable in the meantime.
+          Start the conversation while our new site takes shape.
         </p>
         <a className={styles.contact} href="mailto:info@vorteksdigital.co.za">
           Start a project

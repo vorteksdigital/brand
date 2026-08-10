@@ -194,7 +194,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -217,18 +217,36 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'projects',
+              url: '/projects',
             },
           },
           {
             link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
+              type: 'custom',
+              label: 'services',
+              url: '/approach',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'about',
+              url: '/about',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'insights',
+              url: '/blogs',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'contact',
+              url: '/contact',
             },
           },
         ],
@@ -241,24 +259,43 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Admin',
-              url: '/admin',
+              label: 'home',
+              url: '/',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/3.x/templates/website',
+              label: 'projects',
+              url: '/projects',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
+              label: 'services',
+              url: '/approach',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'about',
+              url: '/about',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'insights',
+              url: '/blogs',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'contact',
+              url: '/contact',
             },
           },
         ],
@@ -267,7 +304,14 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'site-settings',
       data: {
+        defaultDescription:
+          'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.',
         defaultSocialImage: image1Doc.id,
+        organisation: {
+          name: 'Vorteks Digital',
+          email: 'info@vorteksdigital.co.za',
+        },
+        siteName: 'Vorteks Digital',
       },
     }),
   ])

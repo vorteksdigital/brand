@@ -10,36 +10,36 @@ import styles from './about.module.css'
 
 const principles = [
   {
-    body: 'We think holistically, considering strategy, digital, cross-functional teams, and outcomes from day one. We foster open dialogue, thoughtful questions, and diverse perspectives.',
-    title: 'A holistic studio',
+    body: 'You work directly with a flexible studio team, without unnecessary account layers or a drawn-out agency process.',
+    title: 'Less overhead',
   },
   {
-    body: 'We work alongside experienced talent to build digital systems at scale. If you’re interested in thoughtful, system-led work inside complex brand environments, we’d love to hear from you.',
-    title: 'High-impact teams',
+    body: 'Strategy, design, development and ongoing support stay connected, so useful context does not disappear between suppliers.',
+    title: 'Joined-up delivery',
   },
   {
-    body: 'Johannesburg roots meet a distributed network built for consistent collaboration across regions and time zones.',
-    title: 'A flexible model',
+    body: 'Based in Johannesburg and working worldwide, Vorteks Digital can support a defined project or become a long-term digital partner.',
+    title: 'Built to flex',
   },
 ]
 
-const partners = [
-  'Aperture',
-  'Northstar',
-  'Common Ground',
-  'Metric',
-  'Fieldwork',
-  'Loop',
-  'Studio One',
-  'Assembly',
-  'Morrow',
-  'Current',
-  'Parallel',
-  'Good Company',
-  'Daylight',
-  'Kin',
-  'Outline',
-  'Soft Focus',
+const capabilities = [
+  'Website strategy',
+  'Web design',
+  'Web development',
+  'WordPress',
+  'Website maintenance',
+  'Digital products',
+  'Bespoke solutions',
+  'Brand strategy',
+  'Brand identity',
+  'Brand systems',
+  'Motion design',
+  'SEO support',
+  'Marketing support',
+  'Graphic design',
+  'Content design',
+  'Technical support',
 ]
 
 const showcaseImages = [
@@ -76,31 +76,31 @@ export default function AboutPage() {
               src="/images/johannesburg/houghton-cafe-portrait.webp"
             />
           </div>
-          <h1 aria-label="Digital for global brands.">
+          <h1 aria-label="Digital support for growing businesses.">
             <span aria-hidden="true" className={styles.heroTitleLine}>
               <span className={styles.heroTitleRise} data-about-hero-line>
                 <span className={styles.heroTitleShift} data-about-hero-shift>
-                  Digital
+                  Digital support
                 </span>
               </span>
             </span>
             <span aria-hidden="true" className={styles.heroTitleLine}>
               <span className={styles.heroTitleRise} data-about-hero-line>
-                for global
+                for growing
               </span>
             </span>
             <span aria-hidden="true" className={styles.heroTitleLine}>
               <span className={styles.heroTitleRise} data-about-hero-line>
-                brands.
+                businesses.
               </span>
             </span>
           </h1>
         </div>
 
         <div className={styles.heroFooter}>
-          <p data-about-subtitle>
-            An independent digital partner, collaborating with ambitious teams.
-          </p>
+          <h2 data-about-subtitle>
+            High-quality work, direct collaboration and less agency overhead.
+          </h2>
           <span aria-hidden="true">(Scroll)</span>
         </div>
       </section>
@@ -116,27 +116,27 @@ export default function AboutPage() {
           <span>(Company)</span>
         </div>
         <div className={styles.companyContent}>
-          <h2 data-about-lines>Dedicated and seamlessly integrated, a true extension of brands.</h2>
+          <h2 data-about-lines>A flexible digital studio for startups and growing businesses.</h2>
           <div className={styles.companyDetails}>
             <span data-about-fade>(Company)</span>
             <div data-about-fade>
               <p>
                 <strong>
-                  VRTKS is an independent digital studio based in Johannesburg, partnering with
-                  teams globally.
+                  Vorteks Digital is an independent digital studio established in 2020 and based
+                  in Johannesburg, serving clients worldwide.
                 </strong>
               </p>
               <p>
-                We specialise in brand systems, websites, digital products, and motion—building
-                connected experiences that give brands clarity and a consistent way to show up.
+                Our commercial focus is websites, digital products and bespoke digital solutions.
+                We also support WordPress, maintenance, branding, motion, marketing, SEO and
+                graphic design.
               </p>
               <p>
-                Good systems come from close partnerships. We integrate deeply, collaborate openly,
-                and solve alongside the people who know the business best.
+                The model is deliberately lean. Clients get high-quality thinking and delivery
+                without the overhead, hand-offs and complexity of a traditional large agency.
               </p>
               <p>
-                That trust lets the work evolve as the brand grows, across new products, channels,
-                and moments.
+                Engagements can begin with one defined need or grow into ongoing digital support.
               </p>
             </div>
           </div>
@@ -145,8 +145,8 @@ export default function AboutPage() {
 
       <section className={`${styles.focus} content-section`}>
         <span>(Our focus)</span>
-        <p>Defining how brands move, scale, and express themselves.</p>
-        <Link href="/contact">Let&apos;s work together</Link>
+        <p>Building useful digital foundations without unnecessary complexity.</p>
+        <Link href="/contact">Start a project</Link>
       </section>
 
       <section className={`${styles.life} content-section`}>
@@ -159,7 +159,7 @@ export default function AboutPage() {
           />
         </div>
         <div className={styles.lifeContent}>
-          <h2 data-about-lines>Life @ VRTKS</h2>
+          <h2 data-about-lines>How we work</h2>
           <ol>
             {principles.map((principle, index) => (
               <li key={principle.title}>
@@ -179,26 +179,26 @@ export default function AboutPage() {
           <ArrowRight aria-hidden="true" />
           <ArrowRight aria-hidden="true" />
         </span>
-        <h2 data-about-lines>Leaders in brand systems, identities, products &amp; motion.</h2>
+        <h2 data-about-lines>Quality work without a traditional agency structure.</h2>
       </section>
 
       <section className={`${styles.clients} content-section`}>
         <div className={styles.clientsHeading}>
-          <h2 aria-label="Clients" data-about-clients-title>
+          <h2 aria-label="Capabilities" data-about-clients-title>
             <span aria-hidden="true">
-              {'Clients'.split('').map((character, index) => (
+              {'Capabilities'.split('').map((character, index) => (
                 <span className={styles.clientCharacter} key={`${character}-${index}`}>
                   <span data-about-client-character>{character}</span>
                 </span>
               ))}
             </span>
           </h2>
-          <span>(Our partners)</span>
+          <span>(Services)</span>
         </div>
         <ul data-about-client-grid>
-          {partners.map((partner) => (
-            <li key={partner}>
-              <span>{partner}</span>
+          {capabilities.map((capability) => (
+            <li key={capability}>
+              <span>{capability}</span>
             </li>
           ))}
         </ul>
@@ -214,9 +214,9 @@ export default function AboutPage() {
           />
         </div>
         <div className={styles.servicesContent}>
-          <h2 data-about-lines>From strategy &amp; identity to entire digital ecosystems.</h2>
+          <h2 data-about-lines>Need a website, product or solution that fits your business?</h2>
           <div data-about-fade>
-            <Link href="/approach">Learn more about our approach</Link>
+            <Link href="/contact">Tell us what you need</Link>
           </div>
         </div>
       </section>
@@ -229,7 +229,8 @@ export function generateMetadata(): Metadata {
     alternates: {
       canonical: '/about',
     },
-    description: 'Meet VRTKS Digital, an independent digital studio in Johannesburg.',
-    title: 'About | VRTKS Digital',
+    description:
+      'Meet Vorteks Digital, a global digital studio helping startups build websites, products and bespoke solutions without big-agency overhead.',
+    title: 'About Vorteks Digital | Global Digital Studio',
   }
 }

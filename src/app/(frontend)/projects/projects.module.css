@@ -17,6 +17,22 @@
   padding-bottom: 60px;
 }
 
+.emptyState {
+  max-width: 54rem;
+  padding: 4rem 1.25rem;
+}
+
+.emptyState h2,
+.emptyState p {
+  margin: 0 0 1.5rem;
+}
+
+.emptyState a {
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+
 .scroller {
   box-sizing: border-box;
   flex: 1;

@@ -27,10 +27,10 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | VRTKS Digital'
+    ? doc?.meta?.title + ' | Vorteks Digital'
     : doc && 'title' in doc && doc.title
-      ? `${doc.title} | VRTKS Digital`
-      : 'VRTKS Digital'
+      ? `${doc.title} | Vorteks Digital`
+      : 'Vorteks Digital'
   const slug = typeof doc?.slug === 'string' ? doc.slug : ''
   const isPost = Boolean(doc && 'content' in doc)
   const pathname = slug === 'home' ? '/' : isPost ? `/posts/${slug}` : `/${slug}`

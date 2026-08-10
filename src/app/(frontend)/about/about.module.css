@@ -34,8 +34,8 @@
 .hero h1 {
   padding: 0;
   margin: 0;
-  font-size: calc(var(--about-unit) * 5);
-  font-weight: 700;
+  font-size: calc(var(--about-unit) * 3.7202380952);
+  font-weight: 800;
   line-height: 1.14;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -75,14 +75,14 @@
   margin-top: calc(var(--about-unit) * 5);
 }
 
-.heroFooter p {
-  width: 100%;
+.heroFooter h2 {
   max-width: calc(var(--about-unit) * 34.4);
+  padding: 0;
   margin: 0;
-  font-size: calc(var(--about-unit) * 3.2);
+  font-size: 30px;
   font-weight: 400;
   line-height: 1.14;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .heroFooter > span {
@@ -385,7 +385,8 @@
   }
 
   .hero h1 {
-    font-size: calc(var(--about-unit) * 14);
+    font-size: calc(var(--about-unit) * 10.4166666667);
+    font-weight: 800;
     line-height: 1.025;
   }
 
@@ -400,9 +401,8 @@
     margin-top: 0;
   }
 
-  .heroFooter p {
-    max-width: calc(var(--about-unit) * 85);
-    font-size: calc(var(--about-unit) * 4.5);
+  .heroFooter h2 {
+    max-width: calc(var(--about-unit) * 75);
     line-height: 1.17;
   }
 

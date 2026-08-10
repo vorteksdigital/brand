@@ -4,6 +4,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { JsonLd } from '@/components/JsonLd'
 import { Footer } from '@/Footer/Component'
 import { siteMono, siteSans } from '@/fonts'
 import { Header } from '@/Header/Component'
@@ -25,6 +26,38 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
       </head>
       <body>
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Organization',
+                name: 'Vorteks Digital',
+                alternateName: 'VRTKS',
+                url: getServerSideURL(),
+                email: 'info@vorteksdigital.co.za',
+                foundingDate: '2020',
+                areaServed: 'Worldwide',
+                knowsAbout: [
+                  'Website development',
+                  'Web design',
+                  'WordPress development',
+                  'Digital products',
+                  'Bespoke digital solutions',
+                  'Website maintenance',
+                  'Digital marketing',
+                  'Search engine optimization',
+                  'Graphic design',
+                ],
+              },
+              {
+                '@type': 'WebSite',
+                name: 'Vorteks Digital',
+                url: getServerSideURL(),
+              },
+            ],
+          }}
+        />
         <a
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-white px-4 py-2 text-black shadow focus:translate-y-0"
           href="#main-content"
@@ -54,6 +87,5 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }

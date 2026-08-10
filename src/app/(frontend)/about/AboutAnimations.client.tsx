@@ -35,7 +35,7 @@ export function AboutAnimations() {
       const subtitle = page.querySelector<HTMLElement>('[data-about-subtitle]')
       if (subtitle) {
         const subtitleSplit = SplitText.create(subtitle, {
-          aria: 'auto',
+          aria: 'none',
           autoSplit: true,
           mask: 'lines',
           onSplit: (currentSplit) => {

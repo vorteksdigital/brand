@@ -13,12 +13,13 @@ export const SiteSettings: GlobalConfig = {
     group: 'Settings',
   },
   fields: [
-    { name: 'siteName', type: 'text', defaultValue: 'VRTKS Digital', required: true },
+    { name: 'siteName', type: 'text', defaultValue: 'Vorteks Digital', required: true },
     {
       name: 'defaultDescription',
       type: 'textarea',
       required: true,
-      defaultValue: 'A modern publishing platform built with Payload CMS and Next.js.',
+      defaultValue:
+        'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.',
     },
     { name: 'defaultSocialImage', type: 'upload', relationTo: 'media' },
     {

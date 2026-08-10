@@ -76,7 +76,7 @@ export default buildConfig({
       ? resendAdapter({
           apiKey: resendAPIKey,
           defaultFromAddress: resendFromAddress,
-          defaultFromName: process.env.RESEND_FROM_NAME?.trim() || 'VRTKS Digital',
+          defaultFromName: process.env.RESEND_FROM_NAME?.trim() || 'Vorteks Digital',
         })
       : undefined,
   collections: [Pages, Posts, Projects, Media, Categories, Users],

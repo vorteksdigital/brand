@@ -2,10 +2,13 @@ import type { Metadata } from 'next'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import Image from 'next/image'
 
+import { HeroImageReveal } from '@/components/ReferencePages/HeroImageReveal.client'
 import { LowImpactHero } from '@/heros/LowImpact'
 
 import { BlogFeed } from './BlogFeed'
+import styles from './blog.module.scss'
 import type { BlogCategoryData, BlogPostData } from './types'
 
 export const dynamic = 'force-static'
@@ -64,10 +67,27 @@ export default async function BlogsPage() {
 
   return (
     <div className="route-shell" data-route-shell>
+      <HeroImageReveal />
       <LowImpactHero>
-        <div className="payload-richtext mx-auto prose md:prose-md dark:prose-invert max-w-none">
-          <h1 className="mb-[0.25em]" id="blogs-title">
-            Blogs
+        <div
+          className={`${styles['blog-hero-title-wrap']} payload-richtext mx-auto prose md:prose-md dark:prose-invert max-w-none`}
+          data-hero-title-wrap
+        >
+          <div
+            aria-hidden="true"
+            className={styles['blog-hero-media']}
+            data-hero-image-reveal
+          >
+            <Image
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 48rem) 44vw, 18vw"
+              src="/images/johannesburg/johannesburg-sunset-skyline.webp"
+            />
+          </div>
+          <h1 className={`${styles['blog-hero-title']} mb-[0.25em]`} id="blogs-title">
+            <span data-hero-image-shift>Insights</span>
           </h1>
         </div>
       </LowImpactHero>
@@ -82,6 +102,8 @@ export function generateMetadata(): Metadata {
     alternates: {
       canonical: '/blogs',
     },
-    title: 'Blogs | VRTKS Digital',
+    description:
+      'Practical thinking on websites, digital products, WordPress, SEO and digital growth from Vorteks Digital.',
+    title: 'Digital Insights for Startups | Vorteks Digital',
   }
 }

@@ -75,22 +75,22 @@ const createStaticPage = ({
 
 export const staticPages: Record<string, RequiredDataFromCollectionSlug<'pages'>> = {
   approach: createStaticPage({
-    description: 'How VRTKS Digital builds connected digital systems.',
+    description: 'Website development, digital products and bespoke solutions from Vorteks Digital.',
     slug: 'approach',
     title: 'Approach',
   }),
   projects: createStaticPage({
-    description: 'Selected work from VRTKS Digital.',
+    description: 'Approved website, product and bespoke solution work from Vorteks Digital.',
     slug: 'projects',
     title: 'Projects',
   }),
   about: createStaticPage({
-    description: 'Learn more about VRTKS Digital.',
+    description: 'About Vorteks Digital, a global digital studio established in 2020.',
     slug: 'about',
     title: 'About',
   }),
   contact: createStaticPage({
-    description: 'Get in touch with VRTKS Digital.',
+    description: 'Start a website, product or bespoke digital project with Vorteks Digital.',
     slug: 'contact',
     title: 'Contact',
   }),

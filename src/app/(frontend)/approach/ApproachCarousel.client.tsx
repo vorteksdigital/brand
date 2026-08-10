@@ -7,16 +7,16 @@ import styles from './approach.module.css'
 
 const principles = [
   {
-    body: 'Strategy and craft stay connected from first conversation through final system.',
-    title: 'One joined-up process',
+    body: 'We clarify goals, users, constraints, scope and priorities before recommending the work.',
+    title: 'Understand the need',
   },
   {
-    body: 'Real use cases shape decisions early, so systems work beyond presentation day.',
-    title: 'Built against reality',
+    body: 'The right mix of strategy, design and development moves from plan to working solution.',
+    title: 'Shape and build',
   },
   {
-    body: 'Clear rules give internal teams confidence to extend the work without losing coherence.',
-    title: 'Made to be owned',
+    body: 'Launch is followed by practical handover, maintenance or ongoing support when required.',
+    title: 'Support what follows',
   },
 ]
 

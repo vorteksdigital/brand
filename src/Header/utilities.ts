@@ -22,7 +22,7 @@ export const defaultHeaderNavItems: NonNullable<Header['navItems']> = [
   },
   {
     link: {
-      label: 'approach',
+      label: 'services',
       type: 'custom',
       url: '/approach',
     },
@@ -36,7 +36,7 @@ export const defaultHeaderNavItems: NonNullable<Header['navItems']> = [
   },
   {
     link: {
-      label: 'blogs',
+      label: 'insights',
       type: 'custom',
       url: '/blogs',
     },

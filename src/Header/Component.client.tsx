@@ -220,7 +220,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <div className={styles.topBar} ref={topBarRef}>
           <div className={styles.leftGroup}>
             <Link
-              aria-label="VRTKS Digital home"
+              aria-label="Vorteks Digital home"
               className={styles.wordmark}
               href="/"
               onClick={closeMenu}

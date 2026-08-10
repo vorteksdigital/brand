@@ -17,21 +17,49 @@
 
 .hero {
   display: flex;
-  min-height: calc(var(--route-unit) * 69.3);
+  min-height: calc(var(--route-unit) * 53.8);
   flex-direction: column;
   justify-content: space-between;
   padding-top: calc(var(--route-unit) * 18.5);
-  padding-bottom: calc(var(--route-unit) * 5);
+  padding-bottom: calc(var(--route-unit) * 2.3);
 }
 
 .hero h1 {
   padding: 0;
   margin: 0 0 0 -0.035em;
-  font-size: calc(var(--route-unit) * 5);
-  font-weight: 700;
+  font-size: calc(var(--route-unit) * 3.7202380952);
+  font-weight: 800;
   line-height: 1.14;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+}
+
+.heroTitleWrap {
+  --hero-image-shift: 0px;
+  position: relative;
+}
+
+.heroTitleShift {
+  display: block;
+  transform: translateX(var(--hero-image-shift));
+}
+
+.heroTitleShift > span {
+  display: block;
+}
+
+.heroMedia {
+  position: relative;
+  width: calc(var(--route-unit) * 17.5);
+  height: calc(var(--route-unit) * 10);
+  margin-bottom: calc(var(--route-unit) * 1.5);
+  overflow: hidden;
+  border-radius: calc(var(--route-unit) * 1);
+  background: color-mix(in srgb, var(--foreground) 8%, var(--background));
+}
+
+.heroMedia img {
+  object-fit: cover;
 }
 
 .hero h1 > span,
@@ -43,14 +71,18 @@
   overflow: hidden;
 }
 
-.heroCopy {
-  display: grid;
-  gap: calc(var(--route-unit) * 2.5);
+.heroFooter h2 {
+  max-width: calc(var(--route-unit) * 34.4);
+  padding: 0;
+  margin: 0;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
 }
 
-.heroCopy p {
-  max-width: calc(var(--route-unit) * 50);
-  margin: 0;
+.heroFooter > span {
+  display: none;
 }
 
 .contactRows article {
@@ -119,22 +151,36 @@
     padding-bottom: calc(var(--route-unit) * 6);
   }
 
+  .heroTitleWrap {
+    --hero-image-shift: calc(var(--route-unit) * 20);
+  }
+
+  .heroMedia {
+    position: absolute;
+    top: calc(var(--route-unit) * 0.25);
+    left: 0;
+    margin: 0;
+  }
+
   .hero h1 {
-    font-size: calc(var(--route-unit) * 14);
+    font-size: calc(var(--route-unit) * 10.4166666667);
+    font-weight: 800;
     line-height: 1.025;
   }
 
-  .heroCopy {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--route-gap);
+  .heroFooter {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
   }
 
-  .heroCopy p:first-child {
-    grid-column: 1 / span 4;
+  .heroFooter h2 {
+    max-width: calc(var(--route-unit) * 75);
+    line-height: 1.17;
   }
 
-  .heroCopy p:last-child {
-    grid-column: 7 / span 5;
+  .heroFooter > span {
+    display: block;
   }
 
   .contactRows article {

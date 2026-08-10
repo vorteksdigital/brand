@@ -33,7 +33,7 @@ export default async function Page() {
       <section className="content-section">
         <div className="container mb-16">
           <div className="prose dark:prose-invert max-w-none">
-            <h1>Posts</h1>
+            <h1>Insights</h1>
           </div>
         </div>
 
@@ -60,6 +60,8 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    description:
+      'Practical thinking on websites, digital products and digital growth from Vorteks Digital.',
+    title: 'Digital Insights | Vorteks Digital',
   }
 }

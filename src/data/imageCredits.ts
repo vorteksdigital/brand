@@ -58,6 +58,7 @@ export const imageCredits = [
     specificLocation: 'Johannesburg CBD',
     title: 'Street in City',
     usageLocations: [
+      'Approach page hero',
       'Homepage Services section',
       'Post 9: How Motion Makes Digital Experiences Memorable',
       'Project 7: Motion Memory',
@@ -176,6 +177,7 @@ export const imageCredits = [
     specificLocation: 'Johannesburg CBD and Hillbrow skyline',
     title: 'Johannesburg downtown at sunset',
     usageLocations: [
+      'Blogs page hero',
       'Post 2: Building Brands That Move at Digital Speed',
       'Project 2: Signal Shift',
       'Site Settings default social image',
@@ -289,6 +291,7 @@ export const imageCredits = [
     specificLocation: 'Simmonds Street, Johannesburg CBD',
     title: 'Simmonds Street',
     usageLocations: [
+      'Contact page hero',
       'Post 4: Turning Complex Products Into Clear Stories',
       'Project 3: Clear Systems',
       'Static project-card fallback',

@@ -7,7 +7,7 @@ test.describe('Image credits', () => {
     const response = await page.goto('/image-credits')
 
     expect(response?.status()).toBe(200)
-    await expect(page).toHaveTitle('Image Credits | VRTKS Digital')
+    await expect(page).toHaveTitle('Image Credits | Vorteks Digital')
     await expect(
       page.getByRole('heading', { level: 1, name: 'Editorial photography and motion' }),
     ).toBeVisible()

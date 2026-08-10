@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import configPromise from '@payload-config'
 import Image from 'next/image'
+import Link from 'next/link'
 import { getPayload } from 'payload'
 
 import { getMediaUrl } from '@/utilities/getMediaUrl'
@@ -27,8 +28,9 @@ export default async function ProjectsPage() {
       <h1 className="sr-only">Projects</h1>
 
       <section aria-label="Selected projects" className={styles.projectSection}>
-        <InfiniteProjectRail>
-          {result.docs.map((project, index) => {
+        {result.docs.length > 0 ? (
+          <InfiniteProjectRail>
+            {result.docs.map((project, index) => {
             const image =
               project.featuredImage && typeof project.featuredImage === 'object'
                 ? project.featuredImage
@@ -58,13 +60,25 @@ export default async function ProjectsPage() {
                 </h2>
               </article>
             )
-          })}
-        </InfiniteProjectRail>
+            })}
+          </InfiniteProjectRail>
+        ) : (
+          <div className={styles.emptyState}>
+            <h2>Approved portfolio work is being prepared.</h2>
+            <p>
+              Vorteks Digital has completed project work, but client and case-study details will
+              only appear here once cleared for public use.
+            </p>
+            <Link href="/contact">Ask about relevant work</Link>
+          </div>
+        )}
 
-        <div className={styles.scrollMeta}>
-          <p>Clients — 2024/2026</p>
-          <p aria-hidden="true">(Scroll)</p>
-        </div>
+        {result.docs.length > 0 && (
+          <div className={styles.scrollMeta}>
+            <p>Selected client work</p>
+            <p aria-hidden="true">(Scroll)</p>
+          </div>
+        )}
       </section>
     </div>
   )
@@ -75,7 +89,8 @@ export function generateMetadata(): Metadata {
     alternates: {
       canonical: '/projects',
     },
-    description: 'Selected digital work from VRTKS Digital.',
-    title: 'Projects | VRTKS Digital',
+    description:
+      'View approved website, digital product and bespoke solution work from Vorteks Digital as it becomes available.',
+    title: 'Digital Portfolio | Vorteks Digital',
   }
 }

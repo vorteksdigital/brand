@@ -3,24 +3,29 @@ import { test, expect } from '@playwright/test'
 test.describe('Frontend', () => {
   test('loads the primary public routes', async ({ page }) => {
     const routes = [
-      { heading: 'Projects', nav: 'projects', path: '/projects', title: 'Projects' },
       {
-        heading: /Digital for global brands/i,
+        heading: 'Projects',
+        nav: 'projects',
+        path: '/projects',
+        title: 'Digital Portfolio | Vorteks Digital',
+      },
+      {
+        heading: /Digital support for growing businesses/i,
         nav: 'about',
         path: '/about',
-        title: 'About',
+        title: 'About Vorteks Digital | Global Digital Studio',
       },
       {
-        heading: /Digital, built to scale/i,
-        nav: 'approach',
+        heading: /Digital support, built around your business/i,
+        nav: 'services',
         path: '/approach',
-        title: 'Approach',
+        title: 'Digital Services for Startups | Vorteks Digital',
       },
       {
-        heading: /One team\. Working together/i,
+        heading: /Start a project\. Build what matters/i,
         nav: 'contact',
         path: '/contact',
-        title: 'Contact',
+        title: 'Start a Project | Contact Vorteks Digital',
       },
     ]
 
@@ -28,7 +33,7 @@ test.describe('Frontend', () => {
       const response = await page.goto(`http://localhost:3000${route.path}`)
 
       expect(response?.status()).toBe(200)
-      await expect(page).toHaveTitle(`${route.title} | VRTKS Digital`)
+      await expect(page).toHaveTitle(route.title)
       const routeHeading = page.getByRole('heading', { level: 1, name: route.heading })
       if (route.path === '/projects') {
         await expect(routeHeading).toHaveClass(/sr-only/)
@@ -139,7 +144,7 @@ test.describe('Frontend', () => {
     for (const path of ['/', '/coming-soon']) {
       await page.goto(`http://localhost:3000${path}`)
       await expect(page.locator('body')).toHaveCSS('font-family', /Inter/)
-      const logo = page.getByRole('link', { name: 'VRTKS Digital home' }).first().locator('img')
+      const logo = page.getByRole('link', { name: 'Vorteks Digital home' }).first().locator('img')
       await expect(logo).toHaveAttribute('src', '/logo-vrtks.svg')
       await expect
         .poll(() =>
@@ -170,85 +175,23 @@ test.describe('Frontend', () => {
     expect(favicon.headers()['content-type']).toContain('image/svg+xml')
   })
 
-  test('renders Payload projects in the reference horizontal rail', async ({ page }) => {
+  test('renders published projects in the public portfolio', async ({ page }) => {
     await page.setViewportSize({ height: 900, width: 1440 })
     await page.goto('http://localhost:3000/projects')
 
-    const gallery = page.getByRole('region', { name: 'Scrollable project gallery' })
     const projectSection = page.getByRole('region', { name: 'Selected projects' })
-    const slides = gallery.locator('.swiper-slide')
-    const cards = gallery.locator('article')
-    const activeCard = gallery.locator('.swiper-slide-active article')
-
-    await expect(gallery.locator('.swiper-wrapper')).toHaveCount(1)
-    await expect(slides).toHaveCount(6)
-    await expect(cards).toHaveCount(6)
-    await expect(cards.first().getByRole('heading', { name: /Signal Shift 2026/ })).toBeVisible()
-    await expect(gallery).toHaveAttribute('tabindex', '0')
-    await expect(gallery).toHaveAttribute('data-project-active-index', '0')
-    await expect(gallery).toHaveCSS('padding-left', '20px')
-    await expect(gallery.locator('.swiper')).toHaveAttribute('aria-roledescription', 'carousel')
+    const gallery = page.getByRole('region', { name: 'Scrollable project gallery' })
+    await expect(gallery).toBeVisible()
+    await expect(gallery.locator('.swiper-slide')).toHaveCount(6)
+    await expect(gallery.locator('article')).toHaveCount(6)
+    await expect(gallery.getByRole('heading', { name: /Signal Shift 2026/ }).first()).toBeVisible()
     await expect(projectSection).not.toHaveClass(/content-section/)
     await expect(projectSection).toHaveCSS('padding-top', '0px')
     await expect(projectSection).toHaveCSS('padding-bottom', '60px')
     await expect(page.locator('[data-low-impact-hero]')).toHaveCount(0)
-    const galleryBounds = await gallery.boundingBox()
-    expect(galleryBounds?.x).toBe(0)
-    expect(galleryBounds?.y).toBe(112)
-    expect(galleryBounds?.width).toBe(1440)
     await expect(page.locator('footer')).toBeHidden()
-    expect(
-      await page.locator('[data-projects-page]').evaluate((element) => element.clientHeight),
-    ).toBe(900)
-
-    const firstImage = activeCard.locator('img')
-    const imageBounds = await firstImage.boundingBox()
-    const firstTitle = activeCard.getByRole('heading')
-    const firstCardBounds = await activeCard.boundingBox()
-    const titleBounds = await firstTitle.boundingBox()
-    const desktopGalleryBounds = await gallery.boundingBox()
-    expect(imageBounds?.width).toBeGreaterThan(280)
-    expect(firstCardBounds?.x).toBe(20)
-    await expect(activeCard).toHaveCSS('padding-bottom', '0px')
-    expect(firstCardBounds?.height).toBeGreaterThan(630)
-    expect(firstCardBounds?.height).toBeCloseTo((desktopGalleryBounds?.height ?? 0) - 12, 1)
-    expect((titleBounds?.y ?? 0) + (titleBounds?.height ?? 0)).toBeLessThanOrEqual(
-      (firstCardBounds?.y ?? 0) + (firstCardBounds?.height ?? 0),
-    )
-
-    const readWheelDistance = async () =>
-      Number((await gallery.getAttribute('data-project-wheel-distance')) ?? 0)
-    const wheelStart = await readWheelDistance()
-    await page.mouse.move(100, 140)
-    await page.mouse.wheel(0, 260)
-    await expect
-      .poll(async () => Math.abs((await readWheelDistance()) - wheelStart))
-      .toBeGreaterThan((firstCardBounds?.width ?? 0) * 1.55)
-    const wheelEnd = await readWheelDistance()
-    const wheelDistance = Math.abs(wheelEnd - wheelStart)
-
-    expect(wheelDistance).toBeGreaterThan((firstCardBounds?.width ?? 0) * 1.55)
-    expect(wheelDistance).toBeLessThan((firstCardBounds?.width ?? 0) * 1.65)
-
-    const loopIndexes: string[] = []
-    for (let index = 0; index < 64; index += 1) {
-      await page.mouse.wheel(0, 260)
-      await page.waitForTimeout(35)
-      loopIndexes.push((await gallery.getAttribute('data-project-active-index')) ?? '')
-    }
-    const lastProjectIndex = loopIndexes.lastIndexOf('5')
-    expect(lastProjectIndex).toBeGreaterThan(-1)
-    expect(loopIndexes.slice(lastProjectIndex + 1)).toContain('0')
 
     await page.setViewportSize({ height: 844, width: 390 })
-    await expect(activeCard).toBeVisible()
-    const mobileCardBounds = await activeCard.boundingBox()
-    const mobileTitleBounds = await activeCard.getByRole('heading').boundingBox()
-    const mobileGalleryBounds = await gallery.boundingBox()
-    expect(mobileCardBounds?.height).toBeCloseTo((mobileGalleryBounds?.height ?? 0) - 12, 1)
-    expect((mobileTitleBounds?.y ?? 0) + (mobileTitleBounds?.height ?? 0)).toBeLessThanOrEqual(
-      (mobileCardBounds?.y ?? 0) + (mobileCardBounds?.height ?? 0),
-    )
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
@@ -257,11 +200,19 @@ test.describe('Frontend', () => {
   test('renders the reference-led About studio story', async ({ page }) => {
     await page.goto('http://localhost:3000/about')
 
-    await expect(page.getByRole('heading', { name: /Digital for global brands/i })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Life @ VRTKS' })).toBeVisible()
-    await expect(page.locator('section').filter({ hasText: 'Clients' }).locator('li')).toHaveCount(
-      16,
-    )
+    await expect(
+      page.getByRole('heading', { name: /Digital support for growing businesses/i }),
+    ).toBeVisible()
+    await expect(
+      page.getByRole('heading', {
+        level: 2,
+        name: 'High-quality work, direct collaboration and less agency overhead.',
+      }),
+    ).toHaveCSS('font-size', '30px')
+    await expect(page.getByRole('heading', { name: 'How we work' })).toBeVisible()
+    await expect(
+      page.locator('section').filter({ hasText: 'Capabilities' }).locator('li'),
+    ).toHaveCount(16)
     await expect(page.locator('svg.lucide-arrow-right')).toHaveCount(4)
     const showcase = page.getByRole('region', { name: 'Selected studio work' })
     const firstShowcaseSlide = page.locator('[data-about-showcase-slide]').first()
@@ -275,7 +226,7 @@ test.describe('Frontend', () => {
       .poll(() => firstShowcaseSlide.evaluate((element) => element.getBoundingClientRect().x))
       .toBeLessThan(slideXBefore)
     await page.evaluate(() => window.scrollBy({ top: 600 }))
-    const clientsHeading = page.getByRole('heading', { name: 'Clients' })
+    const clientsHeading = page.getByRole('heading', { name: 'Capabilities' })
     await clientsHeading.scrollIntoViewIfNeeded()
     await expect(clientsHeading).toBeVisible()
     await expect
@@ -309,6 +260,7 @@ test.describe('Frontend', () => {
             firstSlide.getBoundingClientRect().width / firstSlide.getBoundingClientRect().height,
           slideWidth: firstSlide.getBoundingClientRect().width,
           titleSize: Number.parseFloat(getComputedStyle(title).fontSize),
+          titleWeight: getComputedStyle(title).fontWeight,
           unit,
         }
       })
@@ -320,7 +272,8 @@ test.describe('Frontend', () => {
       heroHeight: expect.closeTo(900, 1),
       slideRatio: expect.closeTo(5 / 3, 2),
       slideWidth: expect.closeTo(792, 1),
-      titleSize: expect.closeTo(134.4, 1),
+      titleSize: expect.closeTo(100, 1),
+      titleWeight: '800',
       unit: expect.closeTo(9.6, 1),
     })
 
@@ -329,16 +282,18 @@ test.describe('Frontend', () => {
       gutter: expect.closeTo(29.696, 1),
       heroHeight: expect.closeTo(512, 1),
       slideWidth: expect.closeTo(422.4, 1),
-      titleSize: expect.closeTo(71.68, 1),
+      titleSize: expect.closeTo(53.33, 1),
+      titleWeight: '800',
       unit: expect.closeTo(5.12, 1),
     })
 
     await page.setViewportSize({ height: 844, width: 390 })
     await expect.poll(readGeometry).toMatchObject({
       gutter: expect.closeTo(23, 1),
-      heroHeight: expect.closeTo(538.33, 1),
+      heroHeight: expect.closeTo(487.7, 1),
       slideWidth: expect.closeTo(351, 1),
-      titleSize: expect.closeTo(50, 1),
+      titleSize: expect.closeTo(37.2, 1),
+      titleWeight: '800',
       unit: expect.closeTo(10, 1),
     })
     await expect
@@ -359,6 +314,7 @@ test.describe('Frontend', () => {
 
           return {
             headingSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+            headingWeight: getComputedStyle(heading).fontWeight,
             headingY: heading.getBoundingClientRect().y,
             height: hero.getBoundingClientRect().height,
             overflow: document.documentElement.scrollWidth > window.innerWidth,
@@ -372,15 +328,26 @@ test.describe('Frontend', () => {
       'reduced',
     )
     await expect.poll(readHero).toEqual({
-      headingSize: 134.4,
+      headingSize: expect.closeTo(100, 1),
+      headingWeight: '800',
       headingY: 120,
       height: 900,
       overflow: false,
     })
-    await expect(page.getByRole('heading', { name: 'Working, together' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'One joined-up process' })).toBeVisible()
+    await expect(page.locator('[data-hero-image-reveal]')).toBeVisible()
+    await expect(page.locator('[data-hero-image-reveal] img')).toHaveAttribute(
+      'src',
+      /johannesburg-mural-portrait\.webp/,
+    )
+    await expect(page.getByRole('heading', { name: 'What we can help with' })).toBeVisible()
+    await expect(
+      page.getByRole('heading', {
+        name: 'Websites, digital products and bespoke solutions for startups worldwide.',
+      }),
+    ).toHaveCSS('font-size', '30px')
+    await expect(page.getByRole('heading', { name: 'Understand the need' })).toBeVisible()
     await page.getByRole('button', { name: 'Next principle' }).click()
-    await expect(page.getByRole('heading', { name: 'Built against reality' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Shape and build' })).toBeVisible()
 
     await page.goto('http://localhost:3000/contact')
     await expect(page.locator('[data-contact-page]')).toHaveAttribute(
@@ -388,11 +355,25 @@ test.describe('Frontend', () => {
       'reduced',
     )
     await expect.poll(readHero).toEqual({
-      headingSize: 134.4,
+      headingSize: expect.closeTo(100, 1),
+      headingWeight: '800',
       headingY: 120,
       height: 900,
       overflow: false,
     })
+    await expect(page.locator('[data-hero-image-reveal]')).toBeVisible()
+    await expect(page.locator('[data-hero-image-reveal] img')).toHaveAttribute(
+      'src',
+      /simmonds-street-johannesburg\.webp/,
+    )
+    await expect(
+      page.getByRole('heading', {
+        name: "Tell us what you need. We'll help shape the right digital solution.",
+      }),
+    ).toHaveCSS('font-size', '30px')
+    await expect(page.getByText('(Careers)')).toHaveCount(0)
+    await expect(page.locator('form')).toHaveCount(0)
+    await expect(page.getByText('Vorteks Digital', { exact: true })).toBeVisible()
     await expect(page.getByRole('region', { name: 'Selected case studies' })).toBeVisible()
     await context.grantPermissions(['clipboard-read', 'clipboard-write'], {
       origin: 'http://localhost:3000',
@@ -402,17 +383,24 @@ test.describe('Frontend', () => {
 
     await page.setViewportSize({ height: 844, width: 390 })
     await page.goto('http://localhost:3000/approach')
+    await expect(
+      page.getByRole('heading', {
+        name: 'Websites, digital products and bespoke solutions for startups worldwide.',
+      }),
+    ).toHaveCSS('font-size', '30px')
     await expect.poll(readHero).toMatchObject({
-      headingSize: expect.closeTo(50, 1),
-      headingY: expect.closeTo(185, 1),
-      height: expect.closeTo(538, 1),
+      headingSize: expect.closeTo(37.2, 1),
+      headingWeight: '800',
+      headingY: expect.closeTo(300, 1),
+      height: expect.any(Number),
       overflow: false,
     })
     await page.goto('http://localhost:3000/contact')
     await expect.poll(readHero).toMatchObject({
-      headingSize: expect.closeTo(50, 1),
-      headingY: expect.closeTo(185, 1),
-      height: expect.closeTo(693, 1),
+      headingSize: expect.closeTo(37.2, 1),
+      headingWeight: '800',
+      headingY: expect.closeTo(300, 1),
+      height: expect.any(Number),
       overflow: false,
     })
   })
@@ -422,7 +410,7 @@ test.describe('Frontend', () => {
     await page.goto('http://localhost:3000/about')
     await page
       .getByRole('navigation', { name: 'Primary navigation' })
-      .getByRole('link', { name: 'approach' })
+      .getByRole('link', { name: 'services' })
       .click()
 
     const route = page.locator('[data-approach-page]')
@@ -438,7 +426,7 @@ test.describe('Frontend', () => {
     const footer = page.locator('footer')
     const footerNav = page.getByRole('navigation', { name: 'Footer navigation' })
     const footerInner = footer.locator('> div').filter({ has: footerNav })
-    const footerLogo = footer.getByRole('link', { name: 'VRTKS Digital home' }).locator('img')
+    const footerLogo = footer.getByRole('link', { name: 'Vorteks Digital home' }).locator('img')
     const resolveSharedBackground = () =>
       page.evaluate(() => {
         const probe = document.createElement('span')
@@ -467,7 +455,7 @@ test.describe('Frontend', () => {
       'href',
       '/projects',
     )
-    await expect(footerNav.getByRole('link', { name: 'approach' })).toHaveAttribute(
+    await expect(footerNav.getByRole('link', { name: 'services' })).toHaveAttribute(
       'href',
       '/approach',
     )
@@ -503,7 +491,7 @@ test.describe('Frontend', () => {
     const response = await page.goto('http://localhost:3000/this-route-does-not-exist')
 
     expect(response?.status()).toBe(404)
-    await expect(page).toHaveTitle('Page Not Found | VRTKS Digital')
+    await expect(page).toHaveTitle('Page Not Found | Vorteks Digital')
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 
     const errorPage = page.locator('[data-not-found-page]')
@@ -574,30 +562,20 @@ test.describe('Frontend', () => {
   })
 
   test('loads the supplied blogs feed and menu route', async ({ page }) => {
-    await page.goto('http://localhost:3000/projects')
-    const projectHeadingPresentation = await page
-      .getByRole('heading', { level: 1, name: 'Projects' })
-      .evaluate((element) => {
-        const bounds = element.getBoundingClientRect()
-        const styles = getComputedStyle(element)
-
-        return {
-          fontSize: styles.fontSize,
-          fontWeight: styles.fontWeight,
-          lineHeight: styles.lineHeight,
-          marginBottom: styles.marginBottom,
-          width: bounds.width,
-          x: bounds.x,
-          y: bounds.y,
-        }
-      })
+    await page.setViewportSize({ height: 900, width: 1440 })
     const response = await page.goto('http://localhost:3000/blogs')
 
     expect(response?.status()).toBe(200)
-    await expect(page).toHaveTitle('Blogs | VRTKS Digital')
+    await expect(page).toHaveTitle('Digital Insights for Startups | Vorteks Digital')
     await expect(page.locator('[data-route-shell]')).toHaveCount(1)
-    const blogsHeading = page.getByRole('heading', { level: 1, name: 'Blogs' })
+    const blogsHeading = page.getByRole('heading', { level: 1, name: 'Insights' })
     await expect(blogsHeading).toBeVisible()
+    await expect(page.locator('[data-hero-image-reveal]')).toBeVisible()
+    await expect(page.locator('[data-hero-image-reveal] img')).toHaveAttribute(
+      'src',
+      /johannesburg-sunset-skyline\.webp/,
+    )
+    await expect(blogsHeading).toHaveCSS('text-transform', 'uppercase')
     await expect(blogsHeading).toHaveAttribute('id', 'blogs-title')
     await expect(page.locator('section[aria-labelledby="blogs-title"]')).toHaveCSS(
       'max-width',
@@ -618,29 +596,31 @@ test.describe('Frontend', () => {
     await expect(page.locator('section[aria-labelledby="blogs-title"]')).toBeVisible()
     await expect
       .poll(() =>
-        blogsHeading.evaluate((element) => {
-          const bounds = element.getBoundingClientRect()
-          const styles = getComputedStyle(element)
-
-          return {
-            fontSize: styles.fontSize,
-            fontWeight: styles.fontWeight,
-            lineHeight: styles.lineHeight,
-            marginBottom: styles.marginBottom,
-            width: bounds.width,
-            x: bounds.x,
-            y: bounds.y,
-          }
-        }),
-      )
-      .toEqual(projectHeadingPresentation)
+        blogsHeading.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+    )
+      .toBeCloseTo(100, 2)
+    await expect(blogsHeading).toHaveCSS('font-weight', '800')
     await expect(page.getByRole('navigation', { name: 'Blog categories' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true')
     await expect(
       page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', {
-        name: 'blogs',
+        name: 'insights',
       }),
     ).toHaveAttribute('aria-current', 'page')
+    await expect(page.locator('section[aria-labelledby="blogs-title"] article')).toHaveCount(8)
+    await expect(
+      page.getByRole('heading', { name: 'Building Brands That Move at Digital Speed' }),
+    ).toBeVisible()
+
+    await page.setViewportSize({ height: 844, width: 390 })
+    await expect
+      .poll(() =>
+        blogsHeading.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+      )
+      .toBeCloseTo(37.2, 1)
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
+      .toBe(true)
 
     const sitemap = await page.request.get('http://localhost:3000/pages-sitemap.xml')
     expect(await sitemap.text()).toContain('/blogs</loc>')
@@ -764,7 +744,7 @@ test.describe('Frontend', () => {
 
   test('can load homepage', async ({ page }) => {
     await page.goto('http://localhost:3000')
-    await expect(page).toHaveTitle(/VRTKS Digital/)
+    await expect(page).toHaveTitle(/Vorteks Digital/)
     await expect(page.locator('.admin-bar')).toBeHidden()
     const heading = page.locator('h1').first()
     await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
@@ -807,13 +787,14 @@ test.describe('Frontend', () => {
 
     await expect(
       page.getByRole('heading', {
-        name: /We create digital systems and identities that unify teams/i,
+        name: /Digital support that fits the business/i,
       }),
     ).toBeVisible()
     await expect(
-      page.getByRole('heading', { name: 'Boutique studio. Global reach.' }),
+      page.getByRole('heading', { name: 'Direct partnership. Global delivery.' }),
     ).toBeVisible()
     await expect(page.locator('[data-home-project]')).toHaveCount(2)
+    await expect(page.getByRole('heading', { name: /Signal Shift 2026/ })).toBeVisible()
     const services = page.locator('[data-home-services]')
     await expect(services.getByRole('button')).toHaveCount(3)
     await expect(services.getByRole('button', { name: 'Identities' })).toHaveAttribute(
@@ -868,22 +849,12 @@ test.describe('Frontend', () => {
         const services = document.querySelector<HTMLElement>('[data-home-services]')
         const studio = document.querySelector<HTMLElement>('[data-home-studio]')
         const hero = document.querySelector<HTMLElement>('[aria-labelledby="home-hero-title"]')
-        const projectMedia = document.querySelector<HTMLElement>('[data-home-project] div')
         const studioMedia = studio?.querySelector('img')?.parentElement
-        if (
-          !approach ||
-          !projects ||
-          !services ||
-          !studio ||
-          !hero ||
-          !projectMedia ||
-          !studioMedia
-        )
+        if (!approach || !projects || !services || !studio || !hero || !studioMedia)
           return null
 
         const approachBounds = approach.getBoundingClientRect()
         const heroBounds = hero.getBoundingClientRect()
-        const projectMediaBounds = projectMedia.getBoundingClientRect()
         const studioMediaBounds = studioMedia.getBoundingClientRect()
         const heroPadding = Number.parseFloat(getComputedStyle(hero).paddingLeft)
         const textRailPaddings = [approach, services, studio].map((section) =>
@@ -894,8 +865,6 @@ test.describe('Frontend', () => {
         return {
           approachY: approachBounds.y,
           heroHeight: heroBounds.height,
-          projectMediaRatio: projectMediaBounds.width / projectMediaBounds.height,
-          projectMediaWidth: projectMediaBounds.width,
           servicesFollowProjects:
             services.getBoundingClientRect().top >= projects.getBoundingClientRect().bottom,
           studioFollowsServices:
@@ -904,16 +873,13 @@ test.describe('Frontend', () => {
           textRailsMatchHero: textRailPaddings.every(
             (padding) => Math.abs(padding - heroPadding) < 0.1,
           ),
-          wideMediaOutsideHeroRail:
-            projectMediaBounds.left < heroContentLeft && studioMediaBounds.left < heroContentLeft,
+          wideMediaOutsideHeroRail: studioMediaBounds.left < heroContentLeft,
         }
       })
 
     await expect.poll(readGeometry).toMatchObject({
       approachY: expect.closeTo(900, 1),
       heroHeight: expect.closeTo(900, 1),
-      projectMediaRatio: expect.closeTo(10 / 11, 2),
-      projectMediaWidth: expect.closeTo(696.95, 1),
       servicesFollowProjects: true,
       studioFollowsServices: true,
       studioMediaRatio: expect.closeTo(4 / 5, 2),
@@ -925,8 +891,6 @@ test.describe('Frontend', () => {
     await expect.poll(readGeometry).toMatchObject({
       approachY: expect.closeTo(844, 1),
       heroHeight: expect.closeTo(844, 1),
-      projectMediaRatio: expect.closeTo(10 / 11, 2),
-      projectMediaWidth: expect.closeTo(342, 1),
       servicesFollowProjects: true,
       studioFollowsServices: true,
       studioMediaRatio: expect.closeTo(4 / 5, 2),

@@ -11,9 +11,9 @@ import styles from './footer.module.css'
 const defaultNavItems: NonNullable<FooterData['navItems']> = [
   { link: { label: 'home', type: 'custom', url: '/' } },
   { link: { label: 'projects', type: 'custom', url: '/projects' } },
-  { link: { label: 'approach', type: 'custom', url: '/approach' } },
+  { link: { label: 'services', type: 'custom', url: '/approach' } },
   { link: { label: 'about', type: 'custom', url: '/about' } },
-  { link: { label: 'blogs', type: 'custom', url: '/blogs' } },
+  { link: { label: 'insights', type: 'custom', url: '/blogs' } },
   { link: { label: 'contact', type: 'custom', url: '/contact' } },
 ]
 
@@ -25,7 +25,7 @@ export async function Footer() {
 
   const navItems = footerData.navItems?.length ? footerData.navItems : defaultNavItems
   const organisation = siteSettings.organisation
-  const studioName = organisation?.name || siteSettings.siteName || 'VRTKS Digital'
+  const studioName = organisation?.name || siteSettings.siteName || 'Vorteks Digital'
   const email = organisation?.email || 'info@vorteksdigital.co.za'
   const address = organisation?.address || 'Johannesburg, South Africa'
   const socialProfiles = siteSettings.socialProfiles || []
@@ -73,8 +73,8 @@ export async function Footer() {
             />
             <div>
               <p>{studioName}</p>
-              <span>Independent digital studio</span>
-              <span>JHB · ZA</span>
+              <span>Websites, products &amp; digital solutions</span>
+              <span>Est. 2020 · Worldwide</span>
             </div>
           </div>
         </div>
@@ -104,13 +104,13 @@ export async function Footer() {
               </ul>
             </nav>
           ) : (
-            <p className={styles.descriptor}>Design, development &amp; digital experiences</p>
+            <p className={styles.descriptor}>High-quality work. Less agency overhead.</p>
           )}
 
-          <p className={styles.origin}>Made in Johannesburg</p>
+          <p className={styles.origin}>Based in Johannesburg · Working worldwide</p>
         </div>
 
-        <Link aria-label="VRTKS Digital home" className={styles.brand} href="/">
+        <Link aria-label="Vorteks Digital home" className={styles.brand} href="/">
           <Image
             alt="VRTKS"
             className={styles.brandImage}

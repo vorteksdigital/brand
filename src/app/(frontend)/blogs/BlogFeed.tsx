@@ -27,7 +27,10 @@ export function BlogFeed({ initialPosts = [], categories = [] }: Props) {
 
       <div className={styles['blog-feed__grid']} key={activeSlug}>
         {posts.length === 0 ? (
-          <div className="blog-feed__empty">No posts found.</div>
+          <div className="blog-feed__empty">
+            Articles are under editorial review. New Vorteks Digital insights will appear here
+            once approved.
+          </div>
         ) : (
           posts.map((post, index) => <BlogCard index={index} key={post.id} post={post} />)
         )}

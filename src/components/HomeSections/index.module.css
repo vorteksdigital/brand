@@ -147,6 +147,7 @@
 
 .serviceButtonActive {
   color: var(--foreground);
+  transition: none;
 }
 
 .approachDetails {

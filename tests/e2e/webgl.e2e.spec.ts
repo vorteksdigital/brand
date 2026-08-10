@@ -45,7 +45,7 @@ test.describe('Homepage WebGL', () => {
     await page.goto('http://localhost:3000/about')
     await page
       .getByRole('banner')
-      .getByRole('link', { name: 'VRTKS Digital home' })
+      .getByRole('link', { name: 'Vorteks Digital home' })
       .click()
 
     const canvas = page.locator('canvas')

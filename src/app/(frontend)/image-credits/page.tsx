@@ -153,6 +153,6 @@ export default function ImageCreditsPage() {
 export const metadata: Metadata = {
   alternates: { canonical: '/image-credits' },
   description:
-    'Credits and licensing details for editorial photography and motion used by VRTKS Digital.',
-  title: 'Image Credits | VRTKS Digital',
+    'Credits and licensing details for editorial photography and motion used by Vorteks Digital.',
+  title: 'Image Credits | Vorteks Digital',
 }

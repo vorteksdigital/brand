@@ -26,7 +26,7 @@ export async function GET(): Promise<Response> {
     .join('')
 
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>VRTKS Digital</title><link>${baseURL}</link><description>Latest articles</description>${items}</channel></rss>`,
+    `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Vorteks Digital</title><link>${baseURL}</link><description>Approved digital insights from Vorteks Digital</description>${items}</channel></rss>`,
     {
       headers: {
         'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600',

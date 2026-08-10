@@ -21,27 +21,6 @@ type HomeProject = {
   year: number
 }
 
-const fallbackProjects: HomeProject[] = [
-  {
-    alt: 'Johannesburg skyline glowing in warm evening light',
-    client: 'Aperture',
-    href: '/projects',
-    id: 'signal-shift',
-    image: '/images/johannesburg/johannesburg-sunset-skyline.webp',
-    title: 'Signal Shift',
-    year: 2026,
-  },
-  {
-    alt: 'Pedestrians and vehicles on Simmonds Street in central Johannesburg',
-    client: 'Northstar',
-    href: '/projects',
-    id: 'clear-systems',
-    image: '/images/johannesburg/simmonds-street-johannesburg.webp',
-    title: 'Clear Systems',
-    year: 2026,
-  },
-]
-
 const toHomeProject = (project: Project): HomeProject => {
   const media =
     project.featuredImage && typeof project.featuredImage === 'object'
@@ -71,9 +50,8 @@ export async function HomeSections() {
     pagination: false,
     sort: 'sortOrder',
   })
-  const projects =
-    result.docs.length >= 2 ? result.docs.slice(0, 2).map(toHomeProject) : fallbackProjects
-  const projectCount = result.docs.length || projects.length
+  const projects = result.docs.slice(0, 2).map(toHomeProject)
+  const projectCount = result.docs.length
 
   return (
     <div className={styles.sections} data-home-sections>
@@ -90,8 +68,7 @@ export async function HomeSections() {
 
         <div className={styles.approachContent}>
           <h2 data-home-lines>
-            We create digital systems and identities that unify teams across platforms, products,
-            and brand.
+            Digital support that fits the business you&apos;re building.
           </h2>
 
           <div className={styles.approachDetails}>
@@ -100,21 +77,19 @@ export async function HomeSections() {
             </span>
             <div className={styles.approachCopy} data-home-fade>
               <p>
-                <strong>Our work is the architecture behind how brands connect.</strong>
+                <strong>Start with what your business needs now.</strong>
               </p>
               <p>
-                Built to scale, our digital identities and systems extend across brand, marketing,
-                product, and events. They unify teams around a shared way of expressing the brand,
-                providing guidance on where the boundaries are, and how to push beyond them.
+                Vorteks Digital designs and builds websites, digital products and bespoke digital
+                solutions for startups and growing businesses worldwide.
               </p>
               <p>
-                This scale only works when it is rooted in intention. We define the why behind
-                digital, the identity. The principles, logic, and design language informed by a
-                brand&apos;s culture. This foundation brings purpose, alignment, and scalability
-                across digital ecosystems.
+                Need broader support? Brand, motion, WordPress, maintenance, SEO, marketing and
+                graphic design can join the same practical delivery plan. You get the capability
+                you need without paying for layers you do not.
               </p>
               <Link className={styles.textLink} href="/approach">
-                Learn more about our approach
+                See how we work
               </Link>
             </div>
           </div>
@@ -127,34 +102,41 @@ export async function HomeSections() {
         data-home-projects
       >
         <div className={styles.projectGrid}>
-          {projects.map((project) => (
-            <article className={styles.projectCard} data-home-project key={project.id}>
-              <Link
-                href={project.href}
-                rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                target={project.href.startsWith('http') ? '_blank' : undefined}
-              >
-                <div className={styles.projectMedia}>
-                  <Image
-                    alt={project.alt}
-                    fill
-                    sizes="(max-width: 47.99rem) calc(100vw - 2.875rem), 48.4vw"
-                    src={project.image}
-                  />
-                </div>
-                <h3>
-                  {project.title} {project.year}
-                  <span>({project.client})</span>
-                </h3>
-              </Link>
-            </article>
-          ))}
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <article className={styles.projectCard} data-home-project key={project.id}>
+                <Link
+                  href={project.href}
+                  rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  target={project.href.startsWith('http') ? '_blank' : undefined}
+                >
+                  <div className={styles.projectMedia}>
+                    <Image
+                      alt={project.alt}
+                      fill
+                      sizes="(max-width: 47.99rem) calc(100vw - 2.875rem), 48.4vw"
+                      src={project.image}
+                    />
+                  </div>
+                  <h3>
+                    {project.title} {project.year}
+                    <span>({project.client})</span>
+                  </h3>
+                </Link>
+              </article>
+            ))
+          ) : (
+            <div data-home-fade>
+              <h3>Approved portfolio work is being prepared for publication.</h3>
+              <p>Ask about relevant completed projects when you contact us.</p>
+            </div>
+          )}
         </div>
 
         <div className={styles.allProjectsWrap} data-home-fade>
           <Link className={styles.allProjects} href="/projects">
             <ArrowRight aria-hidden="true" />
-            <span>See all projects</span>
+            <span>{projectCount > 0 ? 'See all projects' : 'Ask about our work'}</span>
             <small>({String(projectCount).padStart(2, '0')})</small>
           </Link>
         </div>
@@ -175,21 +157,20 @@ export async function HomeSections() {
       <section className={`${styles.studio} content-section`} data-home-studio>
         <div className={styles.studioContent}>
           <h2 data-home-lines>
-            Boutique studio.
+            Direct partnership.
             <br />
-            Global reach.
+            Global delivery.
           </h2>
           <div className={styles.studioCopy} data-home-fade>
             <p>
-              Systems are only as strong as the partnership behind them, so we operate as a boutique
-              studio built for direct, collaborative work. We integrate seamlessly with in-house
-              teams, functioning as an extension of the brand itself.
+              Since 2020, Vorteks Digital has worked as a flexible studio for businesses that need
+              senior digital capability without a large-agency structure.
             </p>
-            <p>We do not only work with brands. We become part of them.</p>
+            <p>Work directly with the people shaping and delivering your solution.</p>
           </div>
           <div data-home-fade>
             <Link className={styles.textLink} href="/about">
-              Learn more
+              About Vorteks Digital
             </Link>
           </div>
         </div>
