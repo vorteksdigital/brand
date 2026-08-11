@@ -6,6 +6,7 @@ import { CustomEase } from 'gsap/CustomEase'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 import styles from './pageTransition.module.css'
 
@@ -112,8 +113,10 @@ export function PageTransition({ children, footer }: Props) {
       outgoingRef.current = null
       snapshotHostRef.current?.replaceChildren()
       queueMicrotask(() => {
-        setPending(false)
-        setTransitioning(false)
+        flushSync(() => {
+          setPending(false)
+          setTransitioning(false)
+        })
       })
       return
     }
@@ -127,8 +130,10 @@ export function PageTransition({ children, footer }: Props) {
 
     if (!outgoing || !snapshotHostRef.current) {
       queueMicrotask(() => {
-        setPending(false)
-        setTransitioning(false)
+        flushSync(() => {
+          setPending(false)
+          setTransitioning(false)
+        })
       })
       return
     }
@@ -136,9 +141,11 @@ export function PageTransition({ children, footer }: Props) {
     snapshotHostRef.current.replaceChildren(outgoing)
     outgoingRef.current = outgoing
     queueMicrotask(() => {
-      setPending(true)
-      setTransitioning(true)
-      setTransitionKey((current) => current + 1)
+      flushSync(() => {
+        setPending(true)
+        setTransitioning(true)
+        setTransitionKey((current) => current + 1)
+      })
     })
   }, [pathname])
 
@@ -146,6 +153,16 @@ export function PageTransition({ children, footer }: Props) {
     if (transitioning || !currentFrameRef.current) return
     stableSnapshotRef.current = currentFrameRef.current.cloneNode(true) as HTMLElement
   }, [children, pathname, transitioning])
+
+  useLayoutEffect(() => {
+    if (transitioning || !currentFrameRef.current) return
+
+    gsap.set(currentFrameRef.current, { clearProps: 'transform' })
+
+    if (!document.querySelector('[data-menu-open="true"]')) {
+      document.body.style.removeProperty('overflow')
+    }
+  }, [transitioning])
 
   useGSAP(
     () => {
@@ -169,7 +186,6 @@ export function PageTransition({ children, footer }: Props) {
       const timeline = gsap.timeline({
         defaults: { duration: 1.25, ease: 'vucko-page-snappy', immediateRender: true },
         onComplete: () => {
-          gsap.set(incoming, { clearProps: 'transform' })
           snapshotHostRef.current?.replaceChildren()
           outgoingRef.current = null
           stableSnapshotRef.current = incoming.cloneNode(true) as HTMLElement

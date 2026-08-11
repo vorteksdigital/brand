@@ -486,6 +486,33 @@ test.describe('Frontend', () => {
     )
   })
 
+  test('restores scrolling after mobile drawer navigation', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.setViewportSize({ height: 844, width: 390 })
+    await page.goto('http://localhost:3000/about')
+
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('hidden')
+    await page
+      .getByRole('dialog', { name: 'Mobile navigation' })
+      .getByRole('link', { name: 'services' })
+      .click()
+
+    const transition = page.locator('[data-page-transition]')
+    await expect(page).toHaveURL('http://localhost:3000/approach')
+    await expect(transition).toHaveAttribute('data-page-transition-state', 'running')
+    await expect(transition).toHaveAttribute('data-page-transition-state', 'idle', {
+      timeout: 4000,
+    })
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.body).overflow)).not.toBe(
+      'hidden',
+    )
+
+    await page.mouse.move(195, 700)
+    await page.mouse.wheel(0, 600)
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+  })
+
   test('renders the branded reference footer responsively', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' })
     await page.setViewportSize({ height: 1000, width: 1440 })
