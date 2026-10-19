@@ -229,6 +229,8 @@ test.describe('Frontend', () => {
     const clientsHeading = page.getByRole('heading', { name: 'Capabilities' })
     await clientsHeading.scrollIntoViewIfNeeded()
     await expect(clientsHeading).toBeVisible()
+    await page.setViewportSize({ height: 900, width: 1440 })
+    await expect(clientsHeading).toHaveCSS('font-size', '134.4px')
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
@@ -345,7 +347,25 @@ test.describe('Frontend', () => {
         name: 'Websites, digital products and bespoke solutions for startups worldwide.',
       }),
     ).toHaveCSS('font-size', '30px')
+    await expect(page.locator('[data-approach-carousel]')).toHaveAttribute(
+      'aria-label',
+      'Working principles',
+    )
+    await expect(page.locator('[data-approach-carousel-slide] img').first()).toHaveAttribute(
+      'src',
+      /logo-vrtks\.svg/,
+    )
     await expect(page.getByRole('heading', { name: 'Understand the need' })).toBeVisible()
+    const workingMedia = page.locator('[data-working-media]')
+    const workingLink = page.locator('[data-working-link]')
+    await workingLink.scrollIntoViewIfNeeded()
+    await expect
+      .poll(async () => {
+        const mediaBounds = await workingMedia.boundingBox()
+        const linkBounds = await workingLink.boundingBox()
+        return mediaBounds && linkBounds ? Math.abs(mediaBounds.x - linkBounds.x) : null
+      })
+      .toBeLessThanOrEqual(2)
     await page.getByRole('button', { name: 'Next principle' }).click()
     await expect(page.getByRole('heading', { name: 'Shape and build' })).toBeVisible()
 
@@ -670,6 +690,8 @@ test.describe('Frontend', () => {
       'src',
       /johannesburg-sunset-skyline\.webp/,
     )
+    await expect(page.locator('[data-hero-image-reveal] img')).toHaveCSS('margin', '0px')
+    await expect(page.locator('[data-hero-image-reveal] img')).toHaveCSS('object-fit', 'cover')
     await expect
       .poll(async () => {
         const mediaBounds = await page.locator('[data-hero-image-reveal]').boundingBox()

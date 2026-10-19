@@ -223,16 +223,34 @@
   margin-top: calc(var(--route-unit) * 5);
 }
 
+.carouselSwiper {
+  width: 100%;
+}
+
+.carouselSlide {
+  height: auto;
+}
+
 .carouselCard {
+  height: 100%;
   min-height: calc(var(--route-unit) * 34);
   padding: calc(var(--route-unit) * 2.5);
   border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
 }
 
-.carouselCard > span,
 .carouselCard h3,
 .carouselCard p {
   margin: 0;
+}
+
+.carouselLogo {
+  display: block;
+  width: calc(var(--route-unit) * 10);
+  height: auto;
+}
+
+:global([data-theme='light']) .carouselLogo {
+  filter: invert(1);
 }
 
 .carouselCard h3 {
@@ -418,6 +436,14 @@
     grid-column: span 8;
   }
 
+  .partnership > header h2 {
+    font-size: calc(var(--route-unit) * 9);
+  }
+
+  .callout h2 {
+    font-size: calc(var(--route-unit) * 9);
+  }
+
   .working > header > div {
     grid-column: 9 / -1;
     margin: 0;
@@ -438,7 +464,7 @@
   }
 
   .workingLink {
-    margin-left: calc(50% + calc(var(--route-gap) / 2));
+    margin-left: 0;
   }
 
   .partnership > header a {

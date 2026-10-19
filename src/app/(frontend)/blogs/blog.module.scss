@@ -16,6 +16,7 @@
   background: color-mix(in srgb, var(--foreground) 8%, var(--background));
 
   img {
+    margin: 0;
     object-fit: cover;
   }
 }

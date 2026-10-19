@@ -547,7 +547,7 @@
 
   .clientsHeading h2 {
     height: 0.8em;
-    font-size: calc(var(--about-unit) * 22);
+    font-size: calc(var(--about-unit) * 14);
   }
 
   .clientsHeading > span {

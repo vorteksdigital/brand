@@ -99,7 +99,7 @@ export default function ApproachPage() {
           </div>
         </header>
         <div className={styles.workingBody}>
-          <div className={styles.workingMedia} data-route-fade>
+          <div className={styles.workingMedia} data-route-fade data-working-media>
             <Image
               alt="Man reflected beside a Mandela portrait inside a Houghton café"
               fill
@@ -119,7 +119,7 @@ export default function ApproachPage() {
             ))}
           </ol>
         </div>
-        <Link className={styles.workingLink} href="/contact">
+        <Link className={styles.workingLink} data-working-link href="/contact">
           Start a project enquiry
         </Link>
       </section>
