@@ -1,4 +1,9 @@
-const requiredServerVariables = ['DATABASE_URL', 'PAYLOAD_SECRET', 'PREVIEW_SECRET'] as const
+const requiredServerVariables = [
+  'DATABASE_URL',
+  'NEON_AUTH_BASE_URL',
+  'PAYLOAD_SECRET',
+  'PREVIEW_SECRET',
+] as const
 const resendVariables = ['RESEND_API_KEY', 'RESEND_FROM_ADDRESS'] as const
 
 export function validateEnvironment(): void {
