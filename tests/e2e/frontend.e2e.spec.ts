@@ -358,14 +358,24 @@ test.describe('Frontend', () => {
     await expect(page.getByRole('heading', { name: 'Understand the need' })).toBeVisible()
     const workingMedia = page.locator('[data-working-media]')
     const workingLink = page.locator('[data-working-link]')
+    const workingList = page.locator('[data-working-list]')
     await workingLink.scrollIntoViewIfNeeded()
     await expect
       .poll(async () => {
         const mediaBounds = await workingMedia.boundingBox()
         const linkBounds = await workingLink.boundingBox()
-        return mediaBounds && linkBounds ? Math.abs(mediaBounds.x - linkBounds.x) : null
+        const listBounds = await workingList.boundingBox()
+        if (!mediaBounds || !linkBounds || !listBounds) return null
+
+        return {
+          bottomDelta: Math.abs(
+            mediaBounds.y + mediaBounds.height - (linkBounds.y + linkBounds.height),
+          ),
+          columnDelta: Math.abs(listBounds.x - linkBounds.x),
+          withinMedia: linkBounds.y < mediaBounds.y + mediaBounds.height,
+        }
       })
-      .toBeLessThanOrEqual(2)
+      .toEqual({ bottomDelta: expect.closeTo(0, 1), columnDelta: 0, withinMedia: true })
     await page.getByRole('button', { name: 'Next principle' }).click()
     await expect(page.getByRole('heading', { name: 'Shape and build' })).toBeVisible()
 

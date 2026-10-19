@@ -9,6 +9,14 @@ node_modules
 playwright-report
 playwright/.cache
 public/media/*
+!public/media/joburg-cbd-traffic*.webp
+!public/media/johannesburg-cbd-pedestrians*.webp
+!public/media/johannesburg-mural-portrait*.webp
+!public/media/johannesburg-ponte-skyline*.webp
+!public/media/johannesburg-sunset-skyline*.webp
+!public/media/melrose-arch-modern-building*.webp
+!public/media/sandton-glass-towers*.webp
+!public/media/simmonds-street-johannesburg*.webp
 !public/media/mock-building-brands-that-move-at-digital-speed.webp
 !public/media/mock-designing-for-trust-in-an-ai-first-world.webp
 !public/media/mock-from-brand-audit-to-bold-new-direction.webp

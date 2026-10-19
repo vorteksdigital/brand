@@ -107,7 +107,7 @@ export default function ApproachPage() {
               src="/images/johannesburg/houghton-cafe-portrait.webp"
             />
           </div>
-          <ol>
+          <ol data-working-list>
             {principles.map((principle, index) => (
               <li data-route-fade key={principle.title}>
                 <span>{String(index + 1).padStart(2, '0')}.</span>
@@ -118,10 +118,10 @@ export default function ApproachPage() {
               </li>
             ))}
           </ol>
+          <Link className={styles.workingLink} data-working-link href="/contact">
+            Start a project enquiry
+          </Link>
         </div>
-        <Link className={styles.workingLink} data-working-link href="/contact">
-          Start a project enquiry
-        </Link>
       </section>
 
       <section className={`${styles.partnership} content-section`}>

@@ -10,8 +10,17 @@ next-env.d.ts
 supabase/.temp/
 /docs/
 
-# Payload default media upload directory
-public/media/
+# Payload default media upload directory. Keep current production editorial
+# derivatives available until persistent object storage replaces local media.
+public/media/*
+!public/media/joburg-cbd-traffic*.webp
+!public/media/johannesburg-cbd-pedestrians*.webp
+!public/media/johannesburg-mural-portrait*.webp
+!public/media/johannesburg-ponte-skyline*.webp
+!public/media/johannesburg-sunset-skyline*.webp
+!public/media/melrose-arch-modern-building*.webp
+!public/media/sandton-glass-towers*.webp
+!public/media/simmonds-street-johannesburg*.webp
 
 public/robots.txt
 public/sitemap*.xml
