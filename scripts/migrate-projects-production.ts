@@ -60,8 +60,17 @@ if (process.env.VERCEL) {
     payload.logger.info('Applied Projects production migration.')
   }
 
-  const mediaByFileName = await ensureBundledProjectMedia(payload)
-  const count = await upsertProjects(payload, mediaByFileName)
-  payload.logger.info(`Upserted ${count} production projects with Johannesburg imagery.`)
+  const projectCount = await payload.count({
+    collection: 'projects',
+    overrideAccess: true,
+  })
+
+  if (projectCount.totalDocs === 0) {
+    const mediaByFileName = await ensureBundledProjectMedia(payload)
+    const count = await upsertProjects(payload, mediaByFileName)
+    payload.logger.info(`Seeded ${count} production projects with Johannesburg imagery.`)
+  } else {
+    payload.logger.info(`Preserved ${projectCount.totalDocs} existing production projects.`)
+  }
   await payload.destroy()
 }
