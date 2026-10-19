@@ -35,20 +35,16 @@ export async function upsertJohannesburgMedia({
   const mediaByFileName = new Map<string, Media>()
 
   for (const asset of johannesburgMediaAssets) {
-    const { name: fileStem } = path.parse(asset.fileName)
     const existing = await payload.find({
       collection: 'media',
       depth: 0,
-      limit: 100,
+      limit: 1,
       overrideAccess: true,
       pagination: false,
       req,
-      where: { filename: { contains: fileStem } },
+      where: { filename: { equals: asset.fileName } },
     })
-    const existingMedia = existing.docs.find((document) => {
-      const filename = document.filename
-      return filename === asset.fileName || filename?.match(new RegExp(`^${fileStem}-\\d+\\.webp$`))
-    })
+    const existingMedia = existing.docs[0]
 
     const media = existingMedia
       ? await payload.update({
@@ -65,6 +61,7 @@ export async function upsertJohannesburgMedia({
           depth: 0,
           file: await getBundledImageFile(asset.fileName),
           overrideAccess: true,
+          overwriteExistingFiles: true,
           req,
         })
 
