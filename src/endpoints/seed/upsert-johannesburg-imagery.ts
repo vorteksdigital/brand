@@ -35,20 +35,25 @@ export async function upsertJohannesburgMedia({
   const mediaByFileName = new Map<string, Media>()
 
   for (const asset of johannesburgMediaAssets) {
+    const { name: fileStem } = path.parse(asset.fileName)
     const existing = await payload.find({
       collection: 'media',
       depth: 0,
-      limit: 1,
+      limit: 100,
       overrideAccess: true,
       pagination: false,
       req,
-      where: { filename: { equals: asset.fileName } },
+      where: { filename: { contains: fileStem } },
+    })
+    const existingMedia = existing.docs.find((document) => {
+      const filename = document.filename
+      return filename === asset.fileName || filename?.match(new RegExp(`^${fileStem}-\\d+\\.webp$`))
     })
 
-    const media = existing.docs[0]
+    const media = existingMedia
       ? await payload.update({
           collection: 'media',
-          id: existing.docs[0].id,
+          id: existingMedia.id,
           data: { alt: asset.alt, credit: asset.credit, isDecorative: false },
           depth: 0,
           overrideAccess: true,

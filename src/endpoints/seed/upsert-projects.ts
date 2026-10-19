@@ -1,26 +1,19 @@
 import type { Payload } from 'payload'
 
+import type { Media } from '../../payload-types'
 import { createProjectData, projectSeeds } from './project-data'
 import { upsertJohannesburgMedia } from './upsert-johannesburg-imagery'
 
-export async function ensureBundledProjectMedia(payload: Payload): Promise<void> {
-  await upsertJohannesburgMedia({ payload })
+export async function ensureBundledProjectMedia(payload: Payload): Promise<Map<string, Media>> {
+  return upsertJohannesburgMedia({ payload })
 }
 
-export async function upsertProjects(payload: Payload): Promise<number> {
+export async function upsertProjects(
+  payload: Payload,
+  mediaByFileName: Map<string, Media>,
+): Promise<number> {
   for (const [sortOrder, project] of projectSeeds.entries()) {
-    const mediaResult = await payload.find({
-      collection: 'media',
-      depth: 0,
-      limit: 1,
-      pagination: false,
-      where: {
-        filename: {
-          equals: project.imageFilename,
-        },
-      },
-    })
-    const featuredImage = mediaResult.docs[0]
+    const featuredImage = mediaByFileName.get(project.imageFilename)
 
     if (!featuredImage) {
       throw new Error(`Missing project seed media: ${project.imageFilename}`)

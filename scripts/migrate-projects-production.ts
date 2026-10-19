@@ -60,8 +60,8 @@ if (process.env.VERCEL) {
     payload.logger.info('Applied Projects production migration.')
   }
 
-  await ensureBundledProjectMedia(payload)
-  const count = await upsertProjects(payload)
+  const mediaByFileName = await ensureBundledProjectMedia(payload)
+  const count = await upsertProjects(payload, mediaByFileName)
   payload.logger.info(`Upserted ${count} production projects with Johannesburg imagery.`)
   await payload.destroy()
 }
