@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
@@ -27,6 +28,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
       </head>
       <body>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-4FCPRY0JBF"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4FCPRY0JBF');`}
+        </Script>
         <JsonLd
           data={{
             '@context': 'https://schema.org',

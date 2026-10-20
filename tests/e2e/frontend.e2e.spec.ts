@@ -161,6 +161,12 @@ test.describe('Frontend', () => {
     await expect(
       page.locator('label[for="header-theme"] > span[aria-hidden="true"] > span'),
     ).toHaveCount(1)
+    await expect(
+      page.locator('script[src="https://www.googletagmanager.com/gtag/js?id=G-4FCPRY0JBF"]'),
+    ).toHaveCount(1)
+    await expect(page.locator('script#google-analytics')).toContainText(
+      "gtag('config', 'G-4FCPRY0JBF')",
+    )
 
     const favicon = await page.request.get('http://localhost:3000/favicon.svg')
     expect(favicon.ok()).toBe(true)
