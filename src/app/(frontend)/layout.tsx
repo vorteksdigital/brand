@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
@@ -89,6 +90,7 @@ gtag('config', 'G-4FCPRY0JBF');`}
           <PageTransition footer={<Footer />}>{children}</PageTransition>
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
