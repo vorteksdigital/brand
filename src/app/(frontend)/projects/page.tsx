@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
                 <div className={styles.imageFrame}>
                   {imageSource ? (
                     <Image
-                      alt={image?.alt || `${project.title} for ${project.client}`}
+                      alt={image?.alt || project.title}
                       className={styles.image}
                       fill
                       priority={index < 3}
@@ -56,7 +56,6 @@ export default async function ProjectsPage() {
 
                 <h2 className={styles.title}>
                   {project.title} {project.year}
-                  <span>({project.client})</span>
                 </h2>
               </article>
             )

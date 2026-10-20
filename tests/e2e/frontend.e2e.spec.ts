@@ -183,6 +183,8 @@ test.describe('Frontend', () => {
     await expect(gallery.locator('.swiper-slide')).toHaveCount(6)
     await expect(gallery.locator('article')).toHaveCount(6)
     await expect(gallery.getByRole('heading', { name: /Signal Shift 2026/ }).first()).toBeVisible()
+    await expect(gallery).not.toContainText('Aperture')
+    await expect(gallery).not.toContainText('Northstar')
     await expect(projectSection).not.toHaveClass(/content-section/)
     await expect(projectSection).toHaveCSS('padding-top', '0px')
     await expect(projectSection).toHaveCSS('padding-bottom', '60px')
@@ -930,6 +932,8 @@ test.describe('Frontend', () => {
     ).toBeVisible()
     await expect(page.locator('[data-home-project]')).toHaveCount(2)
     await expect(page.getByRole('heading', { name: /Signal Shift 2026/ })).toBeVisible()
+    await expect(page.locator('[data-home-projects]')).not.toContainText('Aperture')
+    await expect(page.locator('[data-home-projects]')).not.toContainText('Northstar')
     const services = page.locator('[data-home-services]')
     await expect(services.getByRole('button')).toHaveCount(3)
     await expect(services.getByRole('button', { name: 'Identities' })).toHaveAttribute(

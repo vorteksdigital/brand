@@ -41,7 +41,6 @@ export async function ProjectTeasers() {
                     )}
                   </div>
                   <h2>{project.title}</h2>
-                  <p>({project.client})</p>
                 </Link>
               </article>
             )

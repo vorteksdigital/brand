@@ -13,7 +13,6 @@ import { ServicesShowcase } from './ServicesShowcase.client'
 
 type HomeProject = {
   alt: string
-  client: string
   href: string
   id: string
   image: string
@@ -28,8 +27,7 @@ const toHomeProject = (project: Project): HomeProject => {
       : null
 
   return {
-    alt: media?.alt || `${project.title} for ${project.client}`,
-    client: project.client,
+    alt: media?.alt || project.title,
     href: project.projectURL || '/projects',
     id: String(project.id),
     image: media?.url
@@ -120,7 +118,6 @@ export async function HomeSections() {
                   </div>
                   <h3>
                     {project.title} {project.year}
-                    <span>({project.client})</span>
                   </h3>
                 </Link>
               </article>
