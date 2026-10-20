@@ -44,7 +44,7 @@ export default function ImageCreditsPage() {
                     <dt>Location</dt>
                     <dd>
                       {credit.verifiedLocation}
-                      {credit.specificLocation ? ` — ${credit.specificLocation}` : ''}
+                      {credit.specificLocation ? `, ${credit.specificLocation}` : ''}
                     </dd>
                   </div>
                   <div>
@@ -107,7 +107,7 @@ export default function ImageCreditsPage() {
                   <div>
                     <dt>Location</dt>
                     <dd>
-                      {credit.verifiedLocation} — {credit.specificLocation}
+                      {credit.verifiedLocation}, {credit.specificLocation}
                     </dd>
                   </div>
                   <div>

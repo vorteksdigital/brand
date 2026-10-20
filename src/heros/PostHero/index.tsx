@@ -26,7 +26,7 @@ export const PostHero: React.FC<{
           <div className={styles.metaItem}>
             <dt className={styles.metaLabel}>Date</dt>
             <dd className={styles.metaValue}>
-              {formattedDate ? <time dateTime={publishedAt || undefined}>{formattedDate}</time> : '—'}
+              {formattedDate ? <time dateTime={publishedAt || undefined}>{formattedDate}</time> : '-'}
             </dd>
           </div>
           <div className={styles.metaItem}>

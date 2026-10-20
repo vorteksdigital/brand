@@ -39,7 +39,7 @@ export const seed = async ({
   // as well as the collections and globals
   // this is because while `yarn seed` drops the database
   // the custom `/api/seed` endpoint does not
-  payload.logger.info(`— Clearing collections and globals...`)
+  payload.logger.info(`[seed] Clearing collections and globals...`)
 
   // clear the database
   await Promise.all([
@@ -67,7 +67,7 @@ export const seed = async ({
       .map((collection) => payload.db.deleteVersions({ collection, req, where: {} })),
   )
 
-  payload.logger.info(`— Seeding demo author and user...`)
+  payload.logger.info(`[seed] Seeding demo author and user...`)
 
   await payload.delete({
     collection: 'users',
@@ -79,7 +79,7 @@ export const seed = async ({
     },
   })
 
-  payload.logger.info(`— Seeding media...`)
+  payload.logger.info(`[seed] Seeding media...`)
 
   const [demoAuthor] = await Promise.all([
     payload.create({
@@ -113,7 +113,7 @@ export const seed = async ({
   const image3Doc = getMedia('johannesburg-mural-portrait.webp')
   const imageHomeDoc = getMedia('johannesburg-sunset-skyline.webp')
 
-  payload.logger.info(`— Seeding posts...`)
+  payload.logger.info(`[seed] Seeding posts...`)
 
   // Do not create posts with `Promise.all` because we want the posts to be created in order
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
@@ -167,7 +167,7 @@ export const seed = async ({
     },
   })
 
-  payload.logger.info(`— Seeding projects...`)
+  payload.logger.info(`[seed] Seeding projects...`)
 
   for (const [sortOrder, project] of projectSeeds.entries()) {
     await payload.create({
@@ -184,7 +184,7 @@ export const seed = async ({
     })
   }
 
-  payload.logger.info(`— Seeding contact form...`)
+  payload.logger.info(`[seed] Seeding contact form...`)
 
   const contactForm = await payload.create({
     collection: 'forms',
@@ -192,7 +192,7 @@ export const seed = async ({
     data: contactFormData,
   })
 
-  payload.logger.info(`— Seeding pages...`)
+  payload.logger.info(`[seed] Seeding pages...`)
 
   await Promise.all([
     payload.create({
@@ -207,7 +207,7 @@ export const seed = async ({
     }),
   ])
 
-  payload.logger.info(`— Seeding globals...`)
+  payload.logger.info(`[seed] Seeding globals...`)
 
   await Promise.all([
     payload.updateGlobal({

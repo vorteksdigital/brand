@@ -91,7 +91,7 @@ export function ApproachCarousel() {
       </Swiper>
       <div className={styles.carouselControls}>
         <span>
-          {String(activeIndex + 1).padStart(2, '0')} — {String(principles.length).padStart(2, '0')}
+          {String(activeIndex + 1).padStart(2, '0')} / {String(principles.length).padStart(2, '0')}
         </span>
         <div>
           <button aria-label="Previous principle" onClick={() => move(-1)} type="button">

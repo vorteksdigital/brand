@@ -198,7 +198,7 @@ export function HomeHero() {
 
           <p className={styles.description}>
             We craft immersive &amp; interactive digital experiences for brands that want to lead,
-            not follow — since 2020.
+            not follow, since 2020.
           </p>
         </div>
 
