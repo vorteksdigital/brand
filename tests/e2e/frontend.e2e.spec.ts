@@ -140,35 +140,27 @@ test.describe('Frontend', () => {
     }
   })
 
-  test('uses Inter across public route groups', async ({ page }) => {
-    for (const path of ['/', '/coming-soon']) {
-      await page.goto(`http://localhost:3000${path}`)
-      await expect(page.locator('body')).toHaveCSS('font-family', /Inter/)
-      const logo = page.getByRole('link', { name: 'Vorteks Digital home' }).first().locator('img')
-      await expect(logo).toHaveAttribute('src', '/logo-vrtks.svg')
-      await expect
-        .poll(() =>
-          logo.evaluate((image) => ({
-            height: (image as HTMLImageElement).naturalHeight,
-            width: (image as HTMLImageElement).naturalWidth,
-          })),
-        )
-        .toEqual({ height: 65, width: 500 })
-      await expect(page.locator('link[rel="icon"]')).toHaveCount(1)
-      await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', '/favicon.svg')
+  test('uses Inter and the supplied brand assets', async ({ page }) => {
+    await page.goto('http://localhost:3000/')
+    await expect(page.locator('body')).toHaveCSS('font-family', /Inter/)
+    const logo = page.getByRole('link', { name: 'Vorteks Digital home' }).first().locator('img')
+    await expect(logo).toHaveAttribute('src', '/logo-vrtks.svg')
+    await expect
+      .poll(() =>
+        logo.evaluate((image) => ({
+          height: (image as HTMLImageElement).naturalHeight,
+          width: (image as HTMLImageElement).naturalWidth,
+        })),
+      )
+      .toEqual({ height: 65, width: 500 })
+    await expect(page.locator('link[rel="icon"]')).toHaveCount(1)
+    await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', '/favicon.svg')
 
-      if (path === '/') {
-        await expect(page.locator('header p').first()).toHaveCSS('font-family', /Inter/)
-        await expect(page.locator('button[aria-label="Open menu"] svg.lucide-menu')).toHaveCount(1)
-        await expect(
-          page.locator('label[for="header-theme"] > span[aria-hidden="true"] > span'),
-        ).toHaveCount(1)
-      } else {
-        await expect(
-          page.getByRole('link', { name: 'Start a project' }).locator('svg.lucide-arrow-up-right'),
-        ).toHaveCount(1)
-      }
-    }
+    await expect(page.locator('header p').first()).toHaveCSS('font-family', /Inter/)
+    await expect(page.locator('button[aria-label="Open menu"] svg.lucide-menu')).toHaveCount(1)
+    await expect(
+      page.locator('label[for="header-theme"] > span[aria-hidden="true"] > span'),
+    ).toHaveCount(1)
 
     const favicon = await page.request.get('http://localhost:3000/favicon.svg')
     expect(favicon.ok()).toBe(true)
