@@ -436,6 +436,7 @@
     grid-column: span 8;
   }
 
+  .working > header h2,
   .partnership > header h2 {
     font-size: calc(var(--route-unit) * 9);
   }
