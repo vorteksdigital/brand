@@ -44,6 +44,8 @@ test.describe('Admin Panel', () => {
 
     const adminBar = page.locator('.admin-bar')
     await expect(adminBar).toBeVisible()
+    await expect(adminBar).toHaveCSS('position', 'relative')
+    await expect(adminBar).toHaveCSS('z-index', '100')
 
     const adminBarBox = await adminBar.boundingBox()
     const headerBox = await page.locator('header').boundingBox()
