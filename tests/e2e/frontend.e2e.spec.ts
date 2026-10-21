@@ -900,6 +900,10 @@ test.describe('Frontend', () => {
   test('can load homepage', async ({ page }) => {
     await page.goto('http://localhost:3000')
     await expect(page).toHaveTitle(/Vorteks Digital/)
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      'content',
+      'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.',
+    )
     await expect(page.locator('.admin-bar')).toBeHidden()
     const heading = page.locator('h1').first()
     await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
