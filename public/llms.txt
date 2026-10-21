@@ -1,0 +1,22 @@
+# Vorteks Digital
+
+> Vorteks Digital is a Johannesburg digital studio creating websites, digital products, and brand experiences for startups and established organisations.
+
+## Main pages
+
+- [Home](https://vorteksdigital.co.za/): Studio overview and featured work
+- [Projects](https://vorteksdigital.co.za/projects): Selected digital projects
+- [Services](https://vorteksdigital.co.za/approach): Website strategy, design, development, and WordPress services
+- [About](https://vorteksdigital.co.za/about): Studio background, principles, and capabilities
+- [Insights](https://vorteksdigital.co.za/blogs): Articles and studio insights
+- [Contact](https://vorteksdigital.co.za/contact): Project enquiries and contact details
+
+## Additional resources
+
+- [Image credits](https://vorteksdigital.co.za/image-credits): Image sources and licensing
+- [Sitemap](https://vorteksdigital.co.za/sitemap.xml): Public URL index
+- [RSS feed](https://vorteksdigital.co.za/feed.xml): Published articles
+
+## Contact
+
+- Email: info@vorteksdigital.co.za
