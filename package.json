@@ -77,7 +77,7 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-hook-form": "7.71.1",
-    "sharp": "0.35.3",
+    "sharp": "0.35.5",
     "swiper": "^14.0.7",
     "tailwind-merge": "^3.4.0",
     "three": "^0.185.1"
@@ -115,7 +115,7 @@
   "pnpm": {
     "overrides": {
       "postcss": "8.5.18",
-      "sharp": "0.35.3"
+      "sharp": "0.35.5"
     },
     "onlyBuiltDependencies": [
       "sharp",
