@@ -42,6 +42,7 @@ const HeaderLink = ({ className, item, onNavigate, pathname }: HeaderLinkProps) 
       className={className}
       href={href}
       onClick={onNavigate}
+      prefetch={false}
       {...(item.link.newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {})}
     >
       {label}
@@ -224,6 +225,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               className={styles.wordmark}
               href="/"
               onClick={closeMenu}
+              prefetch={false}
             >
               <Image
                 alt=""

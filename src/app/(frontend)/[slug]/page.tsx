@@ -7,8 +7,6 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
 import { HomeHero } from '@/heros/HomeHero'
 import { HomeSections } from '@/components/HomeSections'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -71,6 +69,18 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout } = page
   const isHomepage = decodedSlug === 'home'
+  let renderedBlocks: React.ReactNode = null
+  let renderedHero: React.ReactNode = <HomeHero />
+
+  if (!isHomepage) {
+    const { RenderHero } = await import('@/heros/RenderHero')
+    renderedHero = <RenderHero {...hero} />
+  }
+
+  if (layout.length > 0) {
+    const { RenderBlocks } = await import('@/blocks/RenderBlocks')
+    renderedBlocks = <RenderBlocks blocks={layout} />
+  }
 
   return (
     <article
@@ -83,9 +93,9 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      {isHomepage ? <HomeHero /> : <RenderHero {...hero} />}
+      {renderedHero}
       {isHomepage && <HomeSections />}
-      <RenderBlocks blocks={layout} />
+      {renderedBlocks}
     </article>
   )
 }

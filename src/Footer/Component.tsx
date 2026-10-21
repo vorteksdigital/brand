@@ -42,7 +42,7 @@ export async function Footer() {
             <ul className={styles.linkList}>
               {navItems.map(({ link }, index) => (
                 <li key={`${link.label}-${index}`}>
-                  <CMSLink className={styles.navLink} {...link} />
+                  <CMSLink className={styles.navLink} prefetch={false} {...link} />
                 </li>
               ))}
             </ul>
@@ -85,7 +85,7 @@ export async function Footer() {
             <br />
             All rights reserved.
             <br />
-            <Link className={styles.creditLink} href="/image-credits">
+            <Link className={styles.creditLink} href="/image-credits" prefetch={false}>
               Image Credits
             </Link>
           </p>
@@ -110,7 +110,7 @@ export async function Footer() {
           <p className={styles.origin}>Based in Johannesburg · Working worldwide</p>
         </div>
 
-        <Link aria-label="Vorteks Digital home" className={styles.brand} href="/">
+        <Link aria-label="Vorteks Digital home" className={styles.brand} href="/" prefetch={false}>
           <Image
             alt="VRTKS"
             className={styles.brandImage}

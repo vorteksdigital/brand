@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics/GoogleAnalytics.client'
 import { JsonLd } from '@/components/JsonLd'
 import { PageTransition } from '@/components/PageTransition/PageTransition.client'
 import { Footer } from '@/Footer/Component'
@@ -29,17 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
       </head>
       <body>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-4FCPRY0JBF"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-4FCPRY0JBF');`}
-        </Script>
+        <GoogleAnalytics />
         <JsonLd
           data={{
             '@context': 'https://schema.org',
