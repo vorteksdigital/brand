@@ -78,6 +78,7 @@ export function HomeHero() {
       const video = videoRef.current
 
       if (!hero || !videoContainer || !videoSlot || !video) return
+      if (window.matchMedia('(width <= 768px)').matches) return
 
       const playVideo = () => {
         const source = video.querySelector('source')
@@ -246,7 +247,7 @@ export function HomeHero() {
           loop
           muted
           playsInline
-          poster="/hero/johannesburg-sunset-poster.webp"
+          poster="/hero/johannesburg-sunset-poster-mobile.webp"
           preload="none"
           ref={videoRef}
           tabIndex={-1}

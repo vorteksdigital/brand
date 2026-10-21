@@ -147,6 +147,12 @@
 
   .videoSlot {
     width: clamp(70px, 22vw, 130px);
+    background: url('/hero/johannesburg-sunset-poster-mobile.webp') center / cover no-repeat;
+    border-radius: 999px;
+  }
+
+  .videoPill {
+    display: none;
   }
 }
 

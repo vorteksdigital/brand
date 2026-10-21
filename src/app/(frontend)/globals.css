@@ -255,15 +255,6 @@
   }
 }
 
-html {
-  opacity: 0;
-}
-
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
-}
-
 body:has([data-not-found-page]) > header,
 body:has([data-not-found-page]) > [data-header-theme-control] {
   display: none;

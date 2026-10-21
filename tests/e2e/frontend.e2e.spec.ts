@@ -910,7 +910,10 @@ test.describe('Frontend', () => {
     await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
 
     const heroVideo = page.locator('video').first()
-    await expect(heroVideo).toHaveAttribute('poster', '/hero/johannesburg-sunset-poster.webp')
+    await expect(heroVideo).toHaveAttribute(
+      'poster',
+      '/hero/johannesburg-sunset-poster-mobile.webp',
+    )
     await expect(heroVideo).toHaveAttribute('preload', 'none')
     await expect(heroVideo.locator('source')).toHaveAttribute(
       'data-src',
@@ -935,7 +938,7 @@ test.describe('Frontend', () => {
 
     const [videoResponse, posterResponse] = await Promise.all([
       page.request.get('/hero/johannesburg-sunset.mp4'),
-      page.request.get('/hero/johannesburg-sunset-poster.webp'),
+      page.request.get('/hero/johannesburg-sunset-poster-mobile.webp'),
     ])
     expect(videoResponse.ok()).toBe(true)
     expect(videoResponse.headers()['content-type']).toContain('video/mp4')
