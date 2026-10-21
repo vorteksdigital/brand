@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import { cn } from '@/utilities/ui'
@@ -78,6 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           <PageTransition footer={<Footer />}>{children}</PageTransition>
         </Providers>
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
