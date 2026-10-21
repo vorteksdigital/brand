@@ -3,6 +3,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
@@ -11,12 +12,10 @@ import { flushSync } from 'react-dom'
 
 import styles from './pageTransition.module.css'
 
-gsap.registerPlugin(CustomEase, useGSAP)
+gsap.registerPlugin(CustomEase, DrawSVGPlugin, useGSAP)
 
 const VUCKO_SNAPPY =
   'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1'
-const PRELOADER_SEQUENCE_MS = 2350
-
 type Props = {
   children: ReactNode
   footer: ReactNode
@@ -50,6 +49,14 @@ export function PageTransition({ children, footer }: Props) {
   const activePathRef = useRef(pathname)
   const containerRef = useRef<HTMLDivElement>(null)
   const currentFrameRef = useRef<HTMLDivElement>(null)
+  const preloaderRef = useRef<HTMLDivElement>(null)
+  const preloaderLogoFillRef = useRef<HTMLImageElement>(null)
+  const preloaderLogoObjectRef = useRef<HTMLObjectElement>(null)
+  const preloaderTimelineRef = useRef<gsap.core.Timeline | null>(null)
+  const bodyOverflowRef = useRef('')
+  const brandSequenceCompleteRef = useRef(false)
+  const pageLoadedRef = useRef(false)
+  const preloaderExitStartedRef = useRef(false)
   const outgoingRef = useRef<HTMLElement | null>(null)
   const pendingSnapshotRef = useRef<HTMLElement | null>(null)
   const stableSnapshotRef = useRef<HTMLElement | null>(null)
@@ -68,42 +75,123 @@ export function PageTransition({ children, footer }: Props) {
     return prepareSnapshot(currentFrame, scrollY)
   }, [])
 
-  useEffect(() => {
-    const startedAt = window.performance.now()
-    const previousBodyOverflow = document.body.style.overflow
-    let overflowRestored = false
-    let timer: number | null = null
-    document.body.style.overflow = 'hidden'
+  const restoreBodyOverflow = useCallback(() => {
+    document.body.style.overflow = bodyOverflowRef.current
+  }, [])
 
-    const restoreOverflow = () => {
-      if (overflowRestored) return
-      overflowRestored = true
-      document.body.style.overflow = previousBodyOverflow
+  const exitPreloader = useCallback(() => {
+    const preloader = preloaderRef.current
+    if (
+      !preloader ||
+      !pageLoadedRef.current ||
+      !brandSequenceCompleteRef.current ||
+      preloaderExitStartedRef.current
+    ) {
+      return
     }
 
-    const finishPreloading = () => {
-      const minimumDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 0
-        : PRELOADER_SEQUENCE_MS
-      const remaining = Math.max(0, minimumDuration - (window.performance.now() - startedAt))
-      timer = window.setTimeout(() => {
-        restoreOverflow()
-        setPreloading(false)
-      }, remaining)
+    preloaderExitStartedRef.current = true
+    const finish = () => {
+      restoreBodyOverflow()
+      setPreloading(false)
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(preloader, { yPercent: 100 })
+      finish()
+      return
+    }
+
+    gsap.to(preloader, {
+      duration: 0.8,
+      ease: 'power4.inOut',
+      force3D: true,
+      onComplete: finish,
+      yPercent: 100,
+    })
+  }, [restoreBodyOverflow])
+
+  const handlePreloaderLogoLoad = useCallback(() => {
+    if (brandSequenceCompleteRef.current || preloaderTimelineRef.current) return
+
+    const logoObject = preloaderLogoObjectRef.current
+    const fill = preloaderLogoFillRef.current
+    const paths = logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path')
+    if (!logoObject || !fill || !paths?.length) return
+
+    const completeBrandSequence = () => {
+      brandSequenceCompleteRef.current = true
+      exitPreloader()
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(logoObject, { autoAlpha: 0 })
+      gsap.set(fill, { autoAlpha: 1 })
+      completeBrandSequence()
+      return
+    }
+
+    gsap.set(paths, {
+      drawSVG: '0% 0%',
+      fill: 'transparent',
+      stroke: '#fff',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      strokeWidth: 1,
+    })
+    gsap.set(logoObject, { autoAlpha: 1 })
+    gsap.set(fill, { autoAlpha: 0 })
+
+    preloaderTimelineRef.current = gsap
+      .timeline({ onComplete: completeBrandSequence })
+      .to(paths, {
+        drawSVG: '0% 100%',
+        duration: 1.35,
+        ease: 'power2.inOut',
+        stagger: { amount: 0.35, from: 'start' },
+      })
+      .to(fill, { autoAlpha: 1, duration: 1.3, ease: 'power2.inOut' }, '-=0.15')
+  }, [exitPreloader])
+
+  useEffect(() => {
+    const logoObject = preloaderLogoObjectRef.current
+    if (!logoObject) return
+
+    logoObject.addEventListener('load', handlePreloaderLogoLoad)
+    if (logoObject.contentDocument?.documentElement) handlePreloaderLogoLoad()
+
+    return () => logoObject.removeEventListener('load', handlePreloaderLogoLoad)
+  }, [handlePreloaderLogoLoad])
+
+  useEffect(() => {
+    const preloader = preloaderRef.current
+    bodyOverflowRef.current = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const markPageLoaded = () => {
+      pageLoadedRef.current = true
+      exitPreloader()
     }
 
     if (document.readyState === 'complete') {
-      finishPreloading()
+      markPageLoaded()
     } else {
-      window.addEventListener('load', finishPreloading, { once: true })
+      window.addEventListener('load', markPageLoaded, { once: true })
     }
 
+    const fallbackTimer = window.setTimeout(() => {
+      brandSequenceCompleteRef.current = true
+      exitPreloader()
+    }, 5000)
+
     return () => {
-      window.removeEventListener('load', finishPreloading)
-      if (timer !== null) window.clearTimeout(timer)
-      restoreOverflow()
+      window.removeEventListener('load', markPageLoaded)
+      window.clearTimeout(fallbackTimer)
+      preloaderTimelineRef.current?.kill()
+      if (preloader) gsap.killTweensOf(preloader)
+      restoreBodyOverflow()
     }
-  }, [])
+  }, [exitPreloader, restoreBodyOverflow])
 
   useEffect(() => {
     const clearPendingTimer = () => {
@@ -269,29 +357,16 @@ export function PageTransition({ children, footer }: Props) {
         className={styles.preloader}
         data-active={preloading}
         data-site-preloader
+        ref={preloaderRef}
       >
         <div className={styles.preloaderLogo}>
-          <svg
+          <object
+            aria-hidden="true"
             className={styles.preloaderLogoOutline}
-            preserveAspectRatio="xMidYMid meet"
-            viewBox="0 0 500 65"
-          >
-            <defs>
-              <filter id="preloader-logo-outline">
-                <feMorphology in="SourceAlpha" operator="dilate" radius="1.1" result="outer" />
-                <feMorphology in="SourceAlpha" operator="erode" radius="0.7" result="inner" />
-                <feComposite in="outer" in2="inner" operator="out" result="outline" />
-                <feFlood floodColor="white" result="white" />
-                <feComposite in="white" in2="outline" operator="in" />
-              </filter>
-            </defs>
-            <image
-              filter="url(#preloader-logo-outline)"
-              height="65"
-              href="/logo-vrtks.svg"
-              width="500"
-            />
-          </svg>
+            data="/logo-vrtks.svg"
+            ref={preloaderLogoObjectRef}
+            type="image/svg+xml"
+          />
           <Image
             alt=""
             className={styles.preloaderLogoFill}
@@ -300,6 +375,7 @@ export function PageTransition({ children, footer }: Props) {
             src="/logo-vrtks.svg"
             unoptimized
             width={500}
+            ref={preloaderLogoFillRef}
           />
         </div>
       </div>

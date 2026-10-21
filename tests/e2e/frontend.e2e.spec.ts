@@ -460,7 +460,7 @@ test.describe('Frontend', () => {
     const preloaderLogo = preloader.locator('img')
     await expect(blocker).toHaveAttribute('aria-hidden', 'true')
     await expect(preloaderLogo).toHaveAttribute('src', '/logo-vrtks.svg')
-    await expect(preloader.locator('svg image')).toHaveAttribute('href', '/logo-vrtks.svg')
+    await expect(preloader.locator('object')).toHaveAttribute('data', '/logo-vrtks.svg')
     await expect(preloader).toHaveAttribute('data-active', 'false')
     await expect(preloader).toHaveCSS('visibility', 'hidden')
     await page
