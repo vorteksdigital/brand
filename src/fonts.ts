@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 export const siteMono = GeistMono
 
 export const siteSans = Inter({
-  display: 'swap',
+  display: 'optional',
   subsets: ['latin'],
   variable: '--font-inter',
 })
