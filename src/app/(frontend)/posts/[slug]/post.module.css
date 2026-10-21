@@ -44,14 +44,12 @@
   place-items: center;
   transition:
     color 180ms ease,
-    background-color 180ms ease,
-    transform 180ms ease;
+    background-color 180ms ease;
 }
 
 .shareLink:hover {
   color: var(--background);
   background: var(--foreground);
-  transform: translateY(-0.125rem);
 }
 
 .shareLink:focus-visible {

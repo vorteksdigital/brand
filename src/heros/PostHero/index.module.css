@@ -73,7 +73,6 @@
   background: var(--foreground);
   border-radius: 50%;
   place-items: center;
-  transition: transform 180ms ease;
 }
 
 .readMoreText {
@@ -81,10 +80,6 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.readMore:hover .readMoreIcon {
-  transform: translateY(0.2rem);
 }
 
 .readMore:focus-visible {

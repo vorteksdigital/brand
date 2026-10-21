@@ -82,7 +82,6 @@
 .rejectButton:hover {
   color: #fff;
   background: #444;
-  transform: translateY(-0.15rem);
 }
 
 .acceptButton:active,
