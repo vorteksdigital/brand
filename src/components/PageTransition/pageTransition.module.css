@@ -43,28 +43,41 @@
   inset: 0;
 }
 
+.preloader,
 .blocker {
   position: fixed;
   z-index: 9999;
+  inset: 0;
+}
+
+.preloader {
   display: grid;
   visibility: hidden;
   color: #f5f5f2;
   pointer-events: none;
   cursor: wait;
-  background: rgb(8 8 8 / 88%);
+  background: #080808;
   opacity: 0;
-  inset: 0;
   place-items: center;
   transition:
     opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
     visibility 0s linear 240ms;
 }
 
-.blocker[data-active='true'] {
+.preloader[data-active='true'] {
   visibility: visible;
   pointer-events: auto;
   opacity: 1;
   transition-delay: 0s;
+}
+
+.blocker {
+  pointer-events: none;
+  cursor: wait;
+}
+
+.blocker[data-active='true'] {
+  pointer-events: auto;
 }
 
 .loader {
@@ -165,7 +178,7 @@
     transform: none;
   }
 
-  .blocker {
+  .preloader {
     transition: none;
   }
 

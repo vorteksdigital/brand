@@ -456,18 +456,20 @@ test.describe('Frontend', () => {
 
     const transition = page.locator('[data-page-transition]')
     const blocker = page.locator('[data-page-transition-blocker]')
-    const circuitLoader = blocker.locator('svg')
+    const preloader = page.locator('[data-site-preloader]')
+    const circuitLoader = preloader.locator('svg')
     await expect(blocker).toHaveAttribute('aria-hidden', 'true')
     await expect(circuitLoader).toHaveCount(1)
     await expect(circuitLoader).toContainText('VRTKS')
     await expect(circuitLoader).toContainText('LOADING')
+    await expect(preloader).toHaveAttribute('data-active', 'false')
     await page
       .getByRole('navigation', { name: 'Primary navigation' })
       .getByRole('link', { name: 'services' })
       .click()
 
     await expect(blocker).toHaveAttribute('data-active', 'true')
-    await expect(blocker).toHaveCSS('visibility', 'visible')
+    await expect(blocker).toHaveCSS('pointer-events', 'auto')
     await expect(transition).toHaveAttribute('data-page-transition-state', 'running')
     await expect(page.locator('[data-page-transition-frame]')).toHaveCount(2)
     await page.waitForTimeout(500)

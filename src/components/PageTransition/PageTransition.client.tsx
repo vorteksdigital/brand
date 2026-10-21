@@ -14,6 +14,7 @@ gsap.registerPlugin(CustomEase, useGSAP)
 
 const VUCKO_SNAPPY =
   'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1'
+const PRELOADER_MINIMUM_MS = 900
 
 type Props = {
   children: ReactNode
@@ -43,6 +44,57 @@ const prepareSnapshot = (source: HTMLElement, scrollY: number) => {
   return snapshot
 }
 
+const CircuitLoader = () => (
+  <svg className={styles.loader} viewBox="0 0 480 260">
+    <g className={styles.traceBackground}>
+      <path d="M20 38h116v42h34" />
+      <path d="M20 90h88v24h62" />
+      <path d="M20 222h116v-42h34" />
+      <path d="M460 38H344v42h-34" />
+      <path d="M460 90h-88v24h-62" />
+      <path d="M460 222H344v-42h-34" />
+      <path d="M240 12v58" />
+      <path d="M240 248v-58" />
+    </g>
+
+    <g className={styles.traceFlow}>
+      <path className={styles.yellowTrace} d="M20 38h116v42h34" />
+      <path className={styles.blueTrace} d="M20 90h88v24h62" />
+      <path className={styles.greenTrace} d="M20 222h116v-42h34" />
+      <path className={styles.purpleTrace} d="M460 38H344v42h-34" />
+      <path className={styles.redTrace} d="M460 90h-88v24h-62" />
+      <path className={styles.yellowTrace} d="M460 222H344v-42h-34" />
+      <path className={styles.blueTrace} d="M240 12v58" />
+      <path className={styles.greenTrace} d="M240 248v-58" />
+    </g>
+
+    <g className={styles.nodes}>
+      <circle cx="20" cy="38" r="4" />
+      <circle cx="20" cy="90" r="4" />
+      <circle cx="20" cy="222" r="4" />
+      <circle cx="460" cy="38" r="4" />
+      <circle cx="460" cy="90" r="4" />
+      <circle cx="460" cy="222" r="4" />
+      <circle cx="240" cy="12" r="4" />
+      <circle cx="240" cy="248" r="4" />
+    </g>
+
+    <rect className={styles.chipBody} height="120" rx="20" width="140" x="170" y="70" />
+    <g className={styles.chipPins}>
+      <path d="M190 70V58M215 70V58M240 70V58M265 70V58M290 70V58" />
+      <path d="M190 190v12M215 190v12M240 190v12M265 190v12M290 190v12" />
+      <path d="M170 90h-12M170 115h-12M170 140h-12M170 165h-12" />
+      <path d="M310 90h12M310 115h12M310 140h12M310 165h12" />
+    </g>
+    <text className={styles.chipText} textAnchor="middle" x="240" y="137">
+      VRTKS
+    </text>
+    <text className={styles.chipStatus} textAnchor="middle" x="240" y="158">
+      LOADING
+    </text>
+  </svg>
+)
+
 export function PageTransition({ children, footer }: Props) {
   const pathname = usePathname()
   const activePathRef = useRef(pathname)
@@ -54,6 +106,7 @@ export function PageTransition({ children, footer }: Props) {
   const pendingScrollRef = useRef(0)
   const pendingTimerRef = useRef<number | null>(null)
   const snapshotHostRef = useRef<HTMLDivElement>(null)
+  const [preloading, setPreloading] = useState(true)
   const [pending, setPending] = useState(false)
   const [transitionKey, setTransitionKey] = useState(0)
   const [transitioning, setTransitioning] = useState(false)
@@ -63,6 +116,40 @@ export function PageTransition({ children, footer }: Props) {
     if (!currentFrame) return null
 
     return prepareSnapshot(currentFrame, scrollY)
+  }, [])
+
+  useEffect(() => {
+    const startedAt = window.performance.now()
+    const previousBodyOverflow = document.body.style.overflow
+    let overflowRestored = false
+    let timer: number | null = null
+    document.body.style.overflow = 'hidden'
+
+    const restoreOverflow = () => {
+      if (overflowRestored) return
+      overflowRestored = true
+      document.body.style.overflow = previousBodyOverflow
+    }
+
+    const finishPreloading = () => {
+      const remaining = Math.max(0, PRELOADER_MINIMUM_MS - (window.performance.now() - startedAt))
+      timer = window.setTimeout(() => {
+        restoreOverflow()
+        setPreloading(false)
+      }, remaining)
+    }
+
+    if (document.readyState === 'complete') {
+      finishPreloading()
+    } else {
+      window.addEventListener('load', finishPreloading, { once: true })
+    }
+
+    return () => {
+      window.removeEventListener('load', finishPreloading)
+      if (timer !== null) window.clearTimeout(timer)
+      restoreOverflow()
+    }
   }, [])
 
   useEffect(() => {
@@ -225,7 +312,15 @@ export function PageTransition({ children, footer }: Props) {
   return (
     <>
       <div
-        aria-busy={pending}
+        aria-hidden="true"
+        className={styles.preloader}
+        data-active={preloading}
+        data-site-preloader
+      >
+        <CircuitLoader />
+      </div>
+      <div
+        aria-busy={preloading || pending}
         className={styles.root}
         data-page-transition
         data-page-transition-state={transitioning ? 'running' : 'idle'}
@@ -249,56 +344,7 @@ export function PageTransition({ children, footer }: Props) {
         className={styles.blocker}
         data-active={pending}
         data-page-transition-blocker
-      >
-        <svg className={styles.loader} viewBox="0 0 480 260">
-          <g className={styles.traceBackground}>
-            <path d="M20 38h116v42h34" />
-            <path d="M20 90h88v24h62" />
-            <path d="M20 222h116v-42h34" />
-            <path d="M460 38H344v42h-34" />
-            <path d="M460 90h-88v24h-62" />
-            <path d="M460 222H344v-42h-34" />
-            <path d="M240 12v58" />
-            <path d="M240 248v-58" />
-          </g>
-
-          <g className={styles.traceFlow}>
-            <path className={styles.yellowTrace} d="M20 38h116v42h34" />
-            <path className={styles.blueTrace} d="M20 90h88v24h62" />
-            <path className={styles.greenTrace} d="M20 222h116v-42h34" />
-            <path className={styles.purpleTrace} d="M460 38H344v42h-34" />
-            <path className={styles.redTrace} d="M460 90h-88v24h-62" />
-            <path className={styles.yellowTrace} d="M460 222H344v-42h-34" />
-            <path className={styles.blueTrace} d="M240 12v58" />
-            <path className={styles.greenTrace} d="M240 248v-58" />
-          </g>
-
-          <g className={styles.nodes}>
-            <circle cx="20" cy="38" r="4" />
-            <circle cx="20" cy="90" r="4" />
-            <circle cx="20" cy="222" r="4" />
-            <circle cx="460" cy="38" r="4" />
-            <circle cx="460" cy="90" r="4" />
-            <circle cx="460" cy="222" r="4" />
-            <circle cx="240" cy="12" r="4" />
-            <circle cx="240" cy="248" r="4" />
-          </g>
-
-          <rect className={styles.chipBody} height="120" rx="20" width="140" x="170" y="70" />
-          <g className={styles.chipPins}>
-            <path d="M190 70V58M215 70V58M240 70V58M265 70V58M290 70V58" />
-            <path d="M190 190v12M215 190v12M240 190v12M265 190v12M290 190v12" />
-            <path d="M170 90h-12M170 115h-12M170 140h-12M170 165h-12" />
-            <path d="M310 90h12M310 115h12M310 140h12M310 165h12" />
-          </g>
-          <text className={styles.chipText} textAnchor="middle" x="240" y="137">
-            VRTKS
-          </text>
-          <text className={styles.chipStatus} textAnchor="middle" x="240" y="158">
-            LOADING
-          </text>
-        </svg>
-      </span>
+      />
     </>
   )
 }
