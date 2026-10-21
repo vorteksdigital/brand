@@ -631,6 +631,15 @@ test.describe('Frontend', () => {
         }),
       ),
     ).toBe(true)
+    expect(
+      await socialLinks.locator('svg').evaluateAll((icons) =>
+        icons.every((icon) => {
+          const styles = getComputedStyle(icon)
+
+          return styles.fill !== 'none' && styles.stroke === 'none'
+        }),
+      ),
+    ).toBe(true)
     await expect(footerLogo).toHaveAttribute('src', '/logo-vrtks.svg')
     await expect(footerLogo).toHaveCSS('filter', 'invert(1)')
     await expect

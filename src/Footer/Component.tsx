@@ -1,12 +1,29 @@
 import type { Footer as FooterData } from '@/payload-types'
+import type { SVGProps } from 'react'
 
 import { CMSLink } from '@/components/Link'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { ArrowUpRight, Facebook, Instagram, Linkedin } from 'lucide-react'
+import { ArrowUpRight, Facebook, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from './footer.module.css'
+
+const InstagramFilled = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path
+      clipRule="evenodd"
+      d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Z"
+      fillRule="evenodd"
+    />
+    <path
+      clipRule="evenodd"
+      d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+      fillRule="evenodd"
+    />
+    <circle cx="17.5" cy="6.5" r="1.25" />
+  </svg>
+)
 
 const defaultNavItems: NonNullable<FooterData['navItems']> = [
   { link: { label: 'home', type: 'custom', url: '/' } },
@@ -24,7 +41,7 @@ const footerSocialLinks = [
     url: 'https://za.linkedin.com/company/vorteksdigital',
   },
   {
-    Icon: Instagram,
+    Icon: InstagramFilled,
     label: 'Vorteks Digital on Instagram',
     url: 'https://www.instagram.com/vorteksdigital/',
   },
@@ -86,7 +103,7 @@ export async function Footer() {
                 {footerSocialLinks.map(({ Icon, label, url }) => (
                   <li key={url}>
                     <a aria-label={label} href={url} rel="noopener noreferrer" target="_blank">
-                      <Icon aria-hidden="true" strokeWidth={1.5} />
+                      <Icon aria-hidden="true" fill="currentColor" stroke="none" />
                     </a>
                   </li>
                 ))}
