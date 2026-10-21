@@ -24,6 +24,23 @@ type Props = {
 const isModifiedClick = (event: MouseEvent) =>
   event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
 
+const getClockwiseDrawValues = (path: SVGPathElement) => {
+  const length = path.getTotalLength()
+  const sampleCount = 80
+  let signedArea = 0
+  let previousPoint = path.getPointAtLength(0)
+
+  for (let index = 1; index <= sampleCount; index += 1) {
+    const point = path.getPointAtLength((length * index) / sampleCount)
+    signedArea += previousPoint.x * point.y - point.x * previousPoint.y
+    previousPoint = point
+  }
+
+  return signedArea >= 0
+    ? { from: '0% 0%', to: '0% 100%' }
+    : { from: '100% 100%', to: '0% 100%' }
+}
+
 const prepareSnapshot = (source: HTMLElement, scrollY: number) => {
   const snapshot = source.cloneNode(true) as HTMLElement
 
@@ -116,8 +133,11 @@ export function PageTransition({ children, footer }: Props) {
 
     const logoObject = preloaderLogoObjectRef.current
     const fill = preloaderLogoFillRef.current
-    const paths = logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path')
-    if (!logoObject || !fill || !paths?.length) return
+    const paths = Array.from(
+      logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path') ?? [],
+    )
+    const outlinePaths = paths.filter((_, index) => index < 10 && index % 2 === 0)
+    if (!logoObject || !fill || outlinePaths.length !== 5) return
 
     const completeBrandSequence = () => {
       brandSequenceCompleteRef.current = true
@@ -131,8 +151,15 @@ export function PageTransition({ children, footer }: Props) {
       return
     }
 
-    gsap.set(paths, {
-      drawSVG: '0% 0%',
+    gsap.set(paths, { autoAlpha: 0 })
+    outlinePaths.forEach((path) => {
+      const { from } = getClockwiseDrawValues(path)
+      gsap.set(path, {
+        autoAlpha: 1,
+        drawSVG: from,
+      })
+    })
+    gsap.set(outlinePaths, {
       fill: 'transparent',
       stroke: '#fff',
       strokeLinecap: 'round',
@@ -142,15 +169,20 @@ export function PageTransition({ children, footer }: Props) {
     gsap.set(logoObject, { autoAlpha: 1 })
     gsap.set(fill, { autoAlpha: 0 })
 
-    preloaderTimelineRef.current = gsap
-      .timeline({ onComplete: completeBrandSequence })
-      .to(paths, {
-        drawSVG: '0% 100%',
-        duration: 1.35,
-        ease: 'power2.inOut',
-        stagger: { amount: 0.35, from: 'start' },
-      })
-      .to(fill, { autoAlpha: 1, duration: 1.3, ease: 'power2.inOut' }, '-=0.15')
+    const timeline = gsap.timeline({ onComplete: completeBrandSequence })
+    outlinePaths.forEach((path, index) => {
+      const { to } = getClockwiseDrawValues(path)
+      timeline.to(
+        path,
+        { drawSVG: to, duration: 0.38, ease: 'power2.inOut' },
+        index === 0 ? 0 : '>-0.04',
+      )
+    })
+    timeline
+      .to(fill, { autoAlpha: 1, duration: 1, ease: 'power2.inOut' }, '-=0.05')
+      .to(outlinePaths, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
+
+    preloaderTimelineRef.current = timeline
   }, [exitPreloader])
 
   useEffect(() => {
