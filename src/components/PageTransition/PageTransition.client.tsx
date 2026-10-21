@@ -15,7 +15,7 @@ gsap.registerPlugin(CustomEase, useGSAP)
 
 const VUCKO_SNAPPY =
   'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1'
-const PRELOADER_MINIMUM_MS = 900
+const PRELOADER_SEQUENCE_MS = 2350
 
 type Props = {
   children: ReactNode
@@ -82,7 +82,10 @@ export function PageTransition({ children, footer }: Props) {
     }
 
     const finishPreloading = () => {
-      const remaining = Math.max(0, PRELOADER_MINIMUM_MS - (window.performance.now() - startedAt))
+      const minimumDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 0
+        : PRELOADER_SEQUENCE_MS
+      const remaining = Math.max(0, minimumDuration - (window.performance.now() - startedAt))
       timer = window.setTimeout(() => {
         restoreOverflow()
         setPreloading(false)
@@ -267,15 +270,38 @@ export function PageTransition({ children, footer }: Props) {
         data-active={preloading}
         data-site-preloader
       >
-        <Image
-          alt=""
-          className={styles.preloaderLogo}
-          height={65}
-          preload
-          src="/logo-vrtks.svg"
-          unoptimized
-          width={500}
-        />
+        <div className={styles.preloaderLogo}>
+          <svg
+            className={styles.preloaderLogoOutline}
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 500 65"
+          >
+            <defs>
+              <filter id="preloader-logo-outline">
+                <feMorphology in="SourceAlpha" operator="dilate" radius="1.1" result="outer" />
+                <feMorphology in="SourceAlpha" operator="erode" radius="0.7" result="inner" />
+                <feComposite in="outer" in2="inner" operator="out" result="outline" />
+                <feFlood floodColor="white" result="white" />
+                <feComposite in="white" in2="outline" operator="in" />
+              </filter>
+            </defs>
+            <image
+              filter="url(#preloader-logo-outline)"
+              height="65"
+              href="/logo-vrtks.svg"
+              width="500"
+            />
+          </svg>
+          <Image
+            alt=""
+            className={styles.preloaderLogoFill}
+            height={65}
+            preload
+            src="/logo-vrtks.svg"
+            unoptimized
+            width={500}
+          />
+        </div>
       </div>
       <div
         aria-busy={preloading || pending}
