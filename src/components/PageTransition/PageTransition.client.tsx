@@ -3,6 +3,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -43,57 +44,6 @@ const prepareSnapshot = (source: HTMLElement, scrollY: number) => {
 
   return snapshot
 }
-
-const CircuitLoader = () => (
-  <svg className={styles.loader} viewBox="0 0 480 260">
-    <g className={styles.traceBackground}>
-      <path d="M20 38h116v42h34" />
-      <path d="M20 90h88v24h62" />
-      <path d="M20 222h116v-42h34" />
-      <path d="M460 38H344v42h-34" />
-      <path d="M460 90h-88v24h-62" />
-      <path d="M460 222H344v-42h-34" />
-      <path d="M240 12v58" />
-      <path d="M240 248v-58" />
-    </g>
-
-    <g className={styles.traceFlow}>
-      <path className={styles.yellowTrace} d="M20 38h116v42h34" />
-      <path className={styles.blueTrace} d="M20 90h88v24h62" />
-      <path className={styles.greenTrace} d="M20 222h116v-42h34" />
-      <path className={styles.purpleTrace} d="M460 38H344v42h-34" />
-      <path className={styles.redTrace} d="M460 90h-88v24h-62" />
-      <path className={styles.yellowTrace} d="M460 222H344v-42h-34" />
-      <path className={styles.blueTrace} d="M240 12v58" />
-      <path className={styles.greenTrace} d="M240 248v-58" />
-    </g>
-
-    <g className={styles.nodes}>
-      <circle cx="20" cy="38" r="4" />
-      <circle cx="20" cy="90" r="4" />
-      <circle cx="20" cy="222" r="4" />
-      <circle cx="460" cy="38" r="4" />
-      <circle cx="460" cy="90" r="4" />
-      <circle cx="460" cy="222" r="4" />
-      <circle cx="240" cy="12" r="4" />
-      <circle cx="240" cy="248" r="4" />
-    </g>
-
-    <rect className={styles.chipBody} height="120" rx="20" width="140" x="170" y="70" />
-    <g className={styles.chipPins}>
-      <path d="M190 70V58M215 70V58M240 70V58M265 70V58M290 70V58" />
-      <path d="M190 190v12M215 190v12M240 190v12M265 190v12M290 190v12" />
-      <path d="M170 90h-12M170 115h-12M170 140h-12M170 165h-12" />
-      <path d="M310 90h12M310 115h12M310 140h12M310 165h12" />
-    </g>
-    <text className={styles.chipText} textAnchor="middle" x="240" y="137">
-      VRTKS
-    </text>
-    <text className={styles.chipStatus} textAnchor="middle" x="240" y="158">
-      LOADING
-    </text>
-  </svg>
-)
 
 export function PageTransition({ children, footer }: Props) {
   const pathname = usePathname()
@@ -317,7 +267,15 @@ export function PageTransition({ children, footer }: Props) {
         data-active={preloading}
         data-site-preloader
       >
-        <CircuitLoader />
+        <Image
+          alt=""
+          className={styles.preloaderLogo}
+          height={65}
+          preload
+          src="/logo-vrtks.svg"
+          unoptimized
+          width={500}
+        />
       </div>
       <div
         aria-busy={preloading || pending}
