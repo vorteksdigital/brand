@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react'
 
+import {
+  ANALYTICS_CONSENT_EVENT,
+  ANALYTICS_CONSENT_KEY,
+  hasAnalyticsConsent,
+} from '@/components/CookieConsent/consent'
+
 const measurementID = 'G-4FCPRY0JBF'
 
 type AnalyticsWindow = Window & {
@@ -27,23 +33,19 @@ export function GoogleAnalytics() {
       script.async = true
       script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementID}`
       document.head.append(script)
-
-      removeListeners()
     }
 
-    const removeListeners = () => {
-      window.removeEventListener('keydown', loadAnalytics)
-      window.removeEventListener('pointerdown', loadAnalytics)
-      window.removeEventListener('touchstart', loadAnalytics)
-      window.removeEventListener('wheel', loadAnalytics)
+    try {
+      if (hasAnalyticsConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))) {
+        loadAnalytics()
+      }
+    } catch {
+      // Analytics stays disabled when consent storage cannot be read.
     }
 
-    window.addEventListener('keydown', loadAnalytics, { passive: true })
-    window.addEventListener('pointerdown', loadAnalytics, { passive: true })
-    window.addEventListener('touchstart', loadAnalytics, { passive: true })
-    window.addEventListener('wheel', loadAnalytics, { passive: true })
+    window.addEventListener(ANALYTICS_CONSENT_EVENT, loadAnalytics)
 
-    return removeListeners
+    return () => window.removeEventListener(ANALYTICS_CONSENT_EVENT, loadAnalytics)
   }, [])
 
   return null

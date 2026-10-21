@@ -6,6 +6,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { CookieConsent } from '@/components/CookieConsent/CookieConsent.client'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics/GoogleAnalytics.client'
 import { JsonLd } from '@/components/JsonLd'
 import { PageTransition } from '@/components/PageTransition/PageTransition.client'
@@ -79,6 +80,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           <PageTransition footer={<Footer />}>{children}</PageTransition>
         </Providers>
+        <CookieConsent />
         <Analytics />
         <SpeedInsights />
       </body>

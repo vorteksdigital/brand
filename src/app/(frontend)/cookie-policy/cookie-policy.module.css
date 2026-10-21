@@ -1,0 +1,61 @@
+.page {
+  min-height: 100dvh;
+  padding-inline: clamp(1.5rem, 5.291vw, 6rem);
+}
+
+.article {
+  max-width: 56rem;
+}
+
+.eyebrow {
+  margin: 0 0 2rem;
+  font-size: 0.875rem;
+}
+
+.article h1 {
+  max-width: 10ch;
+  margin: 0 0 4rem;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.content {
+  display: grid;
+  gap: 3rem;
+  max-width: 46rem;
+}
+
+.content section {
+  display: grid;
+  gap: 1rem;
+}
+
+.content h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.content p,
+.content li {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.content ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 47.99rem) {
+  .article h1 {
+    margin-bottom: 3rem;
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+}

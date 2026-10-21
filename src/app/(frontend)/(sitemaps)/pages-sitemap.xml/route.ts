@@ -53,6 +53,10 @@ const getPagesSitemap = unstable_cache(
         loc: `${SITE_URL}/image-credits`,
         lastmod: dateFallback,
       },
+      {
+        loc: `${SITE_URL}/cookie-policy`,
+        lastmod: dateFallback,
+      },
     ]
 
     const sitemapByLocation = new Map(defaultSitemap.map((entry) => [entry.loc, entry]))
@@ -74,7 +78,7 @@ const getPagesSitemap = unstable_cache(
 
     return Array.from(sitemapByLocation.values())
   },
-  ['pages-sitemap-v3'],
+  ['pages-sitemap-v4'],
   {
     tags: ['pages-sitemap'],
   },
