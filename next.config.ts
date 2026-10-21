@@ -57,4 +57,26 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false })
+const payloadHeaders = payloadConfig.headers
+const unnecessaryClientHintHeaders = new Set([
+  'accept-ch',
+  'critical-ch',
+  'vary',
+])
+
+export default {
+  ...payloadConfig,
+  headers: async () => {
+    const headerRules = payloadHeaders ? await payloadHeaders() : []
+
+    return headerRules.map((rule) => ({
+      ...rule,
+      headers: rule.headers.filter(
+        ({ key, value }) =>
+          !unnecessaryClientHintHeaders.has(key.toLowerCase()) ||
+          value !== 'Sec-CH-Prefers-Color-Scheme',
+      ),
+    }))
+  },
+} satisfies NextConfig
