@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { getServerSideURL } from './getURL'
 
+export const defaultMetaDescription =
+  'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.'
+
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description:
-    'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.',
+  description: defaultMetaDescription,
   images: [
     {
       url: `${getServerSideURL()}/website-template-OG.webp`,

@@ -161,12 +161,12 @@ test.describe('Frontend', () => {
     await expect(
       page.locator('label[for="header-theme"] > span[aria-hidden="true"] > span'),
     ).toHaveCount(1)
-    await expect(
-      page.locator('script[src="https://www.googletagmanager.com/gtag/js?id=G-4FCPRY0JBF"]'),
-    ).toHaveCount(1)
-    await expect(page.locator('script#google-analytics')).toContainText(
-      "gtag('config', 'G-4FCPRY0JBF')",
+    const analyticsScript = page.locator(
+      'script[src="https://www.googletagmanager.com/gtag/js?id=G-4FCPRY0JBF"]',
     )
+    await expect(analyticsScript).toHaveCount(0)
+    await page.locator('body').dispatchEvent('pointerdown')
+    await expect(analyticsScript).toHaveCount(1)
 
     const favicon = await page.request.get('http://localhost:3000/favicon.svg')
     expect(favicon.ok()).toBe(true)
@@ -576,6 +576,15 @@ test.describe('Frontend', () => {
     await expect(footerInner).toHaveCSS('padding-right', '96px')
     await page.setViewportSize({ height: 1000, width: 1440 })
     await expect(footerNav.getByRole('link')).toHaveCount(6)
+    expect(
+      await footerNav.getByRole('link').evaluateAll((links) =>
+        links.every((link) => {
+          const bounds = link.getBoundingClientRect()
+
+          return bounds.width >= 44 && bounds.height >= 44
+        }),
+      ),
+    ).toBe(true)
     await expect(footerNav.getByRole('link', { name: 'projects' })).toHaveAttribute(
       'href',
       '/projects',
@@ -607,6 +616,15 @@ test.describe('Frontend', () => {
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
     await expect(footerNav).toBeVisible()
+    expect(
+      await footerNav.getByRole('link').evaluateAll((links) =>
+        links.every((link) => {
+          const bounds = link.getBoundingClientRect()
+
+          return bounds.width >= 44 && bounds.height >= 44
+        }),
+      ),
+    ).toBe(true)
     await expect(footerLogo).toBeVisible()
   })
 
@@ -882,16 +900,28 @@ test.describe('Frontend', () => {
   test('can load homepage', async ({ page }) => {
     await page.goto('http://localhost:3000')
     await expect(page).toHaveTitle(/Vorteks Digital/)
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      'content',
+      'Websites, digital products and bespoke solutions for startups and growing businesses worldwide.',
+    )
     await expect(page.locator('.admin-bar')).toBeHidden()
     const heading = page.locator('h1').first()
     await expect(heading).toHaveAccessibleName("Shaping Tomorrow's brand Today")
 
     const heroVideo = page.locator('video').first()
     await expect(heroVideo).toHaveAttribute('poster', '/hero/johannesburg-sunset-poster.webp')
+    await expect(heroVideo).toHaveAttribute('preload', 'none')
     await expect(heroVideo.locator('source')).toHaveAttribute(
-      'src',
+      'data-src',
       '/hero/johannesburg-sunset.mp4',
     )
+    await heroVideo.evaluate((element) => {
+      const video = element as HTMLVideoElement
+      const source = video.querySelector('source')
+
+      if (source?.dataset.src) source.src = source.dataset.src
+      video.load()
+    })
     await expect
       .poll(() =>
         heroVideo.evaluate((element) => {

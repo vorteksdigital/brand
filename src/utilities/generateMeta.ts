@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import type { Media, Page, Post, Config } from '../payload-types'
 
 import { getMediaUrl } from './getMediaUrl'
-import { mergeOpenGraph } from './mergeOpenGraph'
+import { defaultMetaDescription, mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
@@ -36,14 +36,15 @@ export const generateMeta = async (args: {
   const isPost = Boolean(doc && 'content' in doc)
   const pathname = slug === 'home' ? '/' : isPost ? `/posts/${slug}` : `/${slug}`
   const canonical = new URL(pathname, getServerSideURL()).toString()
+  const description = doc?.meta?.description || defaultMetaDescription
 
   return {
-    description: doc?.meta?.description,
+    description,
     alternates: {
       canonical,
     },
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description,
       images: ogImage
         ? [
             {

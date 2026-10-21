@@ -5,7 +5,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import React, { useEffect, useRef } from 'react'
 
-import { FluidSimulation } from './fluidSimulation'
 import styles from './index.module.css'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -26,31 +25,48 @@ export function HomeHero() {
 
   useEffect(() => {
     const canvas = fluidCanvasRef.current
+    const hero = heroRef.current
 
-    if (!canvas) return
+    if (!canvas || !hero) return
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let fluid: FluidSimulation | null = null
+    let cancelled = false
+    let fluid: import('./fluidSimulation').FluidSimulation | null = null
+    let starting = false
 
-    const syncFluidPreference = () => {
+    const stopFluid = () => {
       fluid?.destroy()
       fluid = null
+    }
 
-      if (reducedMotion.matches) return
+    const startFluid = async () => {
+      if (reducedMotion.matches || fluid || starting) return
+
+      starting = true
 
       try {
-        fluid = FluidSimulation.create(canvas)
+        const { FluidSimulation } = await import('./fluidSimulation')
+
+        if (!cancelled && !reducedMotion.matches) fluid = FluidSimulation.create(canvas)
       } catch (error) {
         console.warn('The homepage fluid effect could not be started.', error)
+      } finally {
+        starting = false
       }
     }
 
-    syncFluidPreference()
+    const syncFluidPreference = () => {
+      if (reducedMotion.matches) stopFluid()
+    }
+
+    hero.addEventListener('pointermove', startFluid, { once: true, passive: true })
     reducedMotion.addEventListener('change', syncFluidPreference)
 
     return () => {
+      cancelled = true
+      hero.removeEventListener('pointermove', startFluid)
       reducedMotion.removeEventListener('change', syncFluidPreference)
-      fluid?.destroy()
+      stopFluid()
     }
   }, [])
 
@@ -64,6 +80,14 @@ export function HomeHero() {
       if (!hero || !videoContainer || !videoSlot || !video) return
 
       const playVideo = () => {
+        const source = video.querySelector('source')
+        const sourceUrl = source?.dataset.src
+
+        if (source && sourceUrl && !source.hasAttribute('src')) {
+          source.src = sourceUrl
+          video.load()
+        }
+
         if (video.paused) {
           void video.play().catch(() => {
             // Muted autoplay may still be declined by browser or user settings.
@@ -107,12 +131,13 @@ export function HomeHero() {
       const motionPreferences = gsap.matchMedia()
 
       motionPreferences.add('(prefers-reduced-motion: no-preference)', () => {
-        playVideo()
-
         const timeline = gsap.timeline({
           scrollTrigger: {
             end: () => `+=${hero.getBoundingClientRect().height * 1.6}`,
             invalidateOnRefresh: true,
+            onUpdate: ({ progress }) => {
+              if (progress > 0 && window.scrollY > 1) playVideo()
+            },
             pin: true,
             scrub: true,
             start: 'top top',
@@ -217,17 +242,16 @@ export function HomeHero() {
 
       <span aria-hidden="true" className={styles.videoPill} ref={videoContainerRef}>
         <video
-          autoPlay
           className={styles.video}
           loop
           muted
           playsInline
           poster="/hero/johannesburg-sunset-poster.webp"
-          preload="metadata"
+          preload="none"
           ref={videoRef}
           tabIndex={-1}
         >
-          <source src="/hero/johannesburg-sunset.mp4" type="video/mp4" />
+          <source data-src="/hero/johannesburg-sunset.mp4" type="video/mp4" />
         </video>
       </span>
     </section>
