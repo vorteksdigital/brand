@@ -34,6 +34,10 @@ const getPagesSitemap = unstable_cache(
 
     const defaultSitemap = [
       {
+        loc: `${SITE_URL}/`,
+        lastmod: dateFallback,
+      },
+      {
         loc: `${SITE_URL}/search`,
         lastmod: dateFallback,
       },
@@ -70,7 +74,7 @@ const getPagesSitemap = unstable_cache(
 
     return Array.from(sitemapByLocation.values())
   },
-  ['pages-sitemap-v2'],
+  ['pages-sitemap-v3'],
   {
     tags: ['pages-sitemap'],
   },

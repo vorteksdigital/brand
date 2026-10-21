@@ -58,6 +58,7 @@ test.describe('Frontend', () => {
     const sitemapText = await sitemap.text()
 
     expect(sitemap.ok()).toBe(true)
+    expect(sitemapText).toContain('<loc>http://localhost:3000/</loc>')
     expect(sitemapText).toContain('/projects</loc>')
     expect(sitemapText).toContain('/approach</loc>')
     expect(sitemapText).toContain('/about</loc>')
