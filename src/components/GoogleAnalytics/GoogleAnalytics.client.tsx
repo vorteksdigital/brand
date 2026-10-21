@@ -18,10 +18,23 @@ type AnalyticsWindow = Window & {
 export function GoogleAnalytics() {
   useEffect(() => {
     let loaded = false
+    let armed = false
+
+    const interactionEvents: Array<keyof WindowEventMap> = [
+      'keydown',
+      'pointerdown',
+      'touchstart',
+      'wheel',
+    ]
+
+    const removeInteractionListeners = () => {
+      interactionEvents.forEach((eventName) => window.removeEventListener(eventName, loadAnalytics))
+    }
 
     const loadAnalytics = () => {
       if (loaded) return
       loaded = true
+      removeInteractionListeners()
 
       const analyticsWindow = window as AnalyticsWindow
       analyticsWindow.dataLayer = analyticsWindow.dataLayer || []
@@ -35,17 +48,32 @@ export function GoogleAnalytics() {
       document.head.append(script)
     }
 
+    const armAnalytics = () => {
+      if (armed || loaded) return
+      armed = true
+      interactionEvents.forEach((eventName) =>
+        window.addEventListener(eventName, loadAnalytics, { passive: true }),
+      )
+    }
+
     try {
       if (hasAnalyticsConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))) {
-        loadAnalytics()
+        armAnalytics()
       }
     } catch {
       // Analytics stays disabled when consent storage cannot be read.
     }
 
-    window.addEventListener(ANALYTICS_CONSENT_EVENT, loadAnalytics)
+    const handleConsent = (event: Event) => {
+      if (event instanceof CustomEvent && event.detail === 'granted') loadAnalytics()
+    }
 
-    return () => window.removeEventListener(ANALYTICS_CONSENT_EVENT, loadAnalytics)
+    window.addEventListener(ANALYTICS_CONSENT_EVENT, handleConsent)
+
+    return () => {
+      removeInteractionListeners()
+      window.removeEventListener(ANALYTICS_CONSENT_EVENT, handleConsent)
+    }
   }, [])
 
   return null

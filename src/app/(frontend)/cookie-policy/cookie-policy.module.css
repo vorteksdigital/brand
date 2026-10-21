@@ -53,6 +53,30 @@
   padding-left: 1.25rem;
 }
 
+.tableWrap {
+  overflow-x: auto;
+}
+
+.content table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.content th,
+.content td {
+  padding: 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+
+.content th {
+  font-weight: 650;
+}
+
 @media (max-width: 47.99rem) {
   .article h1 {
     margin-bottom: 3rem;

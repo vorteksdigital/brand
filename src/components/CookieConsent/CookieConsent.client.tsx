@@ -3,7 +3,13 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
-import { ANALYTICS_CONSENT_EVENT, ANALYTICS_CONSENT_KEY, hasAnalyticsConsent } from './consent'
+import {
+  ANALYTICS_CONSENT_EVENT,
+  ANALYTICS_CONSENT_KEY,
+  type AnalyticsConsent,
+  createAnalyticsConsent,
+  readAnalyticsConsent,
+} from './consent'
 import styles from './cookieConsent.module.css'
 
 type NoticeState = 'checking' | 'closing' | 'hidden' | 'visible'
@@ -20,7 +26,7 @@ export function CookieConsent() {
 
       try {
         setNoticeState(
-          hasAnalyticsConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))
+          readAnalyticsConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))
             ? 'hidden'
             : 'visible',
         )
@@ -35,14 +41,14 @@ export function CookieConsent() {
     }
   }, [])
 
-  const grantConsent = () => {
+  const saveConsent = (status: AnalyticsConsent) => {
     try {
-      window.localStorage.setItem(ANALYTICS_CONSENT_KEY, 'granted')
+      window.localStorage.setItem(ANALYTICS_CONSENT_KEY, createAnalyticsConsent(status))
     } catch {
       // The current page can still honor consent when storage is unavailable.
     }
 
-    window.dispatchEvent(new Event(ANALYTICS_CONSENT_EVENT))
+    window.dispatchEvent(new CustomEvent(ANALYTICS_CONSENT_EVENT, { detail: status }))
     setNoticeState('closing')
     closeTimerRef.current = window.setTimeout(() => setNoticeState('hidden'), 450)
   }
@@ -56,14 +62,23 @@ export function CookieConsent() {
       data-closing={noticeState === 'closing' ? 'true' : undefined}
     >
       <p className={styles.copy}>
-        This website uses cookies to improve your experience.{' '}
+        We use optional analytics cookies to understand site use. Choose whether to allow them.{' '}
         <Link className={styles.policyLink} href="/cookie-policy" prefetch={false}>
           Cookie Policy
         </Link>
       </p>
-      <button className={styles.acceptButton} onClick={grantConsent} type="button">
-        Got it
-      </button>
+      <div className={styles.actions}>
+        <button
+          className={styles.acceptButton}
+          onClick={() => saveConsent('granted')}
+          type="button"
+        >
+          Accept
+        </button>
+        <button className={styles.rejectButton} onClick={() => saveConsent('denied')} type="button">
+          Reject
+        </button>
+      </div>
     </aside>
   )
 }
