@@ -2,7 +2,7 @@ import type { Footer as FooterData } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Facebook, Instagram, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,6 +16,24 @@ const defaultNavItems: NonNullable<FooterData['navItems']> = [
   { link: { label: 'insights', type: 'custom', url: '/blogs' } },
   { link: { label: 'contact', type: 'custom', url: '/contact' } },
 ]
+
+const footerSocialLinks = [
+  {
+    Icon: Linkedin,
+    label: 'Vorteks Digital on LinkedIn',
+    url: 'https://za.linkedin.com/company/vorteksdigital',
+  },
+  {
+    Icon: Instagram,
+    label: 'Vorteks Digital on Instagram',
+    url: 'https://www.instagram.com/vorteksdigital/',
+  },
+  {
+    Icon: Facebook,
+    label: 'Vorteks Digital on Facebook',
+    url: 'https://www.facebook.com/vorteksdigital/',
+  },
+] as const
 
 export async function Footer() {
   const [footerData, siteSettings] = await Promise.all([
@@ -62,19 +80,33 @@ export async function Footer() {
             <p className={styles.address}>{address}</p>
           </div>
 
-          <div className={styles.studioCard}>
-            <Image
-              alt=""
-              className={styles.cardMark}
-              height={512}
-              src="/favicon.svg"
-              unoptimized
-              width={512}
-            />
-            <div>
-              <p>{studioName}</p>
-              <span>Websites, products &amp; digital solutions</span>
-              <span>Est. 2020 · Worldwide</span>
+          <div className={styles.studioColumn}>
+            <nav aria-label="Social media">
+              <ul className={styles.socialIcons}>
+                {footerSocialLinks.map(({ Icon, label, url }) => (
+                  <li key={url}>
+                    <a aria-label={label} href={url} rel="noopener noreferrer" target="_blank">
+                      <Icon aria-hidden="true" strokeWidth={1.5} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className={styles.studioCard}>
+              <Image
+                alt=""
+                className={styles.cardMark}
+                height={512}
+                src="/favicon.svg"
+                unoptimized
+                width={512}
+              />
+              <div>
+                <p>{studioName}</p>
+                <span>Websites, products &amp; digital solutions</span>
+                <span>Est. 2020 · Worldwide</span>
+              </div>
             </div>
           </div>
         </div>

@@ -598,6 +598,31 @@ test.describe('Frontend', () => {
       'href',
       'mailto:info@vorteksdigital.co.za',
     )
+    const socialMedia = footer.getByRole('navigation', { name: 'Social media' })
+    const socialLinks = socialMedia.getByRole('link')
+    await expect(socialLinks).toHaveCount(3)
+    await expect(socialMedia.getByRole('link', { name: /LinkedIn/ })).toHaveAttribute(
+      'href',
+      'https://za.linkedin.com/company/vorteksdigital',
+    )
+    await expect(socialMedia.getByRole('link', { name: /Instagram/ })).toHaveAttribute(
+      'href',
+      'https://www.instagram.com/vorteksdigital/',
+    )
+    await expect(socialMedia.getByRole('link', { name: /Facebook/ })).toHaveAttribute(
+      'href',
+      'https://www.facebook.com/vorteksdigital/',
+    )
+    expect(
+      await socialLinks.evaluateAll((links) =>
+        links.every((link) => {
+          const bounds = link.getBoundingClientRect()
+          const styles = getComputedStyle(link)
+
+          return bounds.width === 44 && bounds.height === 44 && styles.borderTopWidth === '1px'
+        }),
+      ),
+    ).toBe(true)
     await expect(footerLogo).toHaveAttribute('src', '/logo-vrtks.svg')
     await expect(footerLogo).toHaveCSS('filter', 'invert(1)')
     await expect
