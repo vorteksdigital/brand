@@ -576,6 +576,15 @@ test.describe('Frontend', () => {
     await expect(footerInner).toHaveCSS('padding-right', '96px')
     await page.setViewportSize({ height: 1000, width: 1440 })
     await expect(footerNav.getByRole('link')).toHaveCount(6)
+    expect(
+      await footerNav.getByRole('link').evaluateAll((links) =>
+        links.every((link) => {
+          const bounds = link.getBoundingClientRect()
+
+          return bounds.width >= 44 && bounds.height >= 44
+        }),
+      ),
+    ).toBe(true)
     await expect(footerNav.getByRole('link', { name: 'projects' })).toHaveAttribute(
       'href',
       '/projects',
@@ -607,6 +616,15 @@ test.describe('Frontend', () => {
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
     await expect(footerNav).toBeVisible()
+    expect(
+      await footerNav.getByRole('link').evaluateAll((links) =>
+        links.every((link) => {
+          const bounds = link.getBoundingClientRect()
+
+          return bounds.width >= 44 && bounds.height >= 44
+        }),
+      ),
+    ).toBe(true)
     await expect(footerLogo).toBeVisible()
   })
 
