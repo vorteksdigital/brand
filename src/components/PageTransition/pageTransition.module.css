@@ -46,17 +46,131 @@
 .blocker {
   position: fixed;
   z-index: 9999;
+  display: grid;
+  visibility: hidden;
+  color: #f5f5f2;
   pointer-events: none;
   cursor: wait;
+  background: rgb(8 8 8 / 88%);
+  opacity: 0;
   inset: 0;
+  place-items: center;
+  transition:
+    opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 240ms;
 }
 
 .blocker[data-active='true'] {
+  visibility: visible;
   pointer-events: auto;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.loader {
+  width: min(78vw, 30rem);
+  height: auto;
+  overflow: visible;
+}
+
+.traceBackground,
+.traceFlow,
+.chipPins {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.traceBackground {
+  stroke: #3a3a3a;
+  stroke-width: 1.8;
+}
+
+.traceFlow {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-dasharray: 40 400;
+  stroke-dashoffset: 438;
+  animation: circuit-flow 3s cubic-bezier(0.5, 0, 0.9, 1) infinite;
+  filter: drop-shadow(0 0 6px currentcolor);
+}
+
+.yellowTrace {
+  color: #ffea00;
+  stroke: #ffea00;
+}
+
+.blueTrace {
+  color: #00ccff;
+  stroke: #00ccff;
+}
+
+.greenTrace {
+  color: #00ff15;
+  stroke: #00ff15;
+}
+
+.purpleTrace {
+  color: #9900ff;
+  stroke: #9900ff;
+}
+
+.redTrace {
+  color: #ff3300;
+  stroke: #ff3300;
+}
+
+.nodes {
+  fill: #7d7d7d;
+}
+
+.chipBody {
+  fill: #121212;
+  stroke: #555;
+  stroke-width: 1.5;
+}
+
+.chipPins {
+  stroke: #666;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 2px rgb(0 0 0 / 60%));
+}
+
+.chipText,
+.chipStatus {
+  fill: currentcolor;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.chipText {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.chipStatus {
+  fill: #8e8e8e;
+  font-size: 0.55rem;
+  letter-spacing: 0.26em;
+}
+
+@keyframes circuit-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .incoming {
     transform: none;
+  }
+
+  .blocker {
+    transition: none;
+  }
+
+  .traceFlow {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
