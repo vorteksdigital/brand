@@ -49,6 +49,7 @@ test.describe('Homepage WebGL', () => {
       .click()
 
     const canvas = page.locator('canvas')
+    await page.locator('section').first().hover({ position: { x: 200, y: 300 } })
     await expect(canvas).toHaveAttribute('data-engine', /three\.js/)
     await expect
       .poll(() =>

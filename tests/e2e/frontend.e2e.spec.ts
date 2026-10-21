@@ -888,10 +888,18 @@ test.describe('Frontend', () => {
 
     const heroVideo = page.locator('video').first()
     await expect(heroVideo).toHaveAttribute('poster', '/hero/johannesburg-sunset-poster.webp')
+    await expect(heroVideo).toHaveAttribute('preload', 'none')
     await expect(heroVideo.locator('source')).toHaveAttribute(
-      'src',
+      'data-src',
       '/hero/johannesburg-sunset.mp4',
     )
+    await heroVideo.evaluate((element) => {
+      const video = element as HTMLVideoElement
+      const source = video.querySelector('source')
+
+      if (source?.dataset.src) source.src = source.dataset.src
+      video.load()
+    })
     await expect
       .poll(() =>
         heroVideo.evaluate((element) => {
