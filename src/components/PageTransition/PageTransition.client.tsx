@@ -119,17 +119,10 @@ export function PageTransition({ children, footer }: Props) {
     const paths = Array.from(
       logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path') ?? [],
     )
-    const outlinePaths = paths.filter((_, index) => index < 10 && index % 2 === 0)
-    const svg = logoObject?.contentDocument?.documentElement
-    if (!logoObject || !fill || !svg || outlinePaths.length !== 5) return
+    const [outline] = paths
+    if (!logoObject || !fill || paths.length !== 1 || !outline) return
 
-    const fusedOutline = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-    fusedOutline.dataset.preloaderFusedOutline = ''
-    fusedOutline.setAttribute(
-      'd',
-      outlinePaths.map((path) => path.getAttribute('d') ?? '').join(' '),
-    )
-    svg.append(fusedOutline)
+    outline.dataset.preloaderUnifiedOutline = ''
 
     const completeBrandSequence = () => {
       brandSequenceCompleteRef.current = true
@@ -143,8 +136,7 @@ export function PageTransition({ children, footer }: Props) {
       return
     }
 
-    gsap.set(paths, { autoAlpha: 0 })
-    gsap.set(fusedOutline, {
+    gsap.set(outline, {
       autoAlpha: 1,
       drawSVG: '0% 0%',
       fill: 'transparent',
@@ -158,9 +150,9 @@ export function PageTransition({ children, footer }: Props) {
 
     const timeline = gsap
       .timeline({ onComplete: completeBrandSequence })
-      .to(fusedOutline, { drawSVG: '0% 100%', duration: 1.8, ease: 'power2.inOut' })
+      .to(outline, { drawSVG: '0% 100%', duration: 1.8, ease: 'power2.inOut' })
       .to(fill, { autoAlpha: 1, duration: 1, ease: 'power2.inOut' }, '-=0.05')
-      .to(fusedOutline, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
+      .to(outline, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
 
     preloaderTimelineRef.current = timeline
   }, [exitPreloader])
