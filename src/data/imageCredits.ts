@@ -41,8 +41,49 @@ export type VideoCredit = {
 
 export const imageCredits = [
   {
+    alt: 'Abstract red and black digital glitch art formed from fragmented data marks',
+    contextMatch:
+      'Fragmented code-like marks visualize the overlap between human-facing design and machine-readable information.',
+    cosmosUrl: 'https://www.cosmos.so/aniaushakova/ai-abstract',
+    creator: 'Egor Komarov',
+    downloadedAt: '2026-10-22',
+    fileName: 'ai-search-glitch.webp',
+    license: 'Unsplash License',
+    licenseUrl: 'https://unsplash.com/license',
+    localPath: '/images/cosmos/ai-search-glitch.webp',
+    paletteMatch:
+      'Red, black, white, and small cyan signals align closely with the VRTKS visual system.',
+    requiredAttribution: 'None required; credited voluntarily to Egor Komarov / Unsplash.',
+    sourceName: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/abstract-red-and-black-digital-glitch-art-_dU_Tkxiw5o',
+    title: 'Abstract red and black digital glitch art',
+    usageLocations: ['Post 10: Your Website Now Has Two Audiences: Humans and AI'],
+    verifiedLocation: 'Location unknown',
+  },
+  {
+    alt: 'Abstract orange and black digital fragments arranged as a shifting system',
+    contextMatch:
+      'The modular fragments support the article’s theme of connected design, development, content, and search systems.',
+    cosmosUrl: 'https://www.cosmos.so/aniaushakova/ai-abstract',
+    creator: 'Logan Voss',
+    downloadedAt: '2026-10-22',
+    fileName: 'ai-search-fragments.webp',
+    license: 'Unsplash License',
+    licenseUrl: 'https://unsplash.com/license',
+    localPath: '/images/cosmos/ai-search-fragments.webp',
+    paletteMatch:
+      'Burnt orange, black, and restrained green accents complement the VRTKS brand palette.',
+    requiredAttribution: 'None required; credited voluntarily to Logan Voss / Unsplash.',
+    sourceName: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/abstract-orange-and-black-digital-art-sq71NCvJNHo',
+    title: 'Abstract orange and black digital art',
+    usageLocations: ['Post 10: Your Website Now Has Two Audiences: Humans and AI'],
+    verifiedLocation: 'Location unknown',
+  },
+  {
     alt: 'Traffic, buses, and pedestrians moving through central Johannesburg',
-    contextMatch: 'The active street scene gives motion and interaction design a local, kinetic reference.',
+    contextMatch:
+      'The active street scene gives motion and interaction design a local, kinetic reference.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-17be81bf-9cf6-4015-a565-1284571744e0',
     creator: 'Vukile Makau',
@@ -51,7 +92,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/joburg-cbd-traffic.webp',
-    paletteMatch: 'Red transit accents and neutral concrete sit naturally with the black, red, and cream brand palette.',
+    paletteMatch:
+      'Red transit accents and neutral concrete sit naturally with the black, red, and cream brand palette.',
     requiredAttribution: 'None required; credited voluntarily to Vukile Makau / Pexels.',
     sourceName: 'Pexels',
     sourceUrl: 'https://www.pexels.com/photo/street-in-city-17872055/',
@@ -67,7 +109,8 @@ export const imageCredits = [
   },
   {
     alt: 'Johannesburg skyline with Ponte City and the Nelson Mandela Bridge',
-    contextMatch: 'A recognisable, enduring city landmark supports the article about design that outlives trends.',
+    contextMatch:
+      'A recognisable, enduring city landmark supports the article about design that outlives trends.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-33a430ab-b619-4010-8f5a-47e832589805',
     creator: 'Steward Masweneng',
@@ -76,7 +119,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/johannesburg-ponte-skyline.webp',
-    paletteMatch: 'Blue sky is balanced by warm brick and the red Ponte wordmark against strong neutral forms.',
+    paletteMatch:
+      'Blue sky is balanced by warm brick and the red Ponte wordmark against strong neutral forms.',
     requiredAttribution: 'None required; credited voluntarily to Steward Masweneng / Pexels.',
     sourceName: 'Pexels',
     sourceUrl:
@@ -88,7 +132,8 @@ export const imageCredits = [
   },
   {
     alt: 'Reflective glass office towers rising over Sandton',
-    contextMatch: 'Contemporary financial-district architecture suits a story about trust in emerging technology.',
+    contextMatch:
+      'Contemporary financial-district architecture suits a story about trust in emerging technology.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-ea4e57e3-160e-4506-b519-b912810f3e3b',
     creator: 'Ministar Samuel',
@@ -97,22 +142,21 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/sandton-glass-towers.webp',
-    paletteMatch: 'Dark glass, pale reflections, and small warm highlights reinforce the brand’s high-contrast base.',
+    paletteMatch:
+      'Dark glass, pale reflections, and small warm highlights reinforce the brand’s high-contrast base.',
     requiredAttribution: 'None required; credited voluntarily to Ministar Samuel / Pexels.',
     sourceName: 'Pexels',
     sourceUrl:
       'https://www.pexels.com/photo/modern-skyscrapers-in-sandton-urban-landscape-35697009/',
     specificLocation: 'Sandton',
     title: 'Modern skyscrapers in Sandton',
-    usageLocations: [
-      'Post 6: Designing for Trust in an AI-First World',
-      'Project 4: Trust Layer',
-    ],
+    usageLocations: ['Post 6: Designing for Trust in an AI-First World', 'Project 4: Trust Layer'],
     verifiedLocation: 'Johannesburg',
   },
   {
     alt: 'Young woman standing in front of a colourful Johannesburg mural',
-    contextMatch: 'The confident local portrait and graphic mural make brand transformation feel human and bold.',
+    contextMatch:
+      'The confident local portrait and graphic mural make brand transformation feel human and bold.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-69d1fb24-d5e5-4ddf-bca8-6cfafe84881f',
     creator: 'Ntate Mohlala Sir',
@@ -121,7 +165,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/johannesburg-mural-portrait.webp',
-    paletteMatch: 'The mural carries saturated orange, pink, black, and pale tones close to the favicon accents.',
+    paletteMatch:
+      'The mural carries saturated orange, pink, black, and pale tones close to the favicon accents.',
     requiredAttribution: 'None required; credited voluntarily to Ntate Mohlala Sir / Pexels.',
     sourceName: 'Pexels',
     sourceUrl: 'https://www.pexels.com/photo/colorful-urban-portrait-in-johannesburg-37038247/',
@@ -137,7 +182,8 @@ export const imageCredits = [
   },
   {
     alt: 'Pedestrians walking between historic and modern buildings in Johannesburg',
-    contextMatch: 'A lived-in business-district scene supports Johannesburg startup and collaboration content.',
+    contextMatch:
+      'A lived-in business-district scene supports Johannesburg startup and collaboration content.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-639691a1-aa3b-42bf-b6fd-a4e351c69105',
     creator: 'Sizwe Shabalala',
@@ -146,7 +192,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/johannesburg-cbd-pedestrians.webp',
-    paletteMatch: 'Warm stone, burnt-orange sunlight, black shadows, and a cyan accent work with the site palette.',
+    paletteMatch:
+      'Warm stone, burnt-orange sunlight, black shadows, and a cyan accent work with the site palette.',
     requiredAttribution: 'None required; credited voluntarily to Sizwe Shabalala / Pexels.',
     sourceName: 'Pexels',
     sourceUrl: 'https://www.pexels.com/photo/photo-of-people-walking-near-buildings-2464890/',
@@ -161,7 +208,8 @@ export const imageCredits = [
   },
   {
     alt: 'Johannesburg skyline glowing in warm evening light',
-    contextMatch: 'The city’s changing light gives a flexible identity system a distinctly Johannesburg sense of momentum.',
+    contextMatch:
+      'The city’s changing light gives a flexible identity system a distinctly Johannesburg sense of momentum.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-0988b6c5-91c8-4c6f-ab15-ee7a43763a2a',
     creator: 'Sherissa R',
@@ -170,7 +218,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/johannesburg-sunset-skyline.webp',
-    paletteMatch: 'Burnt-orange sunset, deep shadows, pale sky, and the red Ponte accent echo the favicon palette.',
+    paletteMatch:
+      'Burnt-orange sunset, deep shadows, pale sky, and the red Ponte accent echo the favicon palette.',
     requiredAttribution: 'None required; credited voluntarily to Sherissa R / Pexels.',
     sourceName: 'Pexels',
     sourceUrl: 'https://www.pexels.com/photo/view-of-johannesburg-downtown-south-africa-14660445/',
@@ -187,7 +236,8 @@ export const imageCredits = [
   },
   {
     alt: 'Johannesburg skyline rising beyond a green urban canopy',
-    contextMatch: 'A wide city view provides a calm editorial counterpoint for clear systems and local scale.',
+    contextMatch:
+      'A wide city view provides a calm editorial counterpoint for clear systems and local scale.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-819bdbb8-a37a-4f3f-948d-f3155a977a9e',
     creator: 'Zak H',
@@ -196,7 +246,8 @@ export const imageCredits = [
     license: 'Pexels License',
     licenseUrl: 'https://www.pexels.com/license/',
     localPath: '/images/johannesburg/johannesburg-green-skyline.webp',
-    paletteMatch: 'Green canopy, pale sky, and neutral towers add freshness without competing with the warm UI accents.',
+    paletteMatch:
+      'Green canopy, pale sky, and neutral towers add freshness without competing with the warm UI accents.',
     requiredAttribution: 'None required; credited voluntarily to Zak H / Pexels.',
     sourceName: 'Pexels',
     sourceUrl: 'https://www.pexels.com/photo/panoramic-view-of-johannesburg-skyline-33702740/',
@@ -207,7 +258,8 @@ export const imageCredits = [
   },
   {
     alt: 'Man reflected beside a Mandela portrait inside a Houghton café',
-    contextMatch: 'A quiet, contemporary local work setting makes the studio and partnership sections feel grounded.',
+    contextMatch:
+      'A quiet, contemporary local work setting makes the studio and partnership sections feel grounded.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-028e5f35-c940-4cb3-8e44-10ebabd7db97',
     creator: 'Nathana Rebouças',
@@ -216,7 +268,8 @@ export const imageCredits = [
     license: 'Unsplash License',
     licenseUrl: 'https://unsplash.com/license',
     localPath: '/images/johannesburg/houghton-cafe-portrait.webp',
-    paletteMatch: 'Black-and-white tonality creates a strong neutral base beside the site’s red and cream accents.',
+    paletteMatch:
+      'Black-and-white tonality creates a strong neutral base beside the site’s red and cream accents.',
     requiredAttribution: 'None required; credited voluntarily to Nathana Rebouças / Unsplash.',
     sourceName: 'Unsplash',
     sourceUrl: 'https://unsplash.com/photos/a-black-and-white-photo-of-a-coffee-shop-tyyOHdClFN8',
@@ -227,7 +280,8 @@ export const imageCredits = [
   },
   {
     alt: 'Empty outdoor café tables on a Johannesburg street',
-    contextMatch: 'The intimate street-side hospitality scene adds everyday Johannesburg life to the editorial mix.',
+    contextMatch:
+      'The intimate street-side hospitality scene adds everyday Johannesburg life to the editorial mix.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-8f1ae30a-0c76-40fc-a956-76eff9ac376e',
     creator: 'Marc Yusufu',
@@ -236,7 +290,8 @@ export const imageCredits = [
     license: 'Unsplash License',
     licenseUrl: 'https://unsplash.com/license',
     localPath: '/images/johannesburg/johannesburg-street-cafe.webp',
-    paletteMatch: 'Black furniture and warm ambient highlights match the brand’s high-contrast, warm-accent character.',
+    paletteMatch:
+      'Black furniture and warm ambient highlights match the brand’s high-contrast, warm-accent character.',
     requiredAttribution: 'None required; credited voluntarily to Marc Yusufu / Unsplash.',
     sourceName: 'Unsplash',
     sourceUrl:
@@ -248,7 +303,8 @@ export const imageCredits = [
   },
   {
     alt: 'Glass-fronted modern buildings framed by trees in Melrose Arch',
-    contextMatch: 'The layered, modular architecture supports content about conversion systems and digital ecosystems.',
+    contextMatch:
+      'The layered, modular architecture supports content about conversion systems and digital ecosystems.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-52cc604b-62f9-484e-8339-e08ff9cea443',
     creator: 'Rohan Chhipa',
@@ -257,7 +313,8 @@ export const imageCredits = [
     license: 'Unsplash License',
     licenseUrl: 'https://unsplash.com/license',
     localPath: '/images/johannesburg/melrose-arch-modern-building.webp',
-    paletteMatch: 'Deep green, pale blue glass, black structure, and warm brick balance the brand’s neutrals and accents.',
+    paletteMatch:
+      'Deep green, pale blue glass, black structure, and warm brick balance the brand’s neutrals and accents.',
     requiredAttribution: 'None required; credited voluntarily to Rohan Chhipa / Unsplash.',
     sourceName: 'Unsplash',
     sourceUrl:
@@ -274,7 +331,8 @@ export const imageCredits = [
   },
   {
     alt: 'Pedestrians and vehicles on Simmonds Street in central Johannesburg',
-    contextMatch: 'The monochrome street geometry gives a complex-system story a clear, legible visual structure.',
+    contextMatch:
+      'The monochrome street geometry gives a complex-system story a clear, legible visual structure.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-82f8c518-5f16-4980-98f7-37dbdbeef47b',
     creator: 'Ngcali Alexa Magopeni',
@@ -283,11 +341,11 @@ export const imageCredits = [
     license: 'Unsplash License',
     licenseUrl: 'https://unsplash.com/license',
     localPath: '/images/johannesburg/simmonds-street-johannesburg.webp',
-    paletteMatch: 'Black-and-white architecture acts as a neutral canvas for the site’s saturated interface accents.',
+    paletteMatch:
+      'Black-and-white architecture acts as a neutral canvas for the site’s saturated interface accents.',
     requiredAttribution: 'None required; credited voluntarily to Ngcali Alexa Magopeni / Unsplash.',
     sourceName: 'Unsplash',
-    sourceUrl:
-      'https://unsplash.com/photos/a-city-street-with-cars-and-people-C_cOkO1AO4w',
+    sourceUrl: 'https://unsplash.com/photos/a-city-street-with-cars-and-people-C_cOkO1AO4w',
     specificLocation: 'Simmonds Street, Johannesburg CBD',
     title: 'Simmonds Street',
     usageLocations: [
@@ -300,7 +358,8 @@ export const imageCredits = [
   },
   {
     alt: 'Dense rooftops and colourful murals across Johannesburg city centre',
-    contextMatch: 'A layered view of the city centre represents the real complexity and creative energy behind the studio’s work.',
+    contextMatch:
+      'A layered view of the city centre represents the real complexity and creative energy behind the studio’s work.',
     cosmosUrl:
       'https://www.cosmos.so/search/elements/Johannesburg?image=s-de8d1fbf-f5dd-443a-a551-a9fae9b2f38f',
     creator: 'Jacques Nel',
@@ -309,7 +368,8 @@ export const imageCredits = [
     license: 'Unsplash License',
     licenseUrl: 'https://unsplash.com/license',
     localPath: '/images/johannesburg/johannesburg-city-centre.webp',
-    paletteMatch: 'Black rooftops, pale stone, red, green, and warm mural accents closely echo the favicon palette.',
+    paletteMatch:
+      'Black rooftops, pale stone, red, green, and warm mural accents closely echo the favicon palette.',
     requiredAttribution: 'None required; credited voluntarily to Jacques Nel / Unsplash.',
     sourceName: 'Unsplash',
     sourceUrl: 'https://unsplash.com/photos/cityscape-during-daytime-f0RvpwF-iXE',
@@ -325,8 +385,7 @@ export const videoCredits = [
     ariaLabel: 'Johannesburg skyline and the Leonardo tower silhouetted against an orange sunset',
     contextMatch:
       'A recognisable, moving Johannesburg skyline gives the expanding homepage film pill a local sense of scale and momentum.',
-    cosmosUrl:
-      'https://www.cosmos.so/search/elements/Johannesburg%20skyline%20sunset%20video',
+    cosmosUrl: 'https://www.cosmos.so/search/elements/Johannesburg%20skyline%20sunset%20video',
     creator: 'Agnieszka Taggart',
     downloadedAt: '2026-08-04',
     fileName: 'johannesburg-sunset.mp4',

@@ -594,7 +594,6 @@
   .callout {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--route-gap);
-    min-height: calc(var(--route-unit) * 105);
     align-content: start;
   }
 

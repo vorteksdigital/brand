@@ -276,7 +276,6 @@
   }
 
   .callout {
-    min-height: calc(var(--route-unit) * 82);
     align-content: start;
   }
 
