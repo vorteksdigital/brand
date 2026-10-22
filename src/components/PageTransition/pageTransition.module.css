@@ -82,22 +82,21 @@
   aspect-ratio: 500 / 65;
 }
 
-.preloaderLogoOutline,
-.preloaderLogoFill {
-  position: absolute;
+.preloaderLogoSvg {
   display: block;
   width: 100%;
   height: auto;
-  inset: 0;
 }
 
-.preloaderLogoOutline {
-  opacity: 0;
-  pointer-events: none;
-}
-
+.preloaderLogoOutline,
+.preloaderLogoDrawing,
 .preloaderLogoFill {
   opacity: 0;
+}
+
+.preloaderLogoOutline,
+.preloaderLogoDrawing {
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -109,7 +108,8 @@
     will-change: auto;
   }
 
-  .preloaderLogoOutline {
+  .preloaderLogoOutline,
+  .preloaderLogoDrawing {
     display: none;
   }
 

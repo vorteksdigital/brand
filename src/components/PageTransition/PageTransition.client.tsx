@@ -3,7 +3,6 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -15,6 +14,9 @@ gsap.registerPlugin(CustomEase, useGSAP)
 
 const VUCKO_SNAPPY =
   'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1'
+const VRTKS_LOGO_PATH =
+  'M193.271,0l0.027,0.04052c4.21357,0 8.20574,1.0793 11.70104,2.98201c0.34265,-1.71861 1.86645,-3.02253 3.68296,-3.02253h102.407c2.067,0 3.755,1.68833 3.755,3.75484v19.07136h54.85l18.032,-21.48905c0.715,-0.85091 1.755,-1.33715 2.876,-1.33715h13.845c0.85744,0 1.65551,0.27956 2.30051,0.77727c1.79,-0.50628 3.67769,-0.77727 5.62749,-0.77727h81.242c2.067,0 3.755,1.68833 3.755,3.75484v10.61616c0,2.0665 -1.688,3.7549 -3.755,3.7549h-81.269c-1.405,0 -2.607,1.1886 -2.607,2.6068c0,1.4181 1.189,2.6202 2.594,2.6202h66.898c6.186,0 12.007,2.7419 15.965,7.5232c5.159,6.2266 6.226,14.6547 2.769,22.0158c-3.445,7.3476 -10.617,11.9128 -18.694,11.9128h-81.282c-1.00848,0 -1.92674,-0.40188 -2.60275,-1.0535h-4.78625c-1.134,0 -2.147,-0.4727 -2.876,-1.3371l-18.032,-21.4756h-54.85v19.0714c0,2.0665 -1.688,3.7548 -3.755,3.7548h-10.616c-2.067,0 -3.755,-1.6883 -3.755,-3.7548v-41.884h-28.54v42.9375c0,2.0665 -1.688,3.7548 -3.754,3.7548h-10.617c-2.066,0 -3.754,-1.6883 -3.754,-3.7548v-42.924h-33.01371c0.41772,1.51264 0.69419,3.08426 0.81371,4.7003c0.054,0.5943 0.054,1.2021 0.054,1.8099c0,0.6078 -0.014,1.2291 -0.054,1.8369c-0.527,7.0774 -4.093,13.5201 -9.711,17.7747l12.426,14.3575c0.959,1.1211 1.188,2.6608 0.567,4.0115c-0.608,1.3506 -1.918,2.188 -3.404,2.188h-13.965c-1.121,0 -2.121,-0.4727 -2.85,-1.3101l-12.237,-14.2495h-58.403c-1.405,0 -2.607,1.1886 -2.607,2.6068v9.198c0,2.0665 -1.688,3.7548 -3.755,3.7548h-10.616c-2.066,0 -3.755,-1.6883 -3.755,-3.7548v-9.198c0,-11.4266 9.293,-20.7192 20.72,-20.7192h63.008c3.296,0 6.132,-2.5527 6.483,-5.8213c0.027,-0.2161 0.027,-0.4592 0.027,-0.6888c0,-0.2297 -0.013,-0.4728 -0.04,-0.7024c-0.338,-3.2416 -3.188,-5.7943 -6.47,-5.7943l-78.18832,0l-31.16138,37.1567l-0.0541,0.0405c-5.3216,6.186 -12.4666,9.4681 -20.6246,9.4681h-0.4592c-8.3065,0 -15.5056,-3.3496 -20.8272,-9.6977l-41.07358,-48.94798c-0.94546,-1.12105 -1.14806,-2.66081 -0.52676,-3.99796c0.63481,-1.33716 1.93145,-2.16106 3.40367,-2.16106h13.87127c1.1076,0 2.1611,0.49975 2.8769,1.35066l35.2793,42.08664c1.8639,2.2151 4.079,3.2551 6.9829,3.2551h0.4592c2.8769,0 5.092,-1.04 6.9559,-3.2551l35.32,-42.10015c0.716,-0.85091 1.756,-1.33715 2.877,-1.33715zM391.9895,24.44587l-6.2355,7.42973l12.41638,14.8033l81.06262,0c1.432,0 2.647,-1.2021 2.647,-2.6068c0,-1.4047 -1.188,-2.6068 -2.607,-2.6068h-66.871c-10.17144,0 -18.65591,-7.35666 -20.4125,-17.01943z'
+const PRELOADER_CLIP_ID = 'preloader-top-down-reveal'
 type Props = {
   children: ReactNode
   footer: ReactNode
@@ -49,8 +51,10 @@ export function PageTransition({ children, footer }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const currentFrameRef = useRef<HTMLDivElement>(null)
   const preloaderRef = useRef<HTMLDivElement>(null)
-  const preloaderLogoFillRef = useRef<HTMLImageElement>(null)
-  const preloaderLogoObjectRef = useRef<HTMLObjectElement>(null)
+  const preloaderLogoOutlineRef = useRef<SVGPathElement>(null)
+  const preloaderLogoDrawingRef = useRef<SVGPathElement>(null)
+  const preloaderLogoFillRef = useRef<SVGPathElement>(null)
+  const preloaderRevealRef = useRef<SVGRectElement>(null)
   const preloaderTimelineRef = useRef<gsap.core.Timeline | null>(null)
   const bodyOverflowRef = useRef('')
   const brandSequenceCompleteRef = useRef(false)
@@ -110,37 +114,14 @@ export function PageTransition({ children, footer }: Props) {
     })
   }, [restoreBodyOverflow])
 
-  const handlePreloaderLogoLoad = useCallback(() => {
+  const startBrandSequence = useCallback(() => {
     if (brandSequenceCompleteRef.current || preloaderTimelineRef.current) return
 
-    const logoObject = preloaderLogoObjectRef.current
+    const outline = preloaderLogoOutlineRef.current
+    const drawing = preloaderLogoDrawingRef.current
     const fill = preloaderLogoFillRef.current
-    const paths = Array.from(
-      logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path') ?? [],
-    )
-    const [outline] = paths
-    const svgDocument = logoObject?.contentDocument
-    const svg = svgDocument?.documentElement
-    if (!logoObject || !fill || !svgDocument || !svg || paths.length !== 1 || !outline) return
-
-    outline.dataset.preloaderUnifiedOutline = ''
-    const namespace = 'http://www.w3.org/2000/svg'
-    const definitions = svgDocument.createElementNS(namespace, 'defs')
-    const clipPath = svgDocument.createElementNS(namespace, 'clipPath')
-    const reveal = svgDocument.createElementNS(namespace, 'rect')
-    const drawing = outline.cloneNode(true) as SVGPathElement
-
-    clipPath.id = 'preloader-top-down-reveal'
-    reveal.setAttribute('x', '0')
-    reveal.setAttribute('y', '0')
-    reveal.setAttribute('width', '500')
-    reveal.setAttribute('height', '65')
-    clipPath.append(reveal)
-    definitions.append(clipPath)
-    svg.prepend(definitions)
-    drawing.dataset.preloaderUnifiedDrawing = ''
-    drawing.setAttribute('clip-path', `url(#${clipPath.id})`)
-    outline.after(drawing)
+    const reveal = preloaderRevealRef.current
+    if (!outline || !drawing || !fill || !reveal) return
 
     const completeBrandSequence = () => {
       brandSequenceCompleteRef.current = true
@@ -148,7 +129,7 @@ export function PageTransition({ children, footer }: Props) {
     }
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.set(logoObject, { autoAlpha: 0 })
+      gsap.set([outline, drawing], { autoAlpha: 0 })
       gsap.set(fill, { autoAlpha: 1 })
       completeBrandSequence()
       return
@@ -171,7 +152,6 @@ export function PageTransition({ children, footer }: Props) {
       strokeWidth: 1,
     })
     gsap.set(reveal, { scaleY: 0, transformBox: 'fill-box', transformOrigin: '50% 0%' })
-    gsap.set(logoObject, { autoAlpha: 1 })
     gsap.set(fill, { autoAlpha: 0 })
 
     const timeline = gsap
@@ -183,15 +163,7 @@ export function PageTransition({ children, footer }: Props) {
     preloaderTimelineRef.current = timeline
   }, [exitPreloader])
 
-  useEffect(() => {
-    const logoObject = preloaderLogoObjectRef.current
-    if (!logoObject) return
-
-    logoObject.addEventListener('load', handlePreloaderLogoLoad)
-    if (logoObject.contentDocument?.documentElement) handlePreloaderLogoLoad()
-
-    return () => logoObject.removeEventListener('load', handlePreloaderLogoLoad)
-  }, [handlePreloaderLogoLoad])
+  useLayoutEffect(() => startBrandSequence(), [startBrandSequence])
 
   useEffect(() => {
     const preloader = preloaderRef.current
@@ -390,23 +362,39 @@ export function PageTransition({ children, footer }: Props) {
         ref={preloaderRef}
       >
         <div className={styles.preloaderLogo}>
-          <object
+          <svg
             aria-hidden="true"
-            className={styles.preloaderLogoOutline}
-            data="/logo-vrtks.svg"
-            ref={preloaderLogoObjectRef}
-            type="image/svg+xml"
-          />
-          <Image
-            alt=""
-            className={styles.preloaderLogoFill}
-            height={65}
-            preload
-            src="/logo-vrtks.svg"
-            unoptimized
-            width={500}
-            ref={preloaderLogoFillRef}
-          />
+            className={styles.preloaderLogoSvg}
+            data-preloader-logo
+            fill="none"
+            viewBox="0 0 500 65"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <clipPath id={PRELOADER_CLIP_ID}>
+                <rect height="65" ref={preloaderRevealRef} width="500" x="0" y="0" />
+              </clipPath>
+            </defs>
+            <path
+              className={styles.preloaderLogoOutline}
+              d={VRTKS_LOGO_PATH}
+              data-preloader-unified-outline
+              ref={preloaderLogoOutlineRef}
+            />
+            <path
+              className={styles.preloaderLogoDrawing}
+              clipPath={`url(#${PRELOADER_CLIP_ID})`}
+              d={VRTKS_LOGO_PATH}
+              data-preloader-unified-drawing
+              ref={preloaderLogoDrawingRef}
+            />
+            <path
+              className={styles.preloaderLogoFill}
+              d={VRTKS_LOGO_PATH}
+              fill="white"
+              ref={preloaderLogoFillRef}
+            />
+          </svg>
         </div>
       </div>
       <div
