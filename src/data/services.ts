@@ -3,6 +3,8 @@ export type ServicePage = {
   eyebrow: string
   faqs: Array<{ answer: string; question: string }>
   heading: string
+  heroImage: { alt: string; src: string }
+  heroLines: [string, string, string]
   intro: string
   name: string
   outcomes: string[]
@@ -20,6 +22,11 @@ export const services: ServicePage[] = [
     description:
       'Strategic, responsive web design in Johannesburg for South African startups and growing businesses. Clear structure, distinctive design and practical delivery.',
     heading: 'Web design that makes your business easier to understand and choose.',
+    heroImage: {
+      alt: 'Colourful mural and city buildings in Johannesburg',
+      src: '/images/johannesburg/johannesburg-city-centre.webp',
+    },
+    heroLines: ['Web design that', 'makes your business', 'easier to choose.'],
     intro:
       'Vorteks Digital plans and designs focused websites for businesses that need more than a polished surface. We connect positioning, content, user journeys and visual direction so every page has a clear job.',
     outcomes: [
@@ -29,10 +36,22 @@ export const services: ServicePage[] = [
       'Developer-ready layouts, interactions and content guidance',
     ],
     process: [
-      { title: 'Understand', body: 'We clarify the audience, offer, goals and constraints before proposing pages.' },
-      { title: 'Structure', body: 'We map the content hierarchy and journeys that move visitors toward action.' },
-      { title: 'Design', body: 'We establish a distinctive visual system and apply it across responsive screens.' },
-      { title: 'Refine', body: 'We test clarity, accessibility and implementation details before development.' },
+      {
+        title: 'Understand',
+        body: 'We clarify the audience, offer, goals and constraints before proposing pages.',
+      },
+      {
+        title: 'Structure',
+        body: 'We map the content hierarchy and journeys that move visitors toward action.',
+      },
+      {
+        title: 'Design',
+        body: 'We establish a distinctive visual system and apply it across responsive screens.',
+      },
+      {
+        title: 'Refine',
+        body: 'We test clarity, accessibility and implementation details before development.',
+      },
     ],
     faqs: [
       {
@@ -60,6 +79,11 @@ export const services: ServicePage[] = [
     description:
       'Modern web development in Johannesburg for fast, accessible and maintainable business websites and digital platforms. Built for South African teams.',
     heading: 'Fast, maintainable websites built around real business needs.',
+    heroImage: {
+      alt: 'Modern glass-fronted buildings in Melrose Arch',
+      src: '/images/johannesburg/melrose-arch-modern-building.webp',
+    },
+    heroLines: ['Fast, maintainable', 'websites built around', 'real needs.'],
     intro:
       'We develop responsive websites and web platforms with clean foundations, practical content management and measured performance. The technology follows the job rather than forcing every project into the same template.',
     outcomes: [
@@ -69,10 +93,22 @@ export const services: ServicePage[] = [
       'Deployment, analytics and technical handover prepared for launch',
     ],
     process: [
-      { title: 'Scope', body: 'We define features, integrations, content responsibilities and acceptance criteria.' },
-      { title: 'Build', body: 'We implement the approved system in testable stages with regular reviews.' },
-      { title: 'Verify', body: 'We test responsive behavior, accessibility, performance and core user journeys.' },
-      { title: 'Launch', body: 'We deploy, monitor and hand over the tools and documentation your team needs.' },
+      {
+        title: 'Scope',
+        body: 'We define features, integrations, content responsibilities and acceptance criteria.',
+      },
+      {
+        title: 'Build',
+        body: 'We implement the approved system in testable stages with regular reviews.',
+      },
+      {
+        title: 'Verify',
+        body: 'We test responsive behavior, accessibility, performance and core user journeys.',
+      },
+      {
+        title: 'Launch',
+        body: 'We deploy, monitor and hand over the tools and documentation your team needs.',
+      },
     ],
     faqs: [
       {
@@ -100,6 +136,11 @@ export const services: ServicePage[] = [
     description:
       'Custom WordPress development for South African businesses that need flexible editing, responsive performance and dependable ongoing support.',
     heading: 'WordPress built for your content, team and growth plans.',
+    heroImage: {
+      alt: 'Johannesburg street framed by buildings and trees',
+      src: '/images/johannesburg/simmonds-street-johannesburg.webp',
+    },
+    heroLines: ['WordPress built for', 'your content, team', 'and growth.'],
     intro:
       'Vorteks Digital creates and improves WordPress websites without treating the platform as a pile of generic plugins. We shape the editing experience, templates and integrations around what your team actually needs to publish and maintain.',
     outcomes: [
@@ -109,10 +150,22 @@ export const services: ServicePage[] = [
       'Performance, security and update planning for ongoing operation',
     ],
     process: [
-      { title: 'Audit', body: 'For existing sites, we review the theme, plugins, hosting and content risks.' },
-      { title: 'Plan', body: 'We define templates, fields, integrations and editor workflows before building.' },
-      { title: 'Develop', body: 'We create the theme and functionality with reusable, documented patterns.' },
-      { title: 'Support', body: 'We can manage updates, backups, monitoring and planned improvements.' },
+      {
+        title: 'Audit',
+        body: 'For existing sites, we review the theme, plugins, hosting and content risks.',
+      },
+      {
+        title: 'Plan',
+        body: 'We define templates, fields, integrations and editor workflows before building.',
+      },
+      {
+        title: 'Develop',
+        body: 'We create the theme and functionality with reusable, documented patterns.',
+      },
+      {
+        title: 'Support',
+        body: 'We can manage updates, backups, monitoring and planned improvements.',
+      },
     ],
     faqs: [
       {
@@ -140,6 +193,11 @@ export const services: ServicePage[] = [
     description:
       'Digital product strategy, UX design and development in Johannesburg for startups and teams turning complex ideas into useful web products.',
     heading: 'Turn a product idea into a useful, testable digital experience.',
+    heroImage: {
+      alt: 'Johannesburg skyline at sunset',
+      src: '/images/johannesburg/johannesburg-sunset-skyline.webp',
+    },
+    heroLines: ['Turn a product idea', 'into a useful digital', 'experience.'],
     intro:
       'We help teams define and deliver web-based products, portals and bespoke digital tools. Strategy, interface design and development stay connected so product decisions remain grounded in user needs and technical reality.',
     outcomes: [
@@ -149,10 +207,22 @@ export const services: ServicePage[] = [
       'A launch plan with measurement and iteration built in',
     ],
     process: [
-      { title: 'Define', body: 'We clarify the problem, audience, constraints and evidence behind the opportunity.' },
-      { title: 'Prototype', body: 'We turn the core journey into a testable interface before committing to a full build.' },
-      { title: 'Deliver', body: 'We develop the prioritised product in focused stages with working reviews.' },
-      { title: 'Improve', body: 'After launch, we use feedback and product data to guide the next useful change.' },
+      {
+        title: 'Define',
+        body: 'We clarify the problem, audience, constraints and evidence behind the opportunity.',
+      },
+      {
+        title: 'Prototype',
+        body: 'We turn the core journey into a testable interface before committing to a full build.',
+      },
+      {
+        title: 'Deliver',
+        body: 'We develop the prioritised product in focused stages with working reviews.',
+      },
+      {
+        title: 'Improve',
+        body: 'After launch, we use feedback and product data to guide the next useful change.',
+      },
     ],
     faqs: [
       {
