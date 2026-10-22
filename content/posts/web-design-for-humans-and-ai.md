@@ -24,19 +24,19 @@ Someone searches. Google returns results. The user clicks.
 
 Generative search introduces another step. AI systems can retrieve information from multiple sources, interpret it and construct an answer before the user ever reaches a website.
 
-Google itself describes AI Overviews and AI Mode as experiences that can run several related searches to find supporting information for a more complicated question. It calls this process **query fan-out**. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
+Google describes AI Overviews and AI Mode as experiences that can run several related searches to find supporting information for more complicated questions.
 
-Microsoft is heading in the same direction. Bing Webmaster Tools now measures when pages are referenced in AI-generated answers across Copilot and related experiences. [blogs.bing.com](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/?utm_source=chatgpt.com)
+Microsoft is heading in the same direction. Bing Webmaster Tools now measures when pages are referenced in AI-generated answers across Copilot and related experiences.
 
 That matters.
 
 A business might have spent years asking:
 
-**“Where do we rank on Google?”**
+“Where do we rank on Google?”
 
 The next question is becoming:
 
-**“When someone asks an AI which company they should use, do we appear at all?”**
+“When someone asks an AI which company they should use, do we appear at all?”
 
 That is a very different problem.
 
@@ -44,13 +44,19 @@ That is a very different problem.
 
 No.
 
-In fact, one of the biggest misconceptions around GEO and AEO is that businesses suddenly need to abandon SEO and follow a completely different set of rules.
+One of the biggest misconceptions around GEO and AEO is that businesses suddenly need to abandon SEO and follow a completely different set of rules.
 
-Google's current guidance says the opposite.
+The opposite is true.
 
-Its generative AI search experiences still depend on core Search systems. A page generally needs to be crawlable, indexed and eligible to appear in ordinary Google Search before it can become a supporting source in AI Overviews or AI Mode. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
+Generative AI search still depends on many of the same foundations as traditional search.
 
-Microsoft gives similar advice. Its webmaster guidelines explicitly state that the fundamentals supporting traditional search, such as crawlability, indexing, content clarity, site authority and technical health, also support visibility in AI experiences. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a?utm_source=chatgpt.com)
+A page still needs to be crawlable.
+
+It still needs to be indexable.
+
+The content still needs to be understandable.
+
+The website still needs strong technical foundations.
 
 So SEO is not being replaced.
 
@@ -70,8 +76,6 @@ You do not need hundreds of pages targeting tiny variations of the same query.
 
 You do not need to rewrite your entire website for a machine.
 
-Google specifically warns against creating huge volumes of low-value or highly repetitive content simply to manipulate AI or search visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
-
 The better approach is much less glamorous.
 
 Make the website genuinely clear.
@@ -80,7 +84,7 @@ If your company provides commercial property development services, the website s
 
 If you operate in Johannesburg, that should be explicit.
 
-If you specialise in complicated WordPress migrations, don't bury that fact halfway down an About page.
+If you specialise in complicated WordPress migrations, do not bury that fact halfway down an About page.
 
 Explain what you do, who you do it for, where you operate and why someone should trust you.
 
@@ -98,11 +102,7 @@ A beautiful React experience can still create discoverability problems if the im
 
 A site filled with duplicate URLs, broken canonicals, inconsistent metadata and inaccessible navigation is giving search systems unnecessary work.
 
-Google's current AI optimization guidance still stresses fundamentals including crawl access, internal linking, page experience, readable text, JavaScript SEO and reducing duplicate content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
-
-Microsoft similarly recommends stable URLs, accurate sitemaps, crawlable internal links, clear structure and efficient crawling for both search and AI-grounding visibility. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a?utm_source=chatgpt.com)
-
-There is no magic `make-ai-like-this-site` tag.
+There is no magic “make AI like this site” tag.
 
 The boring technical work still matters.
 
@@ -122,27 +122,27 @@ Your site's structure should communicate what its content actually means.
 
 Semantic HTML is useful because it gives browsers, accessibility tools and machines a clearer representation of a page.
 
-That does not mean your HTML needs to achieve some mythical level of perfection. Google explicitly says perfectly semantic HTML is not a requirement for its generative AI features. It still recommends semantic HTML where practical because it improves accessibility and structure. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+The important point is simple:
 
-There is an important distinction here.
+Build cleanly because it makes the web better, not because someone promised an AI-ranking hack.
 
-**Build cleanly because it makes the web better, not because someone promised an AI-ranking hack.**
-
-## Structured data helps, but it isn't a secret GEO weapon
+## Structured data helps, but it is not a secret GEO weapon
 
 Schema markup still matters.
 
-It can help search engines understand specific information about an organization, product, article, event or other entity, and it can make pages eligible for certain enhanced search features.
+It can help search engines understand specific information about an organisation, product, article, event or other entity.
 
 But businesses should be careful with agencies selling schema as though it unlocks some hidden ChatGPT switch.
 
-Google says there is no special structured data specifically required for AI Overviews or AI Mode. Existing structured data should accurately represent what users can actually see on the page. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
+There is no special schema markup specifically required for AI search.
+
+Existing structured data should accurately represent what users can actually see on the page.
 
 In other words:
 
 Use schema properly.
 
-Don't use schema theatrically.
+Do not use schema theatrically.
 
 ## The content AI systems need is usually the content customers need too
 
@@ -152,18 +152,26 @@ If someone is considering hiring your business, what are they actually trying to
 
 They might want to know:
 
-- whether you've solved their type of problem before
+- whether you have solved their type of problem before
 - what your process looks like
 - what something costs
 - what the trade-offs are
 - how two approaches compare
 - how long a project takes
-- whether you're credible
+- whether you are credible
 - what happens when something goes wrong
 
 Those are excellent subjects for AI-search visibility because they are also excellent subjects for humans.
 
-Google's newer guidance places particular emphasis on **non-commodity content**. In simple terms, don't publish another article that could have been written by any company in your industry. Bring actual knowledge, experience, evidence or a useful point of view. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+Do not publish another article that could have been written by any company in your industry.
+
+Bring actual knowledge.
+
+Bring experience.
+
+Bring evidence.
+
+Bring a useful point of view.
 
 “10 Benefits of Having a Website” does very little.
 
@@ -173,7 +181,7 @@ That is harder to fake.
 
 Which is exactly the point.
 
-## Design hasn't become less important
+## Design has not become less important
 
 There is a slightly ironic consequence to all of this.
 
@@ -183,15 +191,15 @@ That visitor may already know quite a lot.
 
 They may have asked an AI:
 
-> Who are the best development agencies for this kind of project?
+“Who are the best development agencies for this kind of project?”
 
 They may have compared your business with three competitors before ever seeing your homepage.
 
 So when they finally arrive, generic messaging like:
 
-> “We create innovative digital experiences that drive transformation.”
+“We create innovative digital experiences that drive transformation.”
 
-doesn't tell them much.
+does not tell them much.
 
 The design has to establish confidence quickly.
 
@@ -213,17 +221,13 @@ It cannot rescue a weak website once the person arrives.
 
 Rankings and clicks will continue to matter, but they may no longer tell the entire story.
 
-Microsoft now exposes metrics such as pages cited in AI answers and the queries associated with those citations through Bing Webmaster Tools. [blogs.bing.com](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/?utm_source=chatgpt.com)
+We are moving towards reporting that includes:
 
-Google has also rolled out dedicated generative AI performance reporting in Search Console, including visibility within AI Overviews and AI Mode. According to Google, those reports became available across websites worldwide by August 2026. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports?facet3=pdf\&utm_source=chatgpt.com)
-
-So we are entering a world where an SEO report may increasingly contain:
-
-**Rankings.**  
-**Impressions.**  
-**Conversions.**  
-**AI visibility.**  
-**Citations.**
+- rankings
+- impressions
+- conversions
+- AI visibility
+- citations
 
 The measurement model is evolving alongside the search experience.
 
@@ -259,7 +263,9 @@ Keep important information current.
 
 And build a website worth visiting once somebody discovers it.
 
-The original GEO conversation has largely focused on getting AI systems to cite brands. The more useful goal is broader: make the business **easy to discover, easy to understand and easy to trust**.
+The goal is broader than simply getting cited by AI.
+
+Make the business easy to discover, easy to understand and easy to trust.
 
 That serves Google.
 
@@ -271,23 +277,21 @@ Most importantly, it serves customers.
 
 The terminology will probably continue changing.
 
-GEO usually refers to **Generative Engine Optimization**.
+GEO usually refers to Generative Engine Optimization.
 
-AEO usually means **Answer Engine Optimization**.
+AEO usually means Answer Engine Optimization.
 
-SEO remains **Search Engine Optimization**.
+SEO remains Search Engine Optimization.
 
 They describe slightly different parts of the same underlying challenge: helping digital systems correctly discover, interpret and surface your business.
 
-Google itself now says that, from its perspective, optimizing for generative AI Search is still fundamentally part of SEO rather than a separate discipline requiring a collection of special tricks. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+Instead of getting trapped in acronyms, ask a simpler question:
 
-So instead of getting trapped in acronyms, ask a simpler question:
-
-> **Does our website make it easy for both people and machines to understand why our business deserves to be recommended?**
+“Does our website make it easy for both people and machines to understand why our business deserves to be recommended?”
 
 If the answer is no, there is work to do.
 
-## The web isn't becoming less human
+## The web is not becoming less human
 
 It would be easy to look at all of this and conclude that websites now need to be built for robots.
 
@@ -307,43 +311,42 @@ It still needs good design.
 
 It still needs thoughtful engineering.
 
-But now those things have to work in an environment where the first person deciding whether your business is relevant may not actually be a person.
+But now those things have to work in an environment where the first thing deciding whether your business is relevant may not actually be a person.
 
 That is the interesting part.
 
 The website of 2026 has two audiences.
 
-**Humans need to want to use it.**
+Humans need to want to use it.
 
-**Machines need to be able to understand it.**
+Machines need to be able to understand it.
 
 The businesses that get both right are going to be much easier to find.
 
----
-
-## Suggested CTA
-
-**Is your website ready for the way people search now?**
+## Is your website ready for the way people search now?
 
 Vorteks Digital designs and develops websites around performance, usability, technical quality and modern search visibility.
 
-**Talk to us about your next website.**
+[Talk to us about your next website](/contact)
 
----
+## FAQ
 
-### Recommended FAQ block
+### Is GEO replacing SEO?
 
-**Is GEO replacing SEO?**  
-No. Google's own guidance says existing SEO fundamentals remain the foundation for visibility in AI Overviews and AI Mode. GEO is better understood as an extension of modern search strategy. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+No. SEO fundamentals still underpin visibility in AI-driven search. GEO is better understood as an extension of modern search strategy rather than a replacement for SEO.
 
-**Do I need special schema for AI search?**  
-No. Google says there is currently no special schema markup required for its generative AI search experiences. Structured data should still be used where appropriate and must match visible page content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
+### Do I need special schema for AI search?
 
-**Does my website need an `llms.txt` file?**  
-Not for Google. Google says it ignores `llms.txt` for Search visibility, although other systems may choose to use similar files. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+No. There is no dedicated AI-search schema. Structured data should still be used where appropriate and should accurately reflect the visible content on the page.
 
-**Can I track whether my website appears in AI answers?**  
-Yes, increasingly. Google Search Console now provides generative AI visibility reporting, while Bing Webmaster Tools reports citation activity across supported AI experiences. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports?facet3=pdf\&utm_source=chatgpt.com)
+### Does my website need an llms.txt file?
 
-**Should I create lots of pages for every possible AI question?**  
-No. Both Google and Microsoft warn against low-value, repetitive or automatically generated content designed primarily to manipulate search or AI visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
+Not for Google Search visibility. Some AI systems may choose to use similar files, but it should not be treated as a replacement for solid technical SEO and accessible website content.
+
+### Can I track whether my website appears in AI answers?
+
+Yes. Search platforms are increasingly adding reporting around AI-generated answers, citations and visibility.
+
+### Should I create lots of pages for every possible AI question?
+
+No. Large volumes of repetitive or low-value content can weaken a site rather than help it. Focus on genuinely useful content based on real expertise and customer needs.
