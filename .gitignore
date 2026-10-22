@@ -21,14 +21,7 @@ public/media/*
 !public/media/melrose-arch-modern-building*.webp
 !public/media/sandton-glass-towers*.webp
 !public/media/simmonds-street-johannesburg*.webp
-!public/media/ai-search-fragments*.webp
-!public/media/ai-search-glitch*.webp
-!public/media/ai-search-network*.webp
-!public/media/ai-search-spheres*.webp
-!public/media/ai-search-blocks*.webp
-!public/media/ai-search-fluid*.webp
-!public/media/ai-search-matrix*.webp
-!public/media/ai-search-tunnel*.webp
+!public/media/ai-search-*.webp
 
 public/robots.txt
 public/sitemap*.xml

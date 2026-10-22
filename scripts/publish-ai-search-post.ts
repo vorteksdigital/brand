@@ -19,28 +19,28 @@ const metaDescription =
 
 const assets = [
   {
-    alt: 'Abstract red and black digital matrix formed from illuminated transparent blocks',
+    alt: 'Person using ChatGPT on a laptop',
     blockName: 'AI search hero',
-    credit: 'Pachon in Motion / Pexels',
-    fileName: 'ai-search-matrix.webp',
+    credit: 'UMA media / Pexels',
+    fileName: 'ai-search-human-ai.webp',
   },
   {
-    alt: 'Abstract red and black digital blocks arranged inside a luminous machine',
-    blockName: 'Connected content fragments',
-    credit: 'Pachon in Motion / Pexels',
-    fileName: 'ai-search-blocks.webp',
+    alt: 'Person using ChatGPT on a smartphone',
+    blockName: 'AI-assisted discovery',
+    credit: 'Solen Feyissa / Pexels',
+    fileName: 'ai-search-mobile-discovery.webp',
   },
   {
-    alt: 'Futuristic red and black digital structure converging around a central opening',
-    blockName: 'Machine-readable network',
-    credit: 'Pachon in Motion / Pexels',
-    fileName: 'ai-search-tunnel.webp',
+    alt: 'Programming code displayed on a computer screen',
+    blockName: 'Technical web foundations',
+    credit: 'Muhammed Ensar / Pexels',
+    fileName: 'ai-search-code.webp',
   },
   {
-    alt: 'Abstract fluid bands flowing through red, orange, black, and muted pink',
-    blockName: 'Connected search signals',
-    credit: 'Steve A Johnson / Pexels',
-    fileName: 'ai-search-fluid.webp',
+    alt: 'Digital team reviewing data and technology together',
+    blockName: 'Human and technical collaboration',
+    credit: 'Mikhail Nilov / Pexels',
+    fileName: 'ai-search-collaboration.webp',
   },
 ] as const
 
