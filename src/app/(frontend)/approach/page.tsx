@@ -124,7 +124,11 @@ export default function ApproachPage() {
 
       <section className={`${styles.working} content-section`}>
         <header>
-          <h2 data-route-lines>What we can help with</h2>
+          <h2 data-route-lines>
+            What we can
+            <br />
+            help with
+          </h2>
           <div>
             <p>Flexible support for digital growth.</p>
             <span>(Services)</span>
