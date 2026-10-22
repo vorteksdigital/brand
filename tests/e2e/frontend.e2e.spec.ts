@@ -748,6 +748,30 @@ test.describe('Frontend', () => {
       .toBe(true)
   })
 
+  test('keeps service hero media inside the first title line', async ({ page }) => {
+    await page.setViewportSize({ height: 900, width: 1440 })
+
+    for (const slug of [
+      'web-design',
+      'web-development',
+      'wordpress-development',
+      'digital-products',
+    ]) {
+      const response = await page.goto(`http://localhost:3000/services/${slug}`)
+      expect(response?.status()).toBe(200)
+
+      const mediaBounds = await page.locator('[data-hero-image-reveal]').boundingBox()
+      const shiftedTitleBounds = await page.locator('[data-hero-image-shift]').boundingBox()
+      const secondLineBounds = await page.locator('h1 > span').nth(1).boundingBox()
+
+      expect(mediaBounds).not.toBeNull()
+      expect(shiftedTitleBounds).not.toBeNull()
+      expect(secondLineBounds).not.toBeNull()
+      expect(mediaBounds!.x + mediaBounds!.width).toBeLessThanOrEqual(shiftedTitleBounds!.x)
+      expect(mediaBounds!.y + mediaBounds!.height).toBeLessThanOrEqual(secondLineBounds!.y)
+    }
+  })
+
   test('loads the supplied blogs feed and menu route', async ({ page }) => {
     await page.setViewportSize({ height: 900, width: 1440 })
     const response = await page.goto('http://localhost:3000/blogs')

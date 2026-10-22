@@ -210,13 +210,15 @@
   }
 
   .heroTitleWrap {
-    --hero-image-shift: calc(var(--route-unit) * 20);
+    --hero-image-shift: calc(var(--route-unit) * 16.5);
   }
 
   .heroMedia {
     position: absolute;
     top: calc(var(--route-unit) * 0.25);
     left: 0;
+    width: calc(var(--route-unit) * 14);
+    height: calc(var(--route-unit) * 8);
     margin: 0;
   }
 
