@@ -14,8 +14,8 @@ export default function ImageCreditsPage() {
         <p>(Image credits)</p>
         <h1>Editorial photography and motion</h1>
         <p>
-          Images were discovered through Cosmos, verified against their original source, and stored
-          locally for this website.
+          Images were sourced from licensed libraries, verified against their original pages, and
+          stored locally for this website.
         </p>
       </header>
 
@@ -70,7 +70,7 @@ export default function ImageCreditsPage() {
                     <ArrowUpRight aria-hidden="true" />
                   </a>
                   <a href={credit.cosmosUrl} rel="noopener noreferrer" target="_blank">
-                    <span>Cosmos search used</span>
+                    <span>Discovery search</span>
                     <ArrowUpRight aria-hidden="true" />
                   </a>
                   <a href={credit.licenseUrl} rel="noopener noreferrer" target="_blank">
@@ -133,7 +133,7 @@ export default function ImageCreditsPage() {
                     <ArrowUpRight aria-hidden="true" />
                   </a>
                   <a href={credit.cosmosUrl} rel="noopener noreferrer" target="_blank">
-                    <span>Cosmos search used</span>
+                    <span>Discovery search</span>
                     <ArrowUpRight aria-hidden="true" />
                   </a>
                   <a href={credit.licenseUrl} rel="noopener noreferrer" target="_blank">

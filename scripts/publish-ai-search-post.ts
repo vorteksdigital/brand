@@ -19,28 +19,28 @@ const metaDescription =
 
 const assets = [
   {
-    alt: 'Abstract red and black digital glitch art formed from fragmented data marks',
+    alt: 'Abstract red and black digital matrix formed from illuminated transparent blocks',
     blockName: 'AI search hero',
-    credit: 'Egor Komarov / Unsplash',
-    fileName: 'ai-search-glitch.webp',
+    credit: 'Pachon in Motion / Pexels',
+    fileName: 'ai-search-matrix.webp',
   },
   {
-    alt: 'Abstract orange and black digital fragments arranged as a shifting system',
+    alt: 'Abstract red and black digital blocks arranged inside a luminous machine',
     blockName: 'Connected content fragments',
-    credit: 'Logan Voss / Unsplash',
-    fileName: 'ai-search-fragments.webp',
+    credit: 'Pachon in Motion / Pexels',
+    fileName: 'ai-search-blocks.webp',
   },
   {
-    alt: 'Red geometric lines forming a connected network against black',
+    alt: 'Futuristic red and black digital structure converging around a central opening',
     blockName: 'Machine-readable network',
-    credit: 'Gábor Szűts / Unsplash',
-    fileName: 'ai-search-network.webp',
+    credit: 'Pachon in Motion / Pexels',
+    fileName: 'ai-search-tunnel.webp',
   },
   {
-    alt: 'Red and black spheres linked across an abstract digital system',
+    alt: 'Abstract fluid bands flowing through red, orange, black, and muted pink',
     blockName: 'Connected search signals',
-    credit: 'Zoha Gohar / Unsplash',
-    fileName: 'ai-search-spheres.webp',
+    credit: 'Steve A Johnson / Pexels',
+    fileName: 'ai-search-fluid.webp',
   },
 ] as const
 
@@ -96,7 +96,7 @@ function getPostContentEditorConfig(value: unknown): SanitizedServerEditorConfig
 }
 
 async function getFile(fileName: string): Promise<File> {
-  const filePath = path.resolve(process.cwd(), 'public/images/cosmos', fileName)
+  const filePath = path.resolve(process.cwd(), 'public/images/pexels', fileName)
   const [data, fileStats] = await Promise.all([readFile(filePath), stat(filePath)])
 
   return {
