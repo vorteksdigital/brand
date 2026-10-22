@@ -4,31 +4,63 @@ import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { JsonLd } from '@/components/JsonLd'
 import { HeroImageReveal } from '@/components/ReferencePages/HeroImageReveal.client'
 import { ProjectTeasers } from '@/components/ReferencePages/ProjectTeasers'
 import { RouteAnimations } from '@/components/ReferencePages/RouteAnimations.client'
+import { services } from '@/data/services'
+import { getServerSideURL } from '@/utilities/getURL'
 
 import { ApproachCarousel } from './ApproachCarousel.client'
 import styles from './approach.module.css'
 
-const principles = [
+const questions = [
   {
-    body: 'We clarify the business need, audience, scope and useful measure of success before choosing the solution.',
-    title: 'Start with the problem',
+    answer:
+      'We support web design, web development, WordPress and digital product work. A project can cover one focused service or connect several of them.',
+    question: 'What can Vorteks Digital help with?',
   },
   {
-    body: 'Strategy, design and development stay connected, reducing hand-offs and keeping decisions grounded in delivery.',
-    title: 'Keep delivery joined up',
+    answer:
+      'Yes. We work with businesses in Johannesburg, across South Africa and internationally. The project structure is adapted to the team, scope and time zone.',
+    question: 'Do you work beyond Johannesburg?',
   },
   {
-    body: 'Clear communication, practical documentation and ongoing support help your team use and extend what we build.',
-    title: 'Make it useful after launch',
+    answer:
+      'Start with a short project enquiry. We clarify the business need, useful outcome, scope and constraints before recommending an approach or providing a quote.',
+    question: 'How does a project begin?',
   },
 ]
 
 export default function ApproachPage() {
+  const baseURL = getServerSideURL()
+
   return (
     <div className={styles.page} data-approach-page data-reference-route>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Service',
+              '@id': `${baseURL}/approach#services`,
+              areaServed: ['Johannesburg', 'South Africa', 'Worldwide'],
+              name: 'Web design and development services',
+              provider: { '@id': `${baseURL}/#business` },
+              serviceType: services.map((service) => service.name),
+              url: `${baseURL}/approach`,
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: questions.map(({ answer, question }) => ({
+                '@type': 'Question',
+                acceptedAnswer: { '@type': 'Answer', text: answer },
+                name: question,
+              })),
+            },
+          ],
+        }}
+      />
       <HeroImageReveal />
       <RouteAnimations />
 
@@ -75,9 +107,9 @@ export default function ApproachPage() {
                 <strong>One project, one specialist service or ongoing support.</strong>
               </p>
               <p>
-                Startups often need senior digital capability before they are ready to build a
-                large internal team. Others need a focused partner to rebuild a website, shape a
-                product or solve a requirement that standard platforms cannot.
+                Startups often need senior digital capability before they are ready to build a large
+                internal team. Others need a focused partner to rebuild a website, shape a product
+                or solve a requirement that standard platforms cannot.
               </p>
               <p>
                 Vorteks Digital brings the right mix of strategy, design, development and creative
@@ -108,12 +140,14 @@ export default function ApproachPage() {
             />
           </div>
           <ol data-working-list>
-            {principles.map((principle, index) => (
-              <li data-route-fade key={principle.title}>
+            {services.map((service, index) => (
+              <li data-route-fade key={service.slug}>
                 <span>{String(index + 1).padStart(2, '0')}.</span>
                 <div>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.body}</p>
+                  <h3>
+                    <Link href={`/services/${service.slug}`}>{service.name}</Link>
+                  </h3>
+                  <p>{service.description}</p>
                 </div>
               </li>
             ))}
@@ -130,6 +164,24 @@ export default function ApproachPage() {
           <Link href="/contact">Tell us what you need</Link>
         </header>
         <ApproachCarousel />
+      </section>
+
+      <section className={`${styles.questions} content-section`}>
+        <header>
+          <span data-route-fade>(Questions)</span>
+          <h2 data-route-lines>Useful answers before we start.</h2>
+        </header>
+        <div className={styles.questionList}>
+          {questions.map(({ answer, question }, index) => (
+            <article data-route-fade key={question}>
+              <span>{String(index + 1).padStart(2, '0')}.</span>
+              <div>
+                <h3>{question}</h3>
+                <p>{answer}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className={`${styles.collaboration} content-section`}>
@@ -170,6 +222,6 @@ export default function ApproachPage() {
 export const metadata: Metadata = {
   alternates: { canonical: '/approach' },
   description:
-    'Explore website development, digital products, bespoke solutions and flexible digital support from Vorteks Digital.',
-  title: 'Digital Services for Startups | Vorteks Digital',
+    'Web design, web development, WordPress and digital product services from Vorteks Digital in Johannesburg, South Africa.',
+  title: 'Web Design & Development Services Johannesburg | Vorteks Digital',
 }
