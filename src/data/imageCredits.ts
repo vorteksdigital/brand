@@ -81,6 +81,47 @@ export const imageCredits = [
     verifiedLocation: 'Location unknown',
   },
   {
+    alt: 'Red geometric lines forming a connected network against black',
+    contextMatch:
+      'The connected red geometry visualizes how AI systems join information from multiple sources.',
+    cosmosUrl: 'https://www.cosmos.so/aniaushakova/ai-abstract',
+    creator: 'Gábor Szűts',
+    downloadedAt: '2026-10-22',
+    fileName: 'ai-search-network.webp',
+    license: 'Unsplash License',
+    licenseUrl: 'https://unsplash.com/license',
+    localPath: '/images/cosmos/ai-search-network.webp',
+    paletteMatch: 'Red geometry on black directly matches the VRTKS high-contrast palette.',
+    requiredAttribution: 'None required; credited voluntarily to Gábor Szűts / Unsplash.',
+    sourceName: 'Unsplash',
+    sourceUrl:
+      'https://unsplash.com/photos/abstract-red-geometric-network-on-black-background-aQTiFlLIIXA',
+    title: 'Abstract red geometric network on black background',
+    usageLocations: ['Post 10: Your Website Now Has Two Audiences: Humans and AI'],
+    verifiedLocation: 'Location unknown',
+  },
+  {
+    alt: 'Red and black spheres linked across an abstract digital system',
+    contextMatch:
+      'The linked forms reinforce the article’s explanation of connected search signals and machine interpretation.',
+    cosmosUrl: 'https://www.cosmos.so/aniaushakova/ai-abstract',
+    creator: 'Zoha Gohar',
+    downloadedAt: '2026-10-22',
+    fileName: 'ai-search-spheres.webp',
+    license: 'Unsplash License',
+    licenseUrl: 'https://unsplash.com/license',
+    localPath: '/images/cosmos/ai-search-spheres.webp',
+    paletteMatch:
+      'Red, black, and warm cream extend the site palette without introducing blue tech clichés.',
+    requiredAttribution: 'None required; credited voluntarily to Zoha Gohar / Unsplash.',
+    sourceName: 'Unsplash',
+    sourceUrl:
+      'https://unsplash.com/photos/abstract-network-of-red-and-black-spheres-with-tendrils-fxQn6Nd5-PY',
+    title: 'Abstract network of red and black spheres with tendrils',
+    usageLocations: ['Post 10: Your Website Now Has Two Audiences: Humans and AI'],
+    verifiedLocation: 'Location unknown',
+  },
+  {
     alt: 'Traffic, buses, and pedestrians moving through central Johannesburg',
     contextMatch:
       'The active street scene gives motion and interaction design a local, kinetic reference.',

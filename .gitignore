@@ -23,6 +23,8 @@ public/media/*
 !public/media/simmonds-street-johannesburg*.webp
 !public/media/ai-search-fragments*.webp
 !public/media/ai-search-glitch*.webp
+!public/media/ai-search-network*.webp
+!public/media/ai-search-spheres*.webp
 
 public/robots.txt
 public/sitemap*.xml

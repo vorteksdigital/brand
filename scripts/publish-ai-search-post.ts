@@ -20,13 +20,27 @@ const metaDescription =
 const assets = [
   {
     alt: 'Abstract red and black digital glitch art formed from fragmented data marks',
+    blockName: 'AI search hero',
     credit: 'Egor Komarov / Unsplash',
     fileName: 'ai-search-glitch.webp',
   },
   {
     alt: 'Abstract orange and black digital fragments arranged as a shifting system',
+    blockName: 'Connected content fragments',
     credit: 'Logan Voss / Unsplash',
     fileName: 'ai-search-fragments.webp',
+  },
+  {
+    alt: 'Red geometric lines forming a connected network against black',
+    blockName: 'Machine-readable network',
+    credit: 'Gábor Szűts / Unsplash',
+    fileName: 'ai-search-network.webp',
+  },
+  {
+    alt: 'Red and black spheres linked across an abstract digital system',
+    blockName: 'Connected search signals',
+    credit: 'Zoha Gohar / Unsplash',
+    fileName: 'ai-search-spheres.webp',
   },
 ] as const
 
@@ -48,6 +62,37 @@ function getEditorConfig(editor: unknown): SanitizedServerEditorConfig {
   }
 
   return editor.editorConfig as SanitizedServerEditorConfig
+}
+
+function getPostContentEditorConfig(value: unknown): SanitizedServerEditorConfig | null {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const editorConfig = getPostContentEditorConfig(item)
+      if (editorConfig) return editorConfig
+    }
+    return null
+  }
+
+  if (!value || typeof value !== 'object') return null
+
+  if (
+    'name' in value &&
+    value.name === 'content' &&
+    'type' in value &&
+    value.type === 'richText' &&
+    'editor' in value
+  ) {
+    return getEditorConfig(value.editor)
+  }
+
+  if ('fields' in value) {
+    const editorConfig = getPostContentEditorConfig(value.fields)
+    if (editorConfig) return editorConfig
+  }
+
+  if ('tabs' in value) return getPostContentEditorConfig(value.tabs)
+
+  return null
 }
 
 async function getFile(fileName: string): Promise<File> {
@@ -97,7 +142,7 @@ async function upsertMedia(payload: Payload, asset: (typeof assets)[number]): Pr
 const payload = await getPayload({ config })
 
 try {
-  const [heroImage, inlineImage] = await Promise.all(
+  const [heroImage, ...inlineImages] = await Promise.all(
     assets.map((asset) => upsertMedia(payload, asset)),
   )
 
@@ -171,23 +216,32 @@ try {
     'utf8',
   )
   const markdown = source.replace(/^# Your Website Now Has Two Audiences: Humans and AI\s+/, '')
+  const postEditorConfig = getPostContentEditorConfig(payload.collections.posts.config.fields)
+  if (!postEditorConfig)
+    throw new Error('Could not resolve the Posts content editor configuration.')
   const content = convertMarkdownToLexical({
-    editorConfig: getEditorConfig(payload.config.editor),
+    editorConfig: postEditorConfig,
     markdown,
   }) as MutableLexicalContent
 
-  const inlineMediaNode = {
-    fields: {
-      blockName: 'AI search fragments',
-      blockType: 'mediaBlock',
-      media: inlineImage.id,
+  const insertionFractions = [0.25, 0.5, 0.75]
+  const inlineMediaNodes = inlineImages.map((image, index) => ({
+    index: Math.max(1, Math.floor(content.root.children.length * insertionFractions[index])),
+    node: {
+      fields: {
+        blockName: assets[index + 1].blockName,
+        blockType: 'mediaBlock',
+        media: image.id,
+      },
+      format: '',
+      type: 'block',
+      version: 2,
     },
-    format: '',
-    type: 'block',
-    version: 2,
+  }))
+
+  for (const insertion of inlineMediaNodes.reverse()) {
+    content.root.children.splice(insertion.index, 0, insertion.node)
   }
-  const insertionIndex = Math.max(1, Math.floor(content.root.children.length * 0.48))
-  content.root.children.splice(insertionIndex, 0, inlineMediaNode)
 
   const data = {
     _status: 'published' as const,

@@ -24,9 +24,9 @@ Someone searches. Google returns results. The user clicks.
 
 Generative search introduces another step. AI systems can retrieve information from multiple sources, interpret it and construct an answer before the user ever reaches a website.
 
-Google itself describes AI Overviews and AI Mode as experiences that can run several related searches to find supporting information for a more complicated question. It calls this process **query fan-out**. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features)
+Google itself describes AI Overviews and AI Mode as experiences that can run several related searches to find supporting information for a more complicated question. It calls this process **query fan-out**. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
 
-Microsoft is heading in the same direction. Bing Webmaster Tools now measures when pages are referenced in AI-generated answers across Copilot and related experiences. [Bing Webmaster Blog](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/)
+Microsoft is heading in the same direction. Bing Webmaster Tools now measures when pages are referenced in AI-generated answers across Copilot and related experiences. [blogs.bing.com](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/?utm_source=chatgpt.com)
 
 That matters.
 
@@ -48,9 +48,9 @@ In fact, one of the biggest misconceptions around GEO and AEO is that businesses
 
 Google's current guidance says the opposite.
 
-Its generative AI search experiences still depend on core Search systems. A page generally needs to be crawlable, indexed and eligible to appear in ordinary Google Search before it can become a supporting source in AI Overviews or AI Mode. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features)
+Its generative AI search experiences still depend on core Search systems. A page generally needs to be crawlable, indexed and eligible to appear in ordinary Google Search before it can become a supporting source in AI Overviews or AI Mode. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
 
-Microsoft gives similar advice. Its webmaster guidelines explicitly state that the fundamentals supporting traditional search, such as crawlability, indexing, content clarity, site authority and technical health, also support visibility in AI experiences. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a)
+Microsoft gives similar advice. Its webmaster guidelines explicitly state that the fundamentals supporting traditional search, such as crawlability, indexing, content clarity, site authority and technical health, also support visibility in AI experiences. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a?utm_source=chatgpt.com)
 
 So SEO is not being replaced.
 
@@ -70,7 +70,7 @@ You do not need hundreds of pages targeting tiny variations of the same query.
 
 You do not need to rewrite your entire website for a machine.
 
-Google specifically warns against creating huge volumes of low-value or highly repetitive content simply to manipulate AI or search visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+Google specifically warns against creating huge volumes of low-value or highly repetitive content simply to manipulate AI or search visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 The better approach is much less glamorous.
 
@@ -98,9 +98,9 @@ A beautiful React experience can still create discoverability problems if the im
 
 A site filled with duplicate URLs, broken canonicals, inconsistent metadata and inaccessible navigation is giving search systems unnecessary work.
 
-Google's current AI optimization guidance still stresses fundamentals including crawl access, internal linking, page experience, readable text, JavaScript SEO and reducing duplicate content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features)
+Google's current AI optimization guidance still stresses fundamentals including crawl access, internal linking, page experience, readable text, JavaScript SEO and reducing duplicate content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
 
-Microsoft similarly recommends stable URLs, accurate sitemaps, crawlable internal links, clear structure and efficient crawling for both search and AI-grounding visibility. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a)
+Microsoft similarly recommends stable URLs, accurate sitemaps, crawlable internal links, clear structure and efficient crawling for both search and AI-grounding visibility. [Search - Microsoft Bing](https://www.bing.com/webmasters/help/bing-webmaster-guidelines-30fba23a?utm_source=chatgpt.com)
 
 There is no magic `make-ai-like-this-site` tag.
 
@@ -122,7 +122,7 @@ Your site's structure should communicate what its content actually means.
 
 Semantic HTML is useful because it gives browsers, accessibility tools and machines a clearer representation of a page.
 
-That does not mean your HTML needs to achieve some mythical level of perfection. Google explicitly says perfectly semantic HTML is not a requirement for its generative AI features. It still recommends semantic HTML where practical because it improves accessibility and structure. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+That does not mean your HTML needs to achieve some mythical level of perfection. Google explicitly says perfectly semantic HTML is not a requirement for its generative AI features. It still recommends semantic HTML where practical because it improves accessibility and structure. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 There is an important distinction here.
 
@@ -136,7 +136,7 @@ It can help search engines understand specific information about an organization
 
 But businesses should be careful with agencies selling schema as though it unlocks some hidden ChatGPT switch.
 
-Google says there is no special structured data specifically required for AI Overviews or AI Mode. Existing structured data should accurately represent what users can actually see on the page. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features)
+Google says there is no special structured data specifically required for AI Overviews or AI Mode. Existing structured data should accurately represent what users can actually see on the page. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
 
 In other words:
 
@@ -163,7 +163,7 @@ They might want to know:
 
 Those are excellent subjects for AI-search visibility because they are also excellent subjects for humans.
 
-Google's newer guidance places particular emphasis on **non-commodity content**. In simple terms, don't publish another article that could have been written by any company in your industry. Bring actual knowledge, experience, evidence or a useful point of view. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+Google's newer guidance places particular emphasis on **non-commodity content**. In simple terms, don't publish another article that could have been written by any company in your industry. Bring actual knowledge, experience, evidence or a useful point of view. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 “10 Benefits of Having a Website” does very little.
 
@@ -213,9 +213,9 @@ It cannot rescue a weak website once the person arrives.
 
 Rankings and clicks will continue to matter, but they may no longer tell the entire story.
 
-Microsoft now exposes metrics such as pages cited in AI answers and the queries associated with those citations through Bing Webmaster Tools. [blogs.bing.com](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/)
+Microsoft now exposes metrics such as pages cited in AI answers and the queries associated with those citations through Bing Webmaster Tools. [blogs.bing.com](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/?utm_source=chatgpt.com)
 
-Google has also rolled out dedicated generative AI performance reporting in Search Console, including visibility within AI Overviews and AI Mode. According to Google, those reports became available across websites worldwide by August 2026. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)
+Google has also rolled out dedicated generative AI performance reporting in Search Console, including visibility within AI Overviews and AI Mode. According to Google, those reports became available across websites worldwide by August 2026. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports?facet3=pdf\&utm_source=chatgpt.com)
 
 So we are entering a world where an SEO report may increasingly contain:
 
@@ -279,7 +279,7 @@ SEO remains **Search Engine Optimization**.
 
 They describe slightly different parts of the same underlying challenge: helping digital systems correctly discover, interpret and surface your business.
 
-Google itself now says that, from its perspective, optimizing for generative AI Search is still fundamentally part of SEO rather than a separate discipline requiring a collection of special tricks. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+Google itself now says that, from its perspective, optimizing for generative AI Search is still fundamentally part of SEO rather than a separate discipline requiring a collection of special tricks. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 So instead of getting trapped in acronyms, ask a simpler question:
 
@@ -334,16 +334,16 @@ Vorteks Digital designs and develops websites around performance, usability, tec
 ### Recommended FAQ block
 
 **Is GEO replacing SEO?**  
-No. Google's own guidance says existing SEO fundamentals remain the foundation for visibility in AI Overviews and AI Mode. GEO is better understood as an extension of modern search strategy. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+No. Google's own guidance says existing SEO fundamentals remain the foundation for visibility in AI Overviews and AI Mode. GEO is better understood as an extension of modern search strategy. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 **Do I need special schema for AI search?**  
-No. Google says there is currently no special schema markup required for its generative AI search experiences. Structured data should still be used where appropriate and must match visible page content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features)
+No. Google says there is currently no special schema markup required for its generative AI search experiences. Structured data should still be used where appropriate and must match visible page content. [Google for Developers](https://developers.google.com/search/docs/appearance/ai-features?product=breeze\&utm_source=chatgpt.com)
 
 **Does my website need an `llms.txt` file?**  
-Not for Google. Google says it ignores `llms.txt` for Search visibility, although other systems may choose to use similar files. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+Not for Google. Google says it ignores `llms.txt` for Search visibility, although other systems may choose to use similar files. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
 
 **Can I track whether my website appears in AI answers?**  
-Yes, increasingly. Google Search Console now provides generative AI visibility reporting, while Bing Webmaster Tools reports citation activity across supported AI experiences. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports)
+Yes, increasingly. Google Search Console now provides generative AI visibility reporting, while Bing Webmaster Tools reports citation activity across supported AI experiences. [Google for Developers](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports?facet3=pdf\&utm_source=chatgpt.com)
 
 **Should I create lots of pages for every possible AI question?**  
-No. Both Google and Microsoft warn against low-value, repetitive or automatically generated content designed primarily to manipulate search or AI visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+No. Both Google and Microsoft warn against low-value, repetitive or automatically generated content designed primarily to manipulate search or AI visibility. [Google for Developers](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide?autm_content=blog_emails\&utm_source=chatgpt.com)
