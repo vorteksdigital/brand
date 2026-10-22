@@ -3,7 +3,6 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { CustomEase } from 'gsap/CustomEase'
-import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
@@ -12,7 +11,7 @@ import { flushSync } from 'react-dom'
 
 import styles from './pageTransition.module.css'
 
-gsap.registerPlugin(CustomEase, DrawSVGPlugin, useGSAP)
+gsap.registerPlugin(CustomEase, useGSAP)
 
 const VUCKO_SNAPPY =
   'M0,0 C0.094,0.026 0.124,0.127 0.157,0.29 0.197,0.486 0.254,0.8 0.348,0.884 0.42,0.949 0.374,1 1,1'
@@ -120,9 +119,25 @@ export function PageTransition({ children, footer }: Props) {
       logoObject?.contentDocument?.querySelectorAll<SVGPathElement>('path') ?? [],
     )
     const [outline] = paths
-    if (!logoObject || !fill || paths.length !== 1 || !outline) return
+    const svgDocument = logoObject?.contentDocument
+    const svg = svgDocument?.documentElement
+    if (!logoObject || !fill || !svgDocument || !svg || paths.length !== 1 || !outline) return
 
     outline.dataset.preloaderUnifiedOutline = ''
+    const namespace = 'http://www.w3.org/2000/svg'
+    const definitions = svgDocument.createElementNS(namespace, 'defs')
+    const clipPath = svgDocument.createElementNS(namespace, 'clipPath')
+    const reveal = svgDocument.createElementNS(namespace, 'rect')
+
+    clipPath.id = 'preloader-top-down-reveal'
+    reveal.setAttribute('x', '0')
+    reveal.setAttribute('y', '0')
+    reveal.setAttribute('width', '500')
+    reveal.setAttribute('height', '65')
+    clipPath.append(reveal)
+    definitions.append(clipPath)
+    svg.prepend(definitions)
+    outline.setAttribute('clip-path', `url(#${clipPath.id})`)
 
     const completeBrandSequence = () => {
       brandSequenceCompleteRef.current = true
@@ -138,19 +153,19 @@ export function PageTransition({ children, footer }: Props) {
 
     gsap.set(outline, {
       autoAlpha: 1,
-      drawSVG: '0% 0%',
       fill: 'transparent',
       stroke: '#fff',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
       strokeWidth: 1,
     })
+    gsap.set(reveal, { scaleY: 0, transformBox: 'fill-box', transformOrigin: '50% 0%' })
     gsap.set(logoObject, { autoAlpha: 1 })
     gsap.set(fill, { autoAlpha: 0 })
 
     const timeline = gsap
       .timeline({ onComplete: completeBrandSequence })
-      .to(outline, { drawSVG: '0% 100%', duration: 1.8, ease: 'power2.inOut' })
+      .to(reveal, { scaleY: 1, duration: 1.8, ease: 'power2.inOut' })
       .to(fill, { autoAlpha: 1, duration: 1, ease: 'power2.inOut' }, '-=0.05')
       .to(outline, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
 
