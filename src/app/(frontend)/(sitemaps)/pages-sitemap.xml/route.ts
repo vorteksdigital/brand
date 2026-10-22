@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 import { staticPageSlugs } from '@/app/(frontend)/[slug]/staticPages'
+import { services } from '@/data/services'
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -57,6 +58,14 @@ const getPagesSitemap = unstable_cache(
         loc: `${SITE_URL}/cookie-policy`,
         lastmod: dateFallback,
       },
+      {
+        loc: `${SITE_URL}/services`,
+        lastmod: dateFallback,
+      },
+      ...services.map((service) => ({
+        loc: `${SITE_URL}/services/${service.slug}`,
+        lastmod: dateFallback,
+      })),
     ]
 
     const sitemapByLocation = new Map(defaultSitemap.map((entry) => [entry.loc, entry]))
@@ -78,7 +87,7 @@ const getPagesSitemap = unstable_cache(
 
     return Array.from(sitemapByLocation.values())
   },
-  ['pages-sitemap-v4'],
+  ['pages-sitemap-v5'],
   {
     tags: ['pages-sitemap'],
   },

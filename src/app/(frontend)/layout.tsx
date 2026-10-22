@@ -36,13 +36,29 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             '@context': 'https://schema.org',
             '@graph': [
               {
-                '@type': 'Organization',
+                '@type': 'ProfessionalService',
+                '@id': `${getServerSideURL()}/#business`,
                 name: 'Vorteks Digital',
                 alternateName: 'VRTKS',
                 url: getServerSideURL(),
                 email: 'info@vorteksdigital.co.za',
                 foundingDate: '2020',
-                areaServed: 'Worldwide',
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: 'Johannesburg',
+                  addressRegion: 'Gauteng',
+                  addressCountry: 'ZA',
+                },
+                areaServed: [
+                  { '@type': 'City', name: 'Johannesburg' },
+                  { '@type': 'Country', name: 'South Africa' },
+                  'Worldwide',
+                ],
+                sameAs: [
+                  'https://za.linkedin.com/company/vorteksdigital',
+                  'https://www.instagram.com/vorteksdigital/',
+                  'https://www.facebook.com/vorteksdigital/',
+                ],
                 knowsAbout: [
                   'Website development',
                   'Web design',
@@ -57,8 +73,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               },
               {
                 '@type': 'WebSite',
+                '@id': `${getServerSideURL()}/#website`,
                 name: 'Vorteks Digital',
                 url: getServerSideURL(),
+                publisher: { '@id': `${getServerSideURL()}/#business` },
               },
             ],
           }}

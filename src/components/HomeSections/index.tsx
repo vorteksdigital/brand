@@ -11,6 +11,13 @@ import { HomeSectionsAnimations } from './HomeSections.client'
 import styles from './index.module.css'
 import { ServicesShowcase } from './ServicesShowcase.client'
 
+const serviceLinks = [
+  { href: '/services/web-design', label: 'Web design' },
+  { href: '/services/web-development', label: 'Web development' },
+  { href: '/services/wordpress-development', label: 'WordPress' },
+  { href: '/services/digital-products', label: 'Digital products' },
+]
+
 type HomeProject = {
   alt: string
   href: string
@@ -66,7 +73,7 @@ export async function HomeSections() {
 
         <div className={styles.approachContent}>
           <h2 data-home-lines>
-            Digital support that fits the business you&apos;re building.
+            Web design and development in Johannesburg, built for growing businesses.
           </h2>
 
           <div className={styles.approachDetails}>
@@ -78,8 +85,8 @@ export async function HomeSections() {
                 <strong>Start with what your business needs now.</strong>
               </p>
               <p>
-                Vorteks Digital designs and builds websites, digital products and bespoke digital
-                solutions for startups and growing businesses worldwide.
+                Vorteks Digital designs and develops websites, WordPress platforms and digital
+                products for Johannesburg, South African and international businesses.
               </p>
               <p>
                 Need broader support? Brand, motion, WordPress, maintenance, SEO, marketing and
@@ -146,6 +153,13 @@ export async function HomeSections() {
           <Link className={styles.textLink} data-home-fade href="/approach">
             Learn more about our approach
           </Link>
+          <nav aria-label="Service pages" className={styles.serviceLinks} data-home-fade>
+            {serviceLinks.map((service) => (
+              <Link href={service.href} key={service.href}>
+                {service.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         <ServicesShowcase />

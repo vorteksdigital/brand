@@ -1,0 +1,259 @@
+.page {
+  --service-gutter: clamp(1.5rem, 5.291vw, 6rem);
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.hero,
+.section,
+.closing {
+  padding-inline: var(--service-gutter);
+}
+
+.hero {
+  display: grid;
+  min-height: min(48rem, 88svh);
+  padding-top: calc(5rem + 8vw);
+  padding-bottom: clamp(5rem, 9vw, 9rem);
+  align-content: space-between;
+  gap: 5rem;
+}
+
+.eyebrow,
+.index {
+  margin: 0;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+
+.hero h1,
+.indexHero h1 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(3.2rem, 8.2vw, 8.8rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.heroIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.7fr);
+  gap: 3rem;
+  align-items: end;
+}
+
+.heroIntro p {
+  grid-column: 2;
+  max-width: 42rem;
+  margin: 0;
+  font-size: clamp(1.1rem, 1.55vw, 1.5rem);
+  line-height: 1.45;
+}
+
+.section {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.sectionHeader {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-bottom: 5rem;
+}
+
+.sectionHeader h2 {
+  grid-column: 5 / -1;
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.2rem, 4.7vw, 5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.list,
+.process,
+.faqList,
+.serviceGrid {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.list li,
+.process li,
+.faqItem,
+.serviceCard {
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.list li {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  padding-block: 1.5rem;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+}
+
+.list span:first-child,
+.processNumber {
+  font-size: 0.875rem;
+}
+
+.process {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.process li {
+  min-height: 22rem;
+  padding: 1.5rem 1.5rem 2rem 0;
+}
+
+.process h3 {
+  margin: 5rem 0 1rem;
+  font-size: 1.4rem;
+}
+
+.process p,
+.faqItem p {
+  max-width: 32rem;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.faqItem {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  padding-block: 2rem;
+}
+
+.faqItem h3 {
+  max-width: 22rem;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.closing {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  align-items: end;
+}
+
+.closing p {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(2.6rem, 6.8vw, 7rem);
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+}
+
+.link {
+  color: inherit;
+  text-underline-offset: 0.35em;
+}
+
+.indexHero {
+  padding: calc(5rem + 8vw) var(--service-gutter) clamp(5rem, 9vw, 9rem);
+}
+
+.indexHero p {
+  max-width: 42rem;
+  margin: 3rem 0 0 auto;
+  font-size: clamp(1.1rem, 1.55vw, 1.5rem);
+  line-height: 1.45;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.serviceCard:nth-child(odd) {
+  border-right: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.serviceCard a {
+  display: grid;
+  min-height: 24rem;
+  padding: 2rem;
+  color: inherit;
+  text-decoration: none;
+  align-content: space-between;
+}
+
+.serviceCard h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.serviceCard p {
+  max-width: 34rem;
+  margin: 4rem 0 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 47.99rem) {
+  .hero {
+    min-height: auto;
+    padding-top: 8rem;
+  }
+
+  .heroIntro,
+  .sectionHeader,
+  .list li,
+  .faqItem,
+  .closing {
+    grid-template-columns: 1fr;
+  }
+
+  .heroIntro p,
+  .sectionHeader h2 {
+    grid-column: 1;
+  }
+
+  .section {
+    padding-block: 5rem;
+  }
+
+  .sectionHeader {
+    margin-bottom: 3rem;
+  }
+
+  .list li,
+  .faqItem {
+    gap: 1rem;
+  }
+
+  .process,
+  .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .process li {
+    min-height: 16rem;
+    padding-right: 0;
+  }
+
+  .serviceCard:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .serviceCard a {
+    min-height: 19rem;
+    padding-inline: var(--service-gutter);
+  }
+
+  .closing {
+    align-items: start;
+  }
+}

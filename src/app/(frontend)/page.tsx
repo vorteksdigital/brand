@@ -3,10 +3,7 @@ import type { Metadata } from 'next'
 import { HomeSections } from '@/components/HomeSections'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import { homeStatic } from '@/endpoints/seed/home-static'
 import { HomeHero } from '@/heros/HomeHero'
-import { generateMeta } from '@/utilities/generateMeta'
-import { queryPageBySlug } from '@/utilities/queryPageBySlug'
 import { draftMode } from 'next/headers'
 
 import PageClient from './[slug]/page.client'
@@ -27,8 +24,11 @@ export default async function HomePage() {
   )
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const page = (await queryPageBySlug({ slug: 'home' })) || homeStatic
-
-  return generateMeta({ doc: page })
+export function generateMetadata(): Metadata {
+  return {
+    alternates: { canonical: '/' },
+    description:
+      'Johannesburg web design and development studio creating high-performing websites, WordPress platforms and digital products for growing businesses.',
+    title: 'Web Design & Development Johannesburg | Vorteks Digital',
+  }
 }

@@ -28,7 +28,7 @@ const InstagramFilled = (props: SVGProps<SVGSVGElement>) => (
 const defaultNavItems: NonNullable<FooterData['navItems']> = [
   { link: { label: 'home', type: 'custom', url: '/' } },
   { link: { label: 'projects', type: 'custom', url: '/projects' } },
-  { link: { label: 'services', type: 'custom', url: '/approach' } },
+  { link: { label: 'services', type: 'custom', url: '/services' } },
   { link: { label: 'about', type: 'custom', url: '/about' } },
   { link: { label: 'insights', type: 'custom', url: '/blogs' } },
   { link: { label: 'contact', type: 'custom', url: '/contact' } },

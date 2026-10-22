@@ -64,6 +64,19 @@
   max-width: calc(var(--home-unit) * 52);
 }
 
+.serviceLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--home-unit) * 1.5) calc(var(--home-unit) * 2.5);
+}
+
+.serviceLinks a {
+  min-height: 44px;
+  color: inherit;
+  line-height: 44px;
+  text-underline-offset: 0.3em;
+}
+
 .servicesShowcase {
   display: grid;
   grid-template-columns: 1fr;

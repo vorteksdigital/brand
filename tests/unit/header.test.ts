@@ -12,7 +12,7 @@ describe('header utilities', () => {
   it('links the default navigation to the public routes', () => {
     expect(defaultHeaderNavItems.map(({ link }) => link.url)).toEqual([
       '/projects',
-      '/approach',
+      '/services',
       '/about',
       '/blogs',
       '/contact',
