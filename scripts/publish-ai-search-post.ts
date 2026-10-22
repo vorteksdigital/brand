@@ -9,9 +9,12 @@ import { getPayload, type File, type Payload } from 'payload'
 
 import type { Media, Post } from '../src/payload-types'
 
-const slug = 'web-design-for-humans-and-ai'
+const slug = 'your-website-now-has-two-audiences-humans-and-ai'
+const legacySlug = 'web-design-for-humans-and-ai'
 const title = 'Your Website Now Has Two Audiences: Humans and AI'
 const excerpt =
+  'People are increasingly discovering businesses through ChatGPT, Google AI Mode, Copilot and other AI-driven search experiences. That means modern websites need to work for two audiences: humans and machines. Here is what that changes for web design, development, SEO and content.'
+const metaDescription =
   'AI search is changing how websites are discovered. Learn what businesses need to change across web design, development, SEO and content in 2026.'
 
 const assets = [
@@ -119,10 +122,12 @@ try {
       collection: 'posts',
       depth: 0,
       draft: true,
-      limit: 1,
+      limit: 2,
       overrideAccess: true,
       pagination: false,
-      where: { slug: { equals: slug } },
+      where: {
+        or: [{ slug: { equals: slug } }, { slug: { equals: legacySlug } }],
+      },
     }),
     payload.find({
       collection: 'posts',
@@ -131,9 +136,19 @@ try {
       overrideAccess: true,
       pagination: false,
       sort: '-publishedAt',
-      where: { slug: { not_equals: slug } },
+      where: {
+        and: [{ slug: { not_equals: slug } }, { slug: { not_equals: legacySlug } }],
+      },
     }),
   ])
+
+  if (existingPosts.docs.length > 1) {
+    throw new Error(
+      `Both ${slug} and ${legacySlug} exist. Resolve the duplicate before publishing.`,
+    )
+  }
+
+  const existingPost = existingPosts.docs[0]
 
   const author = users.docs[0]
   if (!author) throw new Error('At least one Payload user is required to publish the post.')
@@ -182,20 +197,20 @@ try {
     excerpt,
     heroImage: heroImage.id,
     meta: {
-      description: excerpt,
+      description: metaDescription,
       image: heroImage.id,
       title,
     },
-    publishedAt: existingPosts.docs[0]?.publishedAt ?? new Date().toISOString(),
+    publishedAt: existingPost?.publishedAt ?? new Date().toISOString(),
     relatedPosts: relatedPosts.docs.map((post) => post.id),
     slug,
     title,
   }
 
-  const post = existingPosts.docs[0]
+  const post = existingPost
     ? await payload.update({
         collection: 'posts',
-        id: existingPosts.docs[0].id,
+        id: existingPost.id,
         context: { disableRevalidate: true },
         data,
         depth: 0,
