@@ -128,6 +128,7 @@ export function PageTransition({ children, footer }: Props) {
     const definitions = svgDocument.createElementNS(namespace, 'defs')
     const clipPath = svgDocument.createElementNS(namespace, 'clipPath')
     const reveal = svgDocument.createElementNS(namespace, 'rect')
+    const drawing = outline.cloneNode(true) as SVGPathElement
 
     clipPath.id = 'preloader-top-down-reveal'
     reveal.setAttribute('x', '0')
@@ -137,7 +138,9 @@ export function PageTransition({ children, footer }: Props) {
     clipPath.append(reveal)
     definitions.append(clipPath)
     svg.prepend(definitions)
-    outline.setAttribute('clip-path', `url(#${clipPath.id})`)
+    drawing.dataset.preloaderUnifiedDrawing = ''
+    drawing.setAttribute('clip-path', `url(#${clipPath.id})`)
+    outline.after(drawing)
 
     const completeBrandSequence = () => {
       brandSequenceCompleteRef.current = true
@@ -152,6 +155,14 @@ export function PageTransition({ children, footer }: Props) {
     }
 
     gsap.set(outline, {
+      autoAlpha: 0.24,
+      fill: 'transparent',
+      stroke: '#fff',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      strokeWidth: 1,
+    })
+    gsap.set(drawing, {
       autoAlpha: 1,
       fill: 'transparent',
       stroke: '#fff',
@@ -167,7 +178,7 @@ export function PageTransition({ children, footer }: Props) {
       .timeline({ onComplete: completeBrandSequence })
       .to(reveal, { scaleY: 1, duration: 1.8, ease: 'power2.inOut' })
       .to(fill, { autoAlpha: 1, duration: 1, ease: 'power2.inOut' }, '-=0.05')
-      .to(outline, { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
+      .to([outline, drawing], { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '<')
 
     preloaderTimelineRef.current = timeline
   }, [exitPreloader])
